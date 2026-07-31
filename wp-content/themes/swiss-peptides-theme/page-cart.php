@@ -1,7 +1,7 @@
 <?php
 /**
- * Master Light Clinical Luxury Cart Page V8
- * Swiss Peptides 2026 - Bulletproof Remove Items & Instant Quantity Controls
+ * Master Light Clinical Luxury Cart Page V9
+ * Swiss Peptides 2026 - Master Luxury Notices, Centered Qty Pill & Instant Subtotal Updates
  */
 get_header();
 
@@ -16,7 +16,7 @@ if (WC()->cart) {
 }
 ?>
 
-<style id="sp-master-cart-style-v8">
+<style id="sp-master-cart-style-v9">
 html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
@@ -69,12 +69,48 @@ body.woocommerce-cart {
     font-size: clamp(1.8rem, 3.5vw, 2.6rem);
     font-weight: 800;
     color: #0f172a;
-    margin-bottom: 32px !important;
+    margin-bottom: 24px !important;
     letter-spacing: -0.5px;
     word-break: break-word;
 }
 .sp-cart-page-title span {
     color: #0284c7;
+}
+
+/* LIGHT CLINICAL LUXURY WOOCOMMERCE NOTICES BANNER */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+    background: #f0fdf4 !important;
+    border: 1px solid #bbf7d0 !important;
+    border-radius: 16px !important;
+    padding: 14px 20px !important;
+    color: #166534 !important;
+    font-weight: 600 !important;
+    font-size: 0.92rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-shadow: 0 4px 12px rgba(22, 101, 52, 0.05) !important;
+    margin-bottom: 24px !important;
+    list-style: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.woocommerce-message a,
+.woocommerce-info a {
+    color: #0284c7 !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    background: #e0f2fe !important;
+    padding: 5px 14px !important;
+    border-radius: 20px !important;
+    font-size: 0.82rem !important;
+    transition: all 0.2s !important;
+}
+.woocommerce-message a:hover {
+    background: #0284c7 !important;
+    color: #ffffff !important;
 }
 
 .sp-cart-grid {
@@ -135,7 +171,7 @@ body.woocommerce-cart {
     object-fit: cover !important;
 }
 
-/* Col 2: Details (Name, Badge, Unit Price) */
+/* Col 2: Details */
 .sp-cart-card-details {
     display: flex !important;
     flex-direction: column !important;
@@ -174,7 +210,12 @@ body.woocommerce-cart {
     font-weight: 600 !important;
 }
 
-/* SLEEK QUANTITY PILL COUNTER */
+/* SLEEK PERFECTLY CENTERED QUANTITY PILL COUNTER */
+.sp-cart-card-qty {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
 .sp-qty-pill-box-perfect {
     display: inline-flex !important;
     align-items: center !important;
@@ -182,7 +223,7 @@ body.woocommerce-cart {
     background: #f1f5f9 !important;
     border: 1px solid #cbd5e1 !important;
     border-radius: 30px !important;
-    padding: 4px 6px !important;
+    padding: 3px 6px !important;
     gap: 2px !important;
     width: fit-content !important;
 }
@@ -202,6 +243,8 @@ body.woocommerce-cart {
     box-shadow: 0 2px 4px rgba(15,23,42,0.06) !important;
     transition: all 0.2s ease !important;
     user-select: none !important;
+    padding: 0 !important;
+    line-height: 1 !important;
 }
 .sp-qty-btn-sub-perfect:hover {
     background: #0284c7 !important;
@@ -217,12 +260,19 @@ body.woocommerce-cart {
     background: transparent !important;
     outline: none !important;
     box-shadow: none !important;
-    width: 32px !important;
+    width: 36px !important;
+    height: 28px !important;
+    line-height: 28px !important;
     text-align: center !important;
     font-weight: 800 !important;
     font-size: 1rem !important;
     color: #0f172a !important;
     padding: 0 !important;
+    margin: 0 !important;
+}
+.sp-qty-input-sub-perfect::-webkit-outer-spin-button,
+.sp-qty-input-sub-perfect::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
     margin: 0 !important;
 }
 
@@ -514,7 +564,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
           ?>
           
           <!-- INDIVIDUAL LUXURY PRODUCT CARD -->
-          <div class="sp-cart-product-card">
+          <div class="sp-cart-product-card" data-price="<?php echo $product_price; ?>">
             
             <!-- Col 1: Image -->
             <div class="sp-cart-card-img">
@@ -534,7 +584,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
               <span class="sp-cart-card-unit-price">$ <?php echo number_format($product_price, 0, ',', '.'); ?> c/u</span>
             </div>
 
-            <!-- Col 3: Quantity Counter -->
+            <!-- Col 3: Perfectly Centered Quantity Counter -->
             <div class="sp-cart-card-qty">
               <div class="sp-qty-pill-box-perfect">
                 <button type="button" class="sp-qty-btn-sub-perfect sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">-</button>
@@ -619,6 +669,10 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  function formatMoney(num) {
+    return '$ ' + Math.round(num).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+  }
+
   function spSubmitCartForm() {
     var submitBtn = document.getElementById('spUpdateCartSubmitBtn');
     if (submitBtn) {
@@ -632,10 +686,15 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.sp-qty-minus').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
-      var input = this.closest('.sp-qty-pill-box-perfect').querySelector('.sp-qty-input-sub-perfect');
+      var card = this.closest('.sp-cart-product-card');
+      var input = card.querySelector('.sp-qty-input-sub-perfect');
+      var price = parseFloat(card.getAttribute('data-price')) || 0;
       var val = parseInt(input.value) || 1;
       if (val > 1) {
-        input.value = val - 1;
+        var newQty = val - 1;
+        input.value = newQty;
+        var subtotalEl = card.querySelector('.sp-cart-card-subtotal');
+        if (subtotalEl) { subtotalEl.textContent = formatMoney(price * newQty); }
         spSubmitCartForm();
       }
     });
@@ -644,10 +703,15 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.sp-qty-plus').forEach(function(btn) {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
-      var input = this.closest('.sp-qty-pill-box-perfect').querySelector('.sp-qty-input-sub-perfect');
+      var card = this.closest('.sp-cart-product-card');
+      var input = card.querySelector('.sp-qty-input-sub-perfect');
+      var price = parseFloat(card.getAttribute('data-price')) || 0;
       var val = parseInt(input.value) || 1;
       if (val < 99) {
-        input.value = val + 1;
+        var newQty = val + 1;
+        input.value = newQty;
+        var subtotalEl = card.querySelector('.sp-cart-card-subtotal');
+        if (subtotalEl) { subtotalEl.textContent = formatMoney(price * newQty); }
         spSubmitCartForm();
       }
     });
@@ -655,6 +719,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.querySelectorAll('.sp-qty-input-sub-perfect').forEach(function(input) {
     input.addEventListener('change', function() {
+      var card = this.closest('.sp-cart-product-card');
+      var price = parseFloat(card.getAttribute('data-price')) || 0;
+      var val = parseInt(this.value) || 1;
+      var subtotalEl = card.querySelector('.sp-cart-card-subtotal');
+      if (subtotalEl) { subtotalEl.textContent = formatMoney(price * val); }
       spSubmitCartForm();
     });
   });
