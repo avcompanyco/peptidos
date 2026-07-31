@@ -1,7 +1,7 @@
 <?php
 /**
- * Master Light Clinical Luxury Cart Page V9
- * Swiss Peptides 2026 - Master Luxury Notices, Centered Qty Pill & Instant Subtotal Updates
+ * Master Light Clinical Luxury Cart Page V10
+ * Swiss Peptides 2026 - Instant Live Sidebar Summary Sync & Zero Lag
  */
 get_header();
 
@@ -16,7 +16,7 @@ if (WC()->cart) {
 }
 ?>
 
-<style id="sp-master-cart-style-v9">
+<style id="sp-master-cart-style-v10">
 html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
@@ -629,8 +629,8 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
           <h3>Resumen del Pedido</h3>
 
           <div class="sp-summary-line">
-            <span>Subtotal (<?php echo WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?> productos)</span>
-            <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
+            <span id="spSummaryProductCountLabel">Subtotal (<?php echo WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?> productos)</span>
+            <span id="spSummarySubtotalAmount">$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
 
           <div class="sp-summary-line" style="border-bottom:none!important;">
@@ -640,7 +640,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
 
           <div class="sp-summary-total-line">
             <span>Total</span>
-            <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
+            <span id="spSummaryGrandTotalAmount">$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
 
           <a href="<?php echo wc_get_checkout_url(); ?>" class="sp-cart-btn-whatsapp-checkout">
@@ -673,6 +673,41 @@ document.addEventListener('DOMContentLoaded', function() {
     return '$ ' + Math.round(num).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }
 
+  function spRecalculateCartSummary() {
+    var totalSum = 0;
+    var totalQty = 0;
+
+    document.querySelectorAll('.sp-cart-product-card').forEach(function(card) {
+      var price = parseFloat(card.getAttribute('data-price')) || 0;
+      var input = card.querySelector('.sp-qty-input-sub-perfect');
+      var qty = parseInt(input ? input.value : 1) || 1;
+      var lineSubtotal = price * qty;
+      
+      totalQty += qty;
+      totalSum += lineSubtotal;
+
+      var lineSubtotalEl = card.querySelector('.sp-cart-card-subtotal');
+      if (lineSubtotalEl) {
+        lineSubtotalEl.textContent = formatMoney(lineSubtotal);
+      }
+    });
+
+    var countLabel = document.getElementById('spSummaryProductCountLabel');
+    if (countLabel) {
+      countLabel.textContent = 'Subtotal (' + totalQty + ' producto' + (totalQty !== 1 ? 's' : '') + ')';
+    }
+
+    var subtotalAmountEl = document.getElementById('spSummarySubtotalAmount');
+    if (subtotalAmountEl) {
+      subtotalAmountEl.textContent = formatMoney(totalSum);
+    }
+
+    var grandTotalAmountEl = document.getElementById('spSummaryGrandTotalAmount');
+    if (grandTotalAmountEl) {
+      grandTotalAmountEl.textContent = formatMoney(totalSum);
+    }
+  }
+
   function spSubmitCartForm() {
     var submitBtn = document.getElementById('spUpdateCartSubmitBtn');
     if (submitBtn) {
@@ -688,13 +723,10 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       var card = this.closest('.sp-cart-product-card');
       var input = card.querySelector('.sp-qty-input-sub-perfect');
-      var price = parseFloat(card.getAttribute('data-price')) || 0;
       var val = parseInt(input.value) || 1;
       if (val > 1) {
-        var newQty = val - 1;
-        input.value = newQty;
-        var subtotalEl = card.querySelector('.sp-cart-card-subtotal');
-        if (subtotalEl) { subtotalEl.textContent = formatMoney(price * newQty); }
+        input.value = val - 1;
+        spRecalculateCartSummary();
         spSubmitCartForm();
       }
     });
@@ -705,13 +737,10 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       var card = this.closest('.sp-cart-product-card');
       var input = card.querySelector('.sp-qty-input-sub-perfect');
-      var price = parseFloat(card.getAttribute('data-price')) || 0;
       var val = parseInt(input.value) || 1;
       if (val < 99) {
-        var newQty = val + 1;
-        input.value = newQty;
-        var subtotalEl = card.querySelector('.sp-cart-card-subtotal');
-        if (subtotalEl) { subtotalEl.textContent = formatMoney(price * newQty); }
+        input.value = val + 1;
+        spRecalculateCartSummary();
         spSubmitCartForm();
       }
     });
@@ -719,11 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.querySelectorAll('.sp-qty-input-sub-perfect').forEach(function(input) {
     input.addEventListener('change', function() {
-      var card = this.closest('.sp-cart-product-card');
-      var price = parseFloat(card.getAttribute('data-price')) || 0;
-      var val = parseInt(this.value) || 1;
-      var subtotalEl = card.querySelector('.sp-cart-card-subtotal');
-      if (subtotalEl) { subtotalEl.textContent = formatMoney(price * val); }
+      spRecalculateCartSummary();
       spSubmitCartForm();
     });
   });
