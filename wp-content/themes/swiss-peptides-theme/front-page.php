@@ -456,8 +456,12 @@ get_header();
         <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
     </svg>
     <span>Carrito</span>
-    <span class="floating-cart-badge floating-cart-count" style="display:none;">0</span>
-    <span id="floatingCartSubtotal" style="color:#00a8ff;font-weight:800;margin-left:4px;">$ 0</span>
+    <?php 
+    $sp_cart_c = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
+    $sp_cart_s = WC()->cart ? WC()->cart->get_subtotal() : 0;
+    ?>
+    <span class="floating-cart-badge floating-cart-count" style="<?php echo ($sp_cart_c > 0) ? 'display:flex;' : 'display:none;'; ?>"><?php echo $sp_cart_c; ?></span>
+    <span id="floatingCartSubtotal" style="color:#00a8ff;font-weight:800;margin-left:4px;">$ <?php echo number_format($sp_cart_s, 0, ',', '.'); ?></span>
 </a>
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/interactive-catalog.js?v=1785444306_<?php echo time(); ?>"></script>
