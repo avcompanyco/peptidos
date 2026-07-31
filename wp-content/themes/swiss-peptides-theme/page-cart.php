@@ -1,7 +1,7 @@
 <?php
 /**
- * Master Light Clinical Luxury Cart Page
- * Swiss Peptides 2026 - Zero Emojis, 100% Responsive & High Contrast
+ * Master Light Clinical Luxury Cart Page V2
+ * Swiss Peptides 2026 - Pixel-Perfect Qty Pill, Clean Headers, Zero Emojis
  */
 get_header();
 
@@ -10,7 +10,7 @@ $subtotal = WC()->cart->get_subtotal();
 $total = WC()->cart->get_total();
 ?>
 
-<style id="sp-master-cart-page-style">
+<style id="sp-master-cart-page-style-v2">
 body.woocommerce-cart {
     background-color: #f8fafc !important;
     color: #0f172a !important;
@@ -70,16 +70,40 @@ body.woocommerce-cart {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 24px;
-    padding: 30px;
+    padding: 28px;
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+/* TABLE HEADERS BAR */
+.sp-cart-table-header {
+    display: grid;
+    grid-template-columns: 84px 1.5fr 1fr 120px 1fr 40px;
+    gap: 16px;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 16px;
+}
+.sp-cart-table-header span.text-right {
+    text-align: right;
+}
+.sp-cart-table-header span.text-center {
+    text-align: center;
 }
 
 .sp-cart-item-row {
     display: grid;
-    grid-template-columns: 84px 1.5fr 1fr 110px 1fr 40px;
+    grid-template-columns: 84px 1.5fr 1fr 120px 1fr 40px;
     gap: 16px;
     align-items: center;
-    padding: 20px 0;
+    padding: 20px 16px;
     border-bottom: 1px solid #f1f5f9;
 }
 .sp-cart-item-row:last-child {
@@ -116,7 +140,7 @@ body.woocommerce-cart {
     color: #0284c7;
     font-weight: 800;
     text-transform: uppercase;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 .sp-cart-item-unit-price {
@@ -125,55 +149,73 @@ body.woocommerce-cart {
     color: #475569;
 }
 
-.sp-qty-pill-box {
-    display: inline-flex;
-    align-items: center;
-    background: #f8fafc;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 12px;
-    padding: 4px;
+/* SLEEK QUANTITY PILL COUNTER (NO NATIVE BROWSER BOX / SPINNER) */
+.sp-qty-pill-box-perfect {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 30px !important;
+    padding: 4px 6px !important;
+    gap: 2px !important;
+    width: fit-content !important;
 }
-.sp-qty-btn-sub {
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: #ffffff;
-    color: #0f172a;
-    font-weight: 800;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+.sp-qty-btn-sub-perfect {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50% !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    font-size: 1.05rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(15,23,42,0.06) !important;
+    transition: all 0.2s ease !important;
+    user-select: none !important;
 }
-.sp-qty-input-sub {
-    width: 36px;
-    border: none;
-    background: transparent;
-    text-align: center;
-    font-weight: 800;
-    font-size: 0.95rem;
-    color: #0f172a;
-    -moz-appearance: textfield;
+.sp-qty-btn-sub-perfect:hover {
+    background: #0284c7 !important;
+    color: #ffffff !important;
+    border-color: #0284c7 !important;
 }
-.sp-qty-input-sub::-webkit-outer-spin-button,
-.sp-qty-input-sub::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+
+.sp-qty-input-sub-perfect {
+    -webkit-appearance: none !important;
+    -moz-appearance: textfield !important;
+    appearance: none !important;
+    border: none !important;
+    background: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+    width: 32px !important;
+    text-align: center !important;
+    font-weight: 800 !important;
+    font-size: 1rem !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.sp-qty-input-sub-perfect::-webkit-outer-spin-button,
+.sp-qty-input-sub-perfect::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
 }
 
 .sp-cart-item-subtotal-price {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #0284c7;
     text-align: right;
 }
 
-.sp-cart-btn-remove {
-    width: 36px;
-    height: 36px;
+.sp-cart-btn-remove-perfect {
+    width: 34px;
+    height: 34px;
     border-radius: 10px;
     background: #fef2f2;
     border: 1px solid #fecaca;
@@ -183,8 +225,9 @@ body.woocommerce-cart {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s;
+    margin-left: auto;
 }
-.sp-cart-btn-remove:hover {
+.sp-cart-btn-remove-perfect:hover {
     background: #ef4444;
     color: #ffffff;
 }
@@ -200,28 +243,36 @@ body.woocommerce-cart {
     flex-wrap: wrap;
     gap: 16px;
 }
-.sp-coupon-box {
+
+/* SEAMLESS INTEGRATED COUPON BAR */
+.sp-coupon-bar-seamless {
     display: flex;
-    gap: 10px;
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 30px;
+    padding: 4px 4px 4px 16px;
+    width: 320px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
 }
 .sp-coupon-input-field {
-    padding: 12px 18px;
-    border: 1.5px solid #cbd5e1;
-    border-radius: 14px;
-    font-size: 0.9rem;
+    border: none;
+    background: transparent;
+    flex: 1;
     outline: none;
-    width: 180px;
+    font-size: 0.88rem;
     color: #0f172a;
+    padding: 6px 0;
 }
 .sp-coupon-btn-apply {
     background: #0f172a;
     color: #ffffff;
     border: none;
-    padding: 12px 20px;
-    border-radius: 14px;
-    font-size: 0.88rem;
+    border-radius: 24px;
+    padding: 8px 20px;
+    font-size: 0.82rem;
     font-weight: 800;
     cursor: pointer;
+    text-transform: uppercase;
     transition: background 0.2s;
 }
 .sp-coupon-btn-apply:hover {
@@ -319,12 +370,16 @@ body.woocommerce-cart {
     .sp-cart-grid {
         grid-template-columns: 1fr;
     }
+    .sp-cart-table-header {
+        display: none;
+    }
     .sp-cart-item-row {
         grid-template-columns: 70px 1fr 1fr 40px;
         grid-template-areas:
             "img title subtotal remove"
             "img price qty remove";
         gap: 10px;
+        padding: 16px 0;
     }
     .sp-cart-summary-card {
         position: static;
@@ -336,6 +391,9 @@ body.woocommerce-cart {
     }
     .sp-cart-items-card {
         padding: 18px;
+    }
+    .sp-coupon-bar-seamless {
+        width: 100%;
     }
     .sp-cart-btn-whatsapp-checkout {
         font-size: 0.92rem !important;
@@ -375,6 +433,16 @@ body.woocommerce-cart {
         <!-- LEFT: Items List -->
         <div class="sp-cart-items-card">
           
+          <!-- Table Header Bar -->
+          <div class="sp-cart-table-header">
+            <span></span>
+            <span>Producto</span>
+            <span>Precio</span>
+            <span class="text-center">Cantidad</span>
+            <span class="text-right">Subtotal</span>
+            <span></span>
+          </div>
+
           <?php foreach ($cart_items as $cart_item_key => $cart_item) :
             $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
             $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
@@ -405,12 +473,12 @@ body.woocommerce-cart {
             <!-- Unit Price -->
             <div class="sp-cart-item-unit-price">$ <?php echo number_format($product_price, 0, ',', '.'); ?></div>
 
-            <!-- Qty Counter -->
-            <div>
-              <div class="sp-qty-pill-box">
-                <button type="button" class="sp-qty-btn-sub sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">-</button>
-                <input type="number" class="sp-qty-input-sub" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $cart_item['quantity']; ?>" min="0" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
-                <button type="button" class="sp-qty-btn-sub sp-qty-plus" data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
+            <!-- Qty Counter (Perfect Pill Counter) -->
+            <div style="display:flex;justify-content:center;">
+              <div class="sp-qty-pill-box-perfect">
+                <button type="button" class="sp-qty-btn-sub-perfect sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">-</button>
+                <input type="number" class="sp-qty-input-sub-perfect" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $cart_item['quantity']; ?>" min="0" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
+                <button type="button" class="sp-qty-btn-sub-perfect sp-qty-plus" data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
               </div>
             </div>
 
@@ -418,8 +486,8 @@ body.woocommerce-cart {
             <div class="sp-cart-item-subtotal-price">$ <?php echo number_format($subtotal_val, 0, ',', '.'); ?></div>
 
             <!-- Remove Button -->
-            <button type="button" class="sp-cart-btn-remove sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar producto">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <button type="button" class="sp-cart-btn-remove-perfect sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar producto">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
 
@@ -427,7 +495,7 @@ body.woocommerce-cart {
 
           <!-- Coupon & Action Row -->
           <div class="sp-cart-actions-bar">
-            <div class="sp-coupon-box">
+            <div class="sp-coupon-bar-seamless">
               <input type="text" name="coupon_code" class="sp-coupon-input-field" placeholder="Código de cupón" id="coupon_code">
               <button type="submit" name="apply_coupon" class="sp-coupon-btn-apply" value="Aplicar cupón">Aplicar</button>
             </div>
@@ -488,21 +556,21 @@ body.woocommerce-cart {
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.sp-qty-minus').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      var input = this.closest('.sp-qty-pill-box').querySelector('.sp-qty-input-sub');
+      var input = this.closest('.sp-qty-pill-box-perfect').querySelector('.sp-qty-input-sub-perfect');
       var val = parseInt(input.value) || 1;
       if (val > 1) { input.value = val - 1; input.dispatchEvent(new Event('change')); }
     });
   });
   document.querySelectorAll('.sp-qty-plus').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      var input = this.closest('.sp-qty-pill-box').querySelector('.sp-qty-input-sub');
+      var input = this.closest('.sp-qty-pill-box-perfect').querySelector('.sp-qty-input-sub-perfect');
       var val = parseInt(input.value) || 1;
       if (val < 99) { input.value = val + 1; input.dispatchEvent(new Event('change')); }
     });
   });
 
   var updateTimer;
-  document.querySelectorAll('.sp-qty-input-sub').forEach(function(input) {
+  document.querySelectorAll('.sp-qty-input-sub-perfect').forEach(function(input) {
     input.addEventListener('change', function() {
       clearTimeout(updateTimer);
       updateTimer = setTimeout(function() {
@@ -518,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelectorAll('.sp-cart-remove').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var key = this.getAttribute('data-key');
-      var input = document.querySelector('.sp-qty-input-sub[data-key="' + key + '"]');
+      var input = document.querySelector('.sp-qty-input-sub-perfect[data-key="' + key + '"]');
       if (input) {
         input.value = 0;
         var form = document.querySelector('.woocommerce-cart-form');
