@@ -1246,7 +1246,6 @@ function sp_discount_badge_on_cards() {
 
 // ─── Sticky Mobile Add-to-Cart Bar ─────────────────────────
 function sp_sticky_mobile_bar() {
-    
     if (!(function_exists('is_product') && is_product())) return;
     global $product;
     if (!$product) return;
@@ -1254,31 +1253,95 @@ function sp_sticky_mobile_bar() {
     <div class="sp-sticky-bar" id="spStickyBar">
       <div class="sp-sticky-inner">
         <div class="sp-sticky-info">
-          <span class="sp-sticky-name"><?php echo mb_substr($product->get_name(), 0, 25); ?></span>
+          <span class="sp-sticky-name"><?php echo esc_html(mb_substr($product->get_name(), 0, 30)); ?></span>
           <span class="sp-sticky-price">$ <?php echo number_format($product->get_price(), 0, ',', '.'); ?></span>
         </div>
-        <button class="btn btn-primary btn-sm sp-add-to-cart sp-sticky-btn" data-product-id="<?php echo $product->get_id(); ?>">
+        <button type="button" class="sp-sticky-btn open-cart-btn" onclick="if(window.spAddToCart){ window.spAddToCart(<?php echo $product->get_id(); ?>, 1); }">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           Agregar
         </button>
       </div>
     </div>
-    <style>
-    .sp-sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(255,255,255,0.95);backdrop-filter:blur(12px);border-top:1px solid var(--border-color);padding:10px 16px;box-shadow:0 -4px 20px rgba(0,0,0,0.08)}
-    .sp-sticky-inner{display:flex;align-items:center;justify-content:space-between;max-width:600px;margin:0 auto}
-    .sp-sticky-info{display:flex;flex-direction:column;gap:2px}
-    .sp-sticky-name{font-size:12px;color:var(--text-secondary);font-weight:500}
-    .sp-sticky-price{font-family:var(--font-heading);font-size:16px;font-weight:800;color:var(--navy)}
-    .sp-sticky-btn{padding:10px 24px;font-size:13px;white-space:nowrap}
-    @media(max-width:768px){
-      .sp-sticky-bar{display:block}
-      main{padding-bottom:70px}
+    <style id="sp-sticky-mobile-bar-style">
+    .sp-sticky-bar {
+        display: none !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 9999 !important;
+        background: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border-top: 1.5px solid #e2e8f0 !important;
+        padding: 12px 20px !important;
+        box-shadow: 0 -8px 30px rgba(15, 23, 42, 0.08) !important;
+        box-sizing: border-box !important;
+    }
+    .sp-sticky-inner {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        max-width: 600px !important;
+        margin: 0 auto !important;
+        width: 100% !important;
+    }
+    .sp-sticky-info {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        min-width: 0 !important;
+    }
+    .sp-sticky-name {
+        font-size: 0.88rem !important;
+        color: #0f172a !important;
+        font-weight: 700 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    .sp-sticky-price {
+        font-size: 1.15rem !important;
+        font-weight: 800 !important;
+        color: #0284c7 !important;
+    }
+    .sp-sticky-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        background: #0284c7 !important;
+        background-color: #0284c7 !important;
+        color: #ffffff !important;
+        font-family: var(--font-heading, system-ui, sans-serif) !important;
+        font-size: 0.88rem !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        padding: 12px 22px !important;
+        border-radius: 50px !important;
+        border: none !important;
+        box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+    .sp-sticky-btn:hover {
+        background: #0369a1 !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 8px 22px rgba(2, 132, 199, 0.4) !important;
+    }
+    @media (max-width: 768px) {
+        .sp-sticky-bar { display: block !important; }
+        body { padding-bottom: 75px !important; }
     }
     </style>
     <script>
     (function(){
       var bar = document.getElementById('spStickyBar');
       if (!bar) return;
-      var addBtn = document.getElementById('addToCartBtn');
+      var addBtn = document.querySelector('.single_add_to_cart_button, #addToCartBtn, .sp-add-to-cart');
       if (!addBtn) return;
       var observer = new IntersectionObserver(function(entries){
         bar.style.transform = entries[0].isIntersecting ? 'translateY(100%)' : 'translateY(0)';
