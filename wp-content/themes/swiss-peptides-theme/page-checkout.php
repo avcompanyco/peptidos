@@ -436,6 +436,49 @@ html body .woocommerce-checkout #payment button#place_order {
     }
 }
 
+
+/* MAXIMUM SPECIFICITY WHATSAPP GREEN PILL BUTTON OVERRIDES */
+html body #place_order,
+html body button#place_order,
+html body .sp-checkout-btn-whatsapp-submit,
+html body .woocommerce-checkout #payment button#place_order,
+html body .woocommerce-checkout #place_order {
+    background: #25D366 !important;
+    background-color: #25D366 !important;
+    color: #ffffff !important;
+    border-radius: 50px !important;
+    -webkit-border-radius: 50px !important;
+    -moz-border-radius: 50px !important;
+    border: none !important;
+    outline: none !important;
+    height: auto !important;
+    min-height: 60px !important;
+    padding: 16px 28px !important;
+    font-family: var(--font-heading, system-ui, sans-serif) !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4) !important;
+    cursor: pointer !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+}
+
+html body #place_order:hover,
+html body button#place_order:hover,
+html body .sp-checkout-btn-whatsapp-submit:hover {
+    background: #20bd5a !important;
+    background-color: #20bd5a !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 14px 35px rgba(37, 211, 102, 0.5) !important;
+}
+
 </style>
 
 <section class="sp-checkout-wrapper">

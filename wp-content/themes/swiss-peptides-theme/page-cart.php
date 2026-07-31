@@ -1,7 +1,7 @@
 <?php
 /**
- * Master Light Clinical Luxury Cart Page V4
- * Swiss Peptides 2026 - Perfect Desktop Alignment & Seamless Mobile Cards
+ * Master Light Clinical Luxury Cart Page V5
+ * Swiss Peptides 2026 - Fixed Thumbnail/Title Alignment & Green WhatsApp Button
  */
 get_header();
 
@@ -16,7 +16,7 @@ if (WC()->cart) {
 }
 ?>
 
-<style id="sp-master-cart-style-v4">
+<style id="sp-master-cart-style-v5">
 html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
@@ -67,7 +67,7 @@ body.woocommerce-cart {
 .sp-cart-page-title {
     font-family: var(--font-heading, system-ui, sans-serif);
     font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 650;
+    font-weight: 800;
     color: #0f172a;
     margin-bottom: 36px !important;
     letter-spacing: -0.5px;
@@ -102,16 +102,16 @@ body.woocommerce-cart {
 
 /* TABLE HEADERS BAR (DESKTOP) */
 .sp-cart-table-header {
-    display: grid;
-    grid-template-columns: 80px 1.4fr 110px 130px 130px 40px;
-    gap: 16px;
-    align-items: center;
+    display: grid !important;
+    grid-template-columns: 80px 1.4fr 110px 130px 130px 40px !important;
+    gap: 16px !important;
+    align-items: center !important;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 14px;
     padding: 12px 16px;
     font-size: 0.75rem;
-    font-weight: 650;
+    font-weight: 700;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.8px;
@@ -122,61 +122,69 @@ body.woocommerce-cart {
 
 /* DESKTOP ITEM ROW */
 .sp-cart-item-row {
-    display: grid;
-    grid-template-columns: 80px 1.4fr 110px 130px 130px 40px;
-    gap: 16px;
-    align-items: center;
-    padding: 20px 16px;
-    border-bottom: 1px solid #f1f5f9;
+    display: grid !important;
+    grid-template-columns: 80px 1.4fr 110px 130px 130px 40px !important;
+    gap: 16px !important;
+    align-items: center !important;
+    padding: 20px 16px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    box-sizing: border-box !important;
 }
 .sp-cart-item-row:last-child {
-    border-bottom: none;
+    border-bottom: none !important;
 }
 
 .sp-cart-item-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 14px;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 14px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
 }
 .sp-cart-item-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
 }
 
 .sp-cart-item-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
 }
 .sp-cart-item-title {
-    font-size: 1.02rem;
-    font-weight: 650;
-    color: #0f172a;
-    text-decoration: none;
-    line-height: 1.3;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #0f172a !important;
+    text-decoration: none !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
 }
 .sp-cart-item-title:hover {
-    color: #0284c7;
+    color: #0284c7 !important;
 }
 .sp-cart-item-cat {
-    font-size: 0.75rem;
-    color: #0284c7;
-    font-weight: 650;
-    text-transform: uppercase;
+    font-size: 0.75rem !important;
+    color: #0284c7 !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
 }
 
 .sp-cart-item-unit-price {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #475569;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    color: #475569 !important;
 }
 
 /* SLEEK QUANTITY PILL COUNTER */
@@ -198,7 +206,7 @@ body.woocommerce-cart {
     background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     color: #0f172a !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     font-size: 1.05rem !important;
     cursor: pointer !important;
     display: flex !important;
@@ -224,7 +232,7 @@ body.woocommerce-cart {
     box-shadow: none !important;
     width: 32px !important;
     text-align: center !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     font-size: 1rem !important;
     color: #0f172a !important;
     padding: 0 !important;
@@ -237,30 +245,30 @@ body.woocommerce-cart {
 }
 
 .sp-cart-item-subtotal-price {
-    font-size: 1.15rem;
-    font-weight: 650;
-    color: #0284c7;
-    text-align: right;
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: #0284c7 !important;
+    text-align: right !important;
     white-space: nowrap !important;
 }
 
 .sp-cart-btn-remove-perfect {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: #fef2f2;
-    border: 1px solid #fecaca;
-    color: #ef4444;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-left: auto;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 10px !important;
+    background: #fef2f2 !important;
+    border: 1px solid #fecaca !important;
+    color: #ef4444 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    margin: 0 auto !important;
 }
 .sp-cart-btn-remove-perfect:hover {
-    background: #ef4444;
-    color: #ffffff;
+    background: #ef4444 !important;
+    color: #ffffff !important;
 }
 
 /* Coupon & Actions Bar */
@@ -303,7 +311,7 @@ body.woocommerce-cart {
     border-radius: 24px;
     padding: 8px 20px;
     font-size: 0.82rem;
-    font-weight: 650;
+    font-weight: 800;
     cursor: pointer;
     text-transform: uppercase;
     transition: background 0.2s;
@@ -338,7 +346,7 @@ body.woocommerce-cart {
 }
 .sp-cart-summary-card h3 {
     font-size: 1.25rem;
-    font-weight: 650;
+    font-weight: 800;
     color: #0f172a;
     margin-bottom: 20px;
 }
@@ -356,7 +364,7 @@ body.woocommerce-cart {
     align-items: baseline;
     padding: 18px 0;
     font-size: 1.3rem;
-    font-weight: 700;
+    font-weight: 900;
     color: #0f172a;
     border-top: 2px solid #e2e8f0;
     margin-top: 10px;
@@ -381,8 +389,9 @@ html body .sp-cart-btn-whatsapp-checkout {
     color: #ffffff !important;
     font-family: var(--font-heading, system-ui, sans-serif) !important;
     font-size: 1.02rem !important;
-    font-weight: 700 !important;
+    font-weight: 800 !important;
     border-radius: 50px !important;
+    border: none !important;
     text-decoration: none !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
@@ -409,9 +418,9 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
 }
 
 .sp-mobile-only { display: none !important; }
-.sp-desktop-only { display: contents !important; }
+.sp-desktop-row-container { display: grid !important; grid-template-columns: 80px 1.4fr 110px 130px 130px 40px !important; gap: 16px !important; align-items: center !important; width: 100% !important; }
 
-/* RESPONSIVE BREAKPOINTS (DESKTOP & MOBILE PERFECT SEPARATION) */
+/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 1024px) {
     .sp-cart-grid {
         grid-template-columns: 1fr !important;
@@ -423,7 +432,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
 
 @media (max-width: 768px) {
     .sp-mobile-only { display: block !important; }
-    .sp-desktop-only { display: none !important; }
+    .sp-desktop-row-container { display: none !important; }
 
     .sp-cart-page-wrapper {
         padding-top: calc(var(--navbar-height, 80px) + 24px) !important;
@@ -500,46 +509,6 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
         font-size: 0.96rem !important;
     }
 }
-
-/* PERFECT DESKTOP FLUID GRID & NO-OVERFLOW RED X BUTTON */
-.sp-cart-table-header,
-.sp-cart-item-row {
-    display: grid !important;
-    grid-template-columns: 64px 1fr 95px 115px 115px 36px !important;
-    gap: 12px !important;
-    align-items: center !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.sp-cart-items-card {
-    padding: 24px 20px !important;
-    overflow: hidden !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.sp-cart-item-info {
-    min-width: 0 !important;
-    overflow: hidden !important;
-}
-
-.sp-cart-item-title {
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    display: block !important;
-    max-width: 100% !important;
-}
-
-.sp-cart-btn-remove-perfect {
-    width: 32px !important;
-    height: 32px !important;
-    margin: 0 auto !important;
-    flex-shrink: 0 !important;
-    border-radius: 8px !important;
-}
-
 </style>
 
 <section class="sp-cart-page-wrapper">
@@ -580,7 +549,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
             <span>Precio</span>
             <span class="text-center">Cantidad</span>
             <span class="text-right">Subtotal</span>
-            <span class="text-center"></span>
+            <span></span>
           </div>
 
           <?php foreach ($cart_items as $cart_item_key => $cart_item) :
@@ -599,7 +568,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
           <div class="sp-cart-item-row">
             
             <!-- DESKTOP ITEM LAYOUT -->
-            <div class="sp-desktop-only">
+            <div class="sp-desktop-row-container">
               <div class="sp-cart-item-img">
                 <?php if ($product_permalink) : ?>
                   <a href="<?php echo esc_url($product_permalink); ?>"><?php echo $thumbnail; ?></a>
