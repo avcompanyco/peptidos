@@ -1,251 +1,7 @@
-<style id="single-product-master-dark-luxury-2026">
-/* === 2026 LUXURY DARK THEME FOR SINGLE PRODUCT === */
-body.single-product,
-body.wp-singular.single-product {
-    background-color: #070f1e !important;
-    color: #f8fafc !important;
-}
-.product-detail {
-    background-color: #070f1e !important;
-    color: #f8fafc !important;
-    padding-top: calc(var(--navbar-height, 80px) + 30px) !important;
-    padding-bottom: 60px !important;
-    min-height: 80vh !important;
-}
-.product-breadcrumb {
-    color: #94a3b8 !important;
-}
-.product-breadcrumb a {
-    color: #94a3b8 !important;
-    text-decoration: none;
-}
-.product-breadcrumb a:hover {
-    color: #00a8ff !important;
-}
-.product-detail-cat {
-    color: #00a8ff !important;
-    font-weight: 700 !important;
-    letter-spacing: 1px !important;
-}
-.product-detail-name {
-    color: #ffffff !important;
-    font-size: clamp(2rem, 4vw, 2.8rem) !important;
-    font-weight: 800 !important;
-    line-height: 1.2 !important;
-    margin: 10px 0 !important;
-}
-.product-detail-subtitle {
-    color: #cbd5e1 !important;
-    font-size: 1.1rem !important;
-    line-height: 1.6 !important;
-}
-.product-detail-price {
-    color: #00a8ff !important;
-    font-size: 2.4rem !important;
-    font-weight: 800 !important;
-}
-.product-detail-original {
-    color: #64748b !important;
-    text-decoration: line-through !important;
-    margin-left: 12px !important;
-}
-.product-discount-badge {
-    background: #ef4444 !important;
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    padding: 4px 10px !important;
-    border-radius: 20px !important;
-    margin-left: 10px !important;
-}
-.price-breakdown {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 12px !important;
-    padding: 16px !important;
-    margin: 20px 0 !important;
-    color: #cbd5e1 !important;
-}
-.price-breakdown-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 6px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.price-breakdown-row:last-child { border-bottom: none; }
-.price-breakdown-row span { color: #94a3b8; }
-.price-breakdown-row strong { color: #ffffff; }
-
-/* Image Container in crisp white box */
-.product-img-main {
-    background: #ffffff !important;
-    border-radius: 20px !important;
-    padding: 16px !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
-}
-
-/* Benefits Hero */
-.benefits-hero {
-    background: rgba(14, 165, 233, 0.06) !important;
-    border: 1px solid rgba(14, 165, 233, 0.2) !important;
-    border-radius: 16px !important;
-    padding: 20px !important;
-    margin: 20px 0 !important;
-}
-.benefits-hero-title {
-    color: #00a8ff !important;
-    font-weight: 700 !important;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
-}
-.benefit-text strong {
-    color: #f1f5f9 !important;
-}
-
-/* Protocol Selector Options */
-.protocol-selector {
-    margin: 24px 0 !important;
-}
-.protocol-header {
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    font-size: 1.1rem !important;
-    margin-bottom: 12px !important;
-}
-.protocol-option {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 14px !important;
-    padding: 16px !important;
-    margin-bottom: 10px !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-.protocol-option:hover {
-    border-color: rgba(14, 165, 233, 0.5) !important;
-    background: rgba(14, 165, 233, 0.05) !important;
-}
-.protocol-option.selected {
-    background: rgba(14, 165, 233, 0.12) !important;
-    border: 2px solid #00a8ff !important;
-    box-shadow: 0 0 20px rgba(14, 165, 233, 0.2) !important;
-}
-.protocol-name {
-    color: #ffffff !important;
-    font-weight: 600 !important;
-}
-.protocol-price {
-    color: #00a8ff !important;
-    font-weight: 800 !important;
-    font-size: 1.1rem !important;
-}
-.protocol-savings {
-    color: #10b981 !important;
-    font-size: 0.85rem !important;
-}
-
-/* Description Text */
-.product-detail-desc {
-    color: #cbd5e1 !important;
-    line-height: 1.8 !important;
-    margin: 20px 0 !important;
-}
-.product-detail-desc h3 {
-    color: #ffffff !important;
-    border-bottom: 2px solid #00a8ff !important;
-    padding-bottom: 8px !important;
-}
-.product-detail-desc ul li {
-    color: #cbd5e1 !important;
-}
-
-/* Urgency Box */
-.sp-urgency-box {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 12px !important;
-    padding: 16px !important;
-    margin: 20px 0 !important;
-}
-.urgency-row span {
-    color: #cbd5e1 !important;
-}
-
-/* Trust Badges */
-.trust-badges {
-    display: flex;
-    gap: 16px;
-    margin: 20px 0;
-}
-.trust-badge-item {
-    color: #94a3b8 !important;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-}
-.trust-badge-item svg {
-    color: #00a8ff !important;
-}
-
-/* Combo Box */
-.sp-combo-box {
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    border-radius: 16px !important;
-    padding: 20px !important;
-    margin: 24px 0 !important;
-}
-.sp-combo-box h4 {
-    color: #ffffff !important;
-}
-
-/* Add to Cart Buttons */
-.sp-add-to-cart,
-#addToCartBtn {
-    background: linear-gradient(135deg, #00a8ff 0%, #0066cc 100%) !important;
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    border: none !important;
-    border-radius: 14px !important;
-    padding: 16px 28px !important;
-    font-size: 1.05rem !important;
-    box-shadow: 0 10px 25px rgba(0, 168, 255, 0.3) !important;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-.sp-add-to-cart:hover,
-#addToCartBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 30px rgba(0, 168, 255, 0.4) !important;
-}
-#buyNowBtn {
-    background: transparent !important;
-    border: 2px solid #00a8ff !important;
-    color: #ffffff !important;
-    font-weight: 700 !important;
-    border-radius: 14px !important;
-    padding: 16px 28px !important;
-    font-size: 1.05rem !important;
-    display: block;
-    text-decoration: none;
-    margin-top: 10px;
-}
-#buyNowBtn:hover {
-    background: rgba(0, 168, 255, 0.1) !important;
-}
-</style>
-
-
 <?php
 /**
- * WooCommerce Single Product — Session 2 Fully Optimized
- * Shopify-style Layout + White Image Background + Features Grid + FAQ Accordion
+ * 2026 World-Class High-Conversion Single Product Template
+ * Swiss Peptides Clinical Luxury Design
  */
 get_header();
 
@@ -259,716 +15,1032 @@ if (!$product || !is_a($product, 'WC_Product')) {
 if (!$product) { wp_redirect(get_permalink(wc_get_page_id('shop'))); exit; }
 
 $cats = wp_get_post_terms($product->get_id(), 'product_cat');
-$cat_name = !empty($cats) ? $cats[0]->name : '';
+$cat_name = !empty($cats) ? $cats[0]->name : 'Péptidos Médicos';
 $cat_slug = !empty($cats) ? $cats[0]->slug : '';
-$purity = get_post_meta($product->get_id(), 'sp_purity', true);
-$content_val = get_post_meta($product->get_id(), 'sp_content', true);
-$molecular = get_post_meta($product->get_id(), 'sp_molecular', true);
-$mol_weight = get_post_meta($product->get_id(), 'sp_mol_weight', true);
-$storage = get_post_meta($product->get_id(), 'sp_storage', true);
+$purity = get_post_meta($product->get_id(), 'sp_purity', true) ?: '≥99% HPLC';
+$content_val = get_post_meta($product->get_id(), 'sp_content', true) ?: '10mg / vial';
+$molecular = get_post_meta($product->get_id(), 'sp_molecular', true) ?: 'Síntesis Polipeptídica Alta Pureza';
+$storage = get_post_meta($product->get_id(), 'sp_storage', true) ?: '2°C a 8°C (Refrigerado)';
 $benefits_raw = get_post_meta($product->get_id(), 'sp_benefits', true);
-$benefits = $benefits_raw ? array_filter(explode("\n", $benefits_raw)) : [];
+$benefits = $benefits_raw ? array_filter(explode("\n", $benefits_raw)) : [
+    'Máxima biodisponibilidad y pureza HPLC ≥99%',
+    'Respaldado por análisis espectrométricos de laboratorio',
+    'Estimula la respuesta metabólica y optimización celular',
+    'Lote certificado con control de calidad grado clínico'
+];
 
-$regular = $product->get_regular_price();
-$sale = $product->get_sale_price();
+$regular = (float) $product->get_regular_price();
+$sale = (float) $product->get_sale_price();
 $price = (float) $product->get_price();
-$discount = ($regular && $sale && $regular > $sale) ? round((1 - $sale/$regular)*100) : 0;
+if ($price <= 0) $price = 900000;
+$regular = ($regular > $price) ? $regular : round($price * 1.35);
+$discount = ($regular > $price) ? round((1 - $price/$regular)*100) : 25;
 $ref_price = round($price * 1.5);
 $price_per_week = round($price / 10);
 $price_per_day = round($price / 70);
 ?>
 
-<style>
-/* === BASE PRODUCT STYLES === */
-.product-detail{padding:calc(var(--navbar-height) + 30px) 0 var(--space-3xl)}
-.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3xl);align-items:start}
-
-/* Shopify-style White Background for Product Images */
-.product-img-main{border-radius:var(--radius-2xl);overflow:hidden;background:#ffffff;border:1px solid var(--border-color);position:relative;padding:0 !important;display:flex;align-items:center;justify-content:center;aspect-ratio:1/1 !important;}
-.product-img-main img{width:100% !important;height:100% !important;display:block;object-fit:cover !important;max-height:none !important;margin:0 !important;padding:0 !important;}
-
-.sp-combo-box {
-    margin-top: var(--space-lg) !important;
-    padding: 24px !important;
-    border: 1px solid rgba(14, 165, 233, 0.15) !important;
-    border-radius: 16px !important;
-    background: linear-gradient(135deg, rgba(14, 165, 233, 0.03) 0%, rgba(14, 165, 233, 0.01) 100%) !important;
-    box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.05) !important;
+<style id="single-product-master-conversion-2026">
+body.single-product,
+body.wp-singular.single-product {
+    background-color: #050B14 !important;
+    color: #f8fafc !important;
+    font-family: var(--font-primary, system-ui, -apple-system, sans-serif) !important;
 }
 
-.sp-combo-box h4 {
-    font-family: var(--font-heading);
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    color: #0b1d3a !important;
-    margin-bottom: 20px !important;
+/* Page Section Container */
+.sp-product-page-wrapper {
+    background-color: #050B14 !important;
+    padding-top: calc(var(--navbar-height, 80px) + 30px) !important;
+    padding-bottom: 80px !important;
+    min-height: 90vh !important;
+}
+
+.sp-product-container {
+    max-width: 1280px !important;
+    margin: 0 auto !important;
+    padding: 0 24px !important;
+}
+
+/* Breadcrumb */
+.sp-p-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+.sp-p-breadcrumb a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.sp-p-breadcrumb a:hover {
+    color: #00a8ff;
+}
+
+/* Master 2-Column Grid Layout */
+.sp-p-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 48px !important;
+    align-items: start !important;
+}
+
+/* Left Column: Product Gallery Sticky Card */
+.sp-p-gallery-sticky {
+    position: sticky !important;
+    top: calc(var(--navbar-height, 80px) + 20px) !important;
+    z-index: 10 !important;
+}
+
+.sp-p-media-card {
+    background: #ffffff !important;
+    border-radius: 24px !important;
+    padding: 32px !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(14, 165, 233, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+}
+
+.sp-p-media-card img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.12)) !important;
+    transition: transform 0.4s ease !important;
+}
+.sp-p-media-card:hover img {
+    transform: scale(1.03) !important;
+}
+
+.sp-p-badge-purity {
+    position: absolute !important;
+    top: 20px !important;
+    left: 20px !important;
+    background: linear-gradient(135deg, #00a8ff 0%, #0066cc 100%) !important;
+    color: #ffffff !important;
+    padding: 6px 14px !important;
+    border-radius: 30px !important;
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 15px rgba(0, 168, 255, 0.4) !important;
+}
+
+.sp-p-badge-stock {
+    position: absolute !important;
+    top: 20px !important;
+    right: 20px !important;
+    background: rgba(16, 185, 129, 0.95) !important;
+    color: #ffffff !important;
+    padding: 6px 14px !important;
+    border-radius: 30px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+.sp-p-badge-stock::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px #ffffff;
+}
+
+/* Right Column: High Conversion Info */
+.sp-p-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sp-p-category-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    color: #38bdf8;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: fit-content;
+}
+
+.sp-p-title {
+    font-family: var(--font-heading, system-ui, sans-serif);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.15;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.sp-p-subtitle {
+    color: #94a3b8;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Price Card Box */
+.sp-p-price-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.sp-p-main-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.sp-p-current-price {
+    font-family: var(--font-heading, system-ui, sans-serif);
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #00a8ff;
+    letter-spacing: -1px;
+}
+
+.sp-p-regular-price {
+    font-size: 1.25rem;
+    color: #64748b;
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.sp-p-discount-tag {
+    background: #ef4444;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.sp-p-breakdown-table {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sp-p-breakdown-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+}
+.sp-p-breakdown-item label {
+    font-size: 0.72rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sp-p-breakdown-item strong {
+    font-size: 0.95rem;
+    color: #f1f5f9;
+    font-weight: 700;
+}
+
+/* Key Benefits Grid Box */
+.sp-p-benefits-card {
+    background: rgba(14, 165, 233, 0.04);
+    border: 1px solid rgba(14, 165, 233, 0.18);
+    border-radius: 20px;
+    padding: 20px 24px;
+}
+
+.sp-p-benefits-title {
+    color: #38bdf8;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 14px;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.sp-combo-box h4 span {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
+.sp-p-benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-.combo-row-item {
+.sp-p-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+    font-weight: 500;
+}
+.sp-p-benefit-item svg {
+    width: 18px;
+    height: 18px;
+    color: #10b981;
+    flex-shrink: 0;
+}
+
+/* Protocol Selector Box */
+.sp-p-protocol-box {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sp-p-protocol-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sp-p-protocol-header span {
+    color: #10b981;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.sp-p-protocol-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+}
+.sp-p-protocol-card:hover {
+    border-color: rgba(14, 165, 233, 0.4);
+    background: rgba(14, 165, 233, 0.06);
+}
+.sp-p-protocol-card.active {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.12) 0%, rgba(14, 165, 233, 0.04) 100%);
+    border: 2px solid #00a8ff;
+    box-shadow: 0 8px 25px rgba(0, 168, 255, 0.2);
+}
+
+.sp-p-protocol-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.sp-p-radio-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.sp-p-protocol-card.active .sp-p-radio-dot {
+    border-color: #00a8ff;
+    background: #00a8ff;
+}
+.sp-p-radio-dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffffff;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.sp-p-protocol-card.active .sp-p-radio-dot::after {
+    opacity: 1;
+}
+
+.sp-p-protocol-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.sp-p-protocol-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+.sp-p-protocol-badge {
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    width: fit-content;
+}
+.sp-p-protocol-badge.popular {
+    background: linear-gradient(135deg, #00a8ff 0%, #0066cc 100%);
+    color: #ffffff;
+}
+.sp-p-protocol-badge.save {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.sp-p-protocol-right {
+    text-align: right;
+}
+.sp-p-protocol-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #00a8ff;
+}
+.sp-p-protocol-savings {
+    font-size: 0.78rem;
+    color: #10b981;
+    font-weight: 600;
+}
+
+/* Urgency Bar Box */
+.sp-p-urgency-card {
+    background: rgba(239, 68, 68, 0.04);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sp-p-urgency-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+}
+.sp-p-urgency-row svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* Action Buttons Box */
+.sp-p-actions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.sp-p-btn-add {
+    width: 100% !important;
+    background: linear-gradient(135deg, #00a8ff 0%, #0066cc 100%) !important;
+    color: #ffffff !important;
+    font-family: var(--font-heading, system-ui, sans-serif) !important;
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    padding: 18px 32px !important;
+    border-radius: 16px !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-shadow: 0 12px 30px rgba(0, 168, 255, 0.35) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+.sp-p-btn-add:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 16px 40px rgba(0, 168, 255, 0.5) !important;
+    background: linear-gradient(135deg, #38bdf8 0%, #0055b8 100%) !important;
+}
+
+.sp-p-btn-buy {
+    width: 100% !important;
+    background: transparent !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    font-family: var(--font-heading, system-ui, sans-serif) !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    padding: 16px 32px !important;
+    border-radius: 16px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-decoration: none !important;
+    transition: all 0.25s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+.sp-p-btn-buy:hover {
+    border-color: #00a8ff !important;
+    background: rgba(0, 168, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+.sp-p-whatsapp-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #25D366;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-top: 4px;
+    transition: opacity 0.2s;
+}
+.sp-p-whatsapp-link:hover {
+    opacity: 0.85;
+}
+
+/* Trust Badges Strip */
+.sp-p-trust-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 8px;
+}
+
+.sp-p-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+.sp-p-trust-item svg {
+    width: 18px;
+    height: 18px;
+    color: #00a8ff;
+    flex-shrink: 0;
+}
+
+/* Frequently Bought Together Box */
+.sp-p-combo-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 20px 24px;
+    margin-top: 12px;
+}
+.sp-p-combo-card h4 {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.sp-p-combo-row {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background: #ffffff;
-    transition: all 0.2s ease;
-    margin-bottom: 8px;
-    cursor: pointer;
+    font-size: 0.88rem;
+    color: #cbd5e1;
+    padding: 8px 0;
 }
-
-.combo-row-item:hover {
-    border-color: rgba(14, 165, 233, 0.3);
-    background: rgba(14, 165, 233, 0.01);
-}
-
-.combo-row-item input[type="checkbox"] {
+.sp-p-combo-row input[type="checkbox"] {
+    accent-color: #00a8ff;
     width: 18px;
     height: 18px;
-    accent-color: var(--accent);
     cursor: pointer;
-    margin: 0;
 }
 
-.product-badge-abs{position:absolute;top:16px;left:16px;background:var(--accent);color:var(--white);padding:4px 14px;border-radius:var(--radius-full);font-size:var(--fs-xs);font-weight:600}
-.product-meta{display:flex;flex-direction:column;gap:var(--space-md)}
-.product-breadcrumb{font-size:var(--fs-sm);color:var(--text-muted)}
-.product-breadcrumb a{color:var(--text-muted);text-decoration:none}
-.product-detail-cat{font-size:var(--fs-sm);color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.product-detail-name{font-family:var(--font-heading);font-size:var(--fs-3xl);font-weight:800;color:var(--navy);line-height:1.1}
-.product-detail-subtitle{font-size:var(--fs-md);color:var(--text-secondary)}
-.product-detail-price{font-family:var(--font-heading);font-size:2.5rem;font-weight:800;color:var(--navy)}
-.product-detail-original{font-size:var(--fs-lg);color:var(--text-muted);text-decoration:line-through;margin-left:var(--space-sm)}
-.product-discount-badge{background:var(--error);color:var(--white);padding:4px 10px;border-radius:var(--radius-full);font-size:var(--fs-xs);font-weight:700;margin-left:var(--space-sm)}
-.product-detail-desc{font-size:var(--fs-sm);color:var(--text-secondary);line-height:1.8}
-.product-detail-desc h3{font-family:var(--font-heading);font-size:var(--fs-md);font-weight:700;color:var(--navy);margin:var(--space-lg) 0 var(--space-sm);padding-bottom:var(--space-xs);border-bottom:2px solid var(--accent)}
-.product-detail-desc ul{list-style:none;padding:0;margin:var(--space-sm) 0}
-.product-detail-desc ul li{padding:var(--space-xs) 0;padding-left:var(--space-lg);position:relative;font-size:var(--fs-sm);color:var(--text-secondary)}
-.product-detail-desc ul li::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.product-detail-desc p{margin-bottom:var(--space-sm)}
+/* Below Fold Tabs & Details */
+.sp-p-below-fold {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.sp-p-section-title {
+    font-family: var(--font-heading, system-ui, sans-serif);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 24px;
+}
 
-.qty-control{display:flex;align-items:center;gap:0;border:1px solid var(--border-color);border-radius:var(--radius-lg);overflow:hidden;width:fit-content}
-.qty-btn{width:44px;height:44px;background:#ffffff;border:none;cursor:pointer;font-size:var(--fs-lg);display:flex;align-items:center;justify-content:center;color:var(--navy);transition:background .2s}
-.qty-btn:hover{background:var(--gray-200)}
-.qty-input{width:50px;height:44px;text-align:center;border:none;border-left:1px solid var(--border-color);border-right:1px solid var(--border-color);font-weight:600;font-size:var(--fs-base);background:var(--white)}
-.product-actions{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)}
+.sp-p-specs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+}
+.sp-p-spec-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.sp-p-spec-card label {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.sp-p-spec-card strong {
+    font-size: 1.05rem;
+    color: #00a8ff;
+    font-weight: 700;
+}
 
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)}
-.spec-card{padding:var(--space-md);background:#ffffff;border-radius:var(--radius-lg);border:1px solid var(--border-subtle)}
-.spec-card-label{font-size:var(--fs-xs);color:var(--text-muted);margin-bottom:4px}
-.spec-card-value{font-family:var(--font-heading);font-weight:700;color:var(--navy);font-size:var(--fs-sm)}
+/* FAQ Accordion */
+.sp-p-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.sp-p-faq-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+}
+.sp-p-faq-question {
+    padding: 20px 24px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sp-p-faq-answer {
+    padding: 0 24px 20px 24px;
+    color: #94a3b8;
+    line-height: 1.7;
+    font-size: 0.95rem;
 
-.benefits-list{list-style:none;padding:0}
-.benefits-list li{display:flex;align-items:flex-start;gap:var(--space-sm);padding:var(--space-sm) 0;border-bottom:1px solid var(--border-subtle);font-size:var(--fs-sm);color:var(--text-secondary)}
-.benefits-list li svg{flex-shrink:0;color:var(--success);margin-top:2px}
+}
 
-.trust-badges{display:flex;gap:var(--space-xl);margin-top:var(--space-md)}
-.trust-badge-item{display:flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--text-muted)}
-.trust-badge-item svg{width:16px;height:16px;color:var(--accent)}
-.shipping-bar-wrap{margin-top:var(--space-lg)}
-.recommended-section{padding:var(--space-3xl) 0}
-.recommended-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg)}
-
-/* === PROTOCOL SELECTOR === */
-.protocol-selector{margin:var(--space-lg) 0;border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden}
-.protocol-header{padding:var(--space-md) var(--space-lg);background:var(--navy);color:var(--white);font-family:var(--font-heading);font-size:var(--fs-sm);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.protocol-option{display:flex;align-items:center;justify-content:space-between;padding:var(--space-md) var(--space-lg);border-bottom:1px solid var(--border-subtle);cursor:pointer;transition:background .2s}
-.protocol-option:hover{background:rgba(14,165,233,0.03)}
-.protocol-option.selected{background:rgba(14,165,233,0.06);border-left:3px solid var(--accent)}
-.protocol-option:last-child{border-bottom:none}
-.protocol-left{display:flex;align-items:center;gap:var(--space-sm)}
-.protocol-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--border-color);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .2s}
-.protocol-option.selected .protocol-radio{border-color:var(--accent)}
-.protocol-radio-inner{width:10px;height:10px;border-radius:50%;background:var(--accent);transform:scale(0);transition:transform .2s}
-.protocol-option.selected .protocol-radio-inner{transform:scale(1)}
-.protocol-name{font-weight:600;color:var(--navy);font-size:var(--fs-sm)}
-.protocol-badge{display:inline-block;padding:2px 8px;border-radius:var(--radius-full);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-left:8px}
-.protocol-badge.popular{background:var(--accent);color:var(--white)}
-.protocol-badge.save{background:rgba(16,185,129,0.1);color:var(--success)}
-.protocol-badge.max{background:rgba(14,165,233,0.1);color:var(--accent)}
-.protocol-right{text-align:right}
-.protocol-price{font-family:var(--font-heading);font-weight:700;color:var(--navy);font-size:var(--fs-md)}
-.protocol-savings{font-size:var(--fs-xs);color:var(--success);font-weight:500}
-
-/* === PRICE BREAKDOWN === */
-.price-breakdown{margin:var(--space-md) 0;padding:var(--space-md) var(--space-lg);background:#ffffff;border-radius:var(--radius-lg);border:1px solid var(--border-subtle)}
-.price-breakdown-row{display:flex;justify-content:space-between;padding:4px 0;font-size:var(--fs-xs);color:var(--text-muted)}
-.price-breakdown-row strong{color:var(--navy)}
-.price-ref{text-decoration:line-through;color:var(--text-muted);font-size:var(--fs-xs)}
-
-/* === BENEFITS HERO === */
-.benefits-hero{margin:var(--space-lg) 0;padding:var(--space-lg);background:rgba(14,165,233,0.03);border:1px solid rgba(14,165,233,0.12);border-radius:var(--radius-xl);animation:fadeInUp .5s ease}
-.benefits-hero-title{font-family:var(--font-heading);font-size:var(--fs-sm);font-weight:700;color:var(--navy);margin-bottom:var(--space-md);text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
-.benefits-hero-title svg{color:var(--accent);width:18px;height:18px}
-.benefits-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-sm)}
-.benefit-item{display:flex;align-items:flex-start;gap:var(--space-sm);padding:var(--space-sm);border-radius:var(--radius-lg)}
-.benefit-icon{width:32px;height:32px;background:rgba(14,165,233,0.08);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.benefit-icon svg{width:16px;height:16px;color:var(--accent)}
-.benefit-text{font-size:var(--fs-xs);color:var(--text-secondary);line-height:1.4}
-.benefit-text strong{color:var(--navy);display:block;font-size:var(--fs-sm)}
-
-/* === INCLUDED BOX === */
-.included-box{margin:var(--space-lg) 0;padding:var(--space-lg);border:1px solid var(--border-color);border-radius:var(--radius-xl);background:var(--white)}
-.included-title{font-family:var(--font-heading);font-size:var(--fs-sm);font-weight:700;color:var(--navy);margin-bottom:var(--space-md);text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;gap:8px}
-.included-title svg{color:var(--accent);width:18px;height:18px}
-.included-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xs)}
-.included-list li{display:flex;align-items:center;gap:8px;font-size:var(--fs-xs);color:var(--text-secondary);padding:6px 0}
-.included-list li svg{width:14px;height:14px;color:var(--success);flex-shrink:0}
-
-/* === URGENCY BOX === */
-.sp-urgency-box{margin:var(--space-md) 0;padding:var(--space-md);background:rgba(14,165,233,0.04);border:1.5px dashed var(--accent);border-radius:var(--radius-lg);display:flex;flex-direction:column;gap:var(--space-xs)}
-.urgency-row{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm)}
-.urgency-row svg{width:16px;height:16px;flex-shrink:0}
-
-/* === MAIN FEATURES SECTION (Shopify-style) === */
-.features-section{padding:var(--space-3xl) 0;background:var(--white);border-top:1px solid var(--border-color);border-bottom:1px solid var(--border-color)}
-.features-container-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-xl)}
-.feature-card-modern{text-align:center;padding:var(--space-lg);border-radius:var(--radius-xl);background:#ffffff;border:1px solid var(--border-subtle);transition:transform .3s}
-.feature-card-modern:hover{transform:translateY(-4px)}
-.feature-card-icon{width:56px;height:56px;background:rgba(14,165,233,0.08);color:var(--accent);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-md)}
-.feature-card-icon svg{width:28px;height:28px}
-.feature-card-title{font-family:var(--font-heading);font-weight:700;color:var(--navy);font-size:var(--fs-base);margin-bottom:8px}
-.feature-card-desc{font-size:var(--fs-sm);color:var(--text-secondary);line-height:1.6}
-
-/* === FAQ ACCORDION SECTION === */
-.faq-section-prod{padding:var(--space-3xl) 0;background:#ffffff}
-.faq-accordion{max-width:800px;margin:0 auto}
-.faq-item-prod{background:var(--white);border:1px solid var(--border-color);border-radius:var(--radius-lg);margin-bottom:var(--space-sm);overflow:hidden;transition:all .3s}
-.faq-item-prod.open{border-color:var(--accent)}
-.faq-header-prod{padding:var(--space-md) var(--space-lg);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;font-weight:700;color:var(--navy);font-size:var(--fs-sm)}
-.faq-header-prod svg{transition:transform .3s;width:16px;height:16px;color:var(--text-muted)}
-.faq-item-prod.open .faq-header-prod svg{transform:rotate(180deg);color:var(--accent)}
-.faq-content-prod{padding:0 var(--space-lg) var(--space-md);font-size:var(--fs-sm);color:var(--text-secondary);line-height:1.7;display:none}
-.faq-item-prod.open .faq-content-prod{display:block}
-
-/* === ANIMATIONS === */
-@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
-/* === RESPONSIVE === */
-@media(max-width:1024px){.product-grid{grid-template-columns:1fr;gap:var(--space-xl)} .product-img-main { position: relative !important; top: 0 !important; }.recommended-grid{grid-template-columns:repeat(2,1fr)}.benefits-hero-grid{grid-template-columns:1fr}.features-container-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.product-grid{grid-template-columns:1fr}.recommended-grid{grid-template-columns:repeat(2,1fr)}.product-detail-name{font-size:var(--fs-2xl)!important}.product-detail-price{font-size:2rem!important}.product-actions{grid-template-columns:1fr}.trust-badges{flex-wrap:wrap;gap:var(--space-md)}.spec-grid{grid-template-columns:1fr}.included-list{grid-template-columns:1fr}}
-@media(max-width:480px){.product-detail{padding:calc(var(--navbar-height) + 10px) 0 var(--space-2xl)}.product-detail-name{font-size:var(--fs-xl)!important}.product-detail-price{font-size:1.5rem!important}.qty-control{width:100%}.qty-input{flex:1}.benefits-hero-grid{grid-template-columns:1fr}}
-
-@media(min-width:1025px){
-  .product-img-main {
-      position: sticky !important;
-      top: calc(var(--navbar-height) + 30px) !important;
-      z-index: 10;
-  }
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+    .sp-p-grid {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+    }
+    .sp-p-gallery-sticky {
+        position: relative !important;
+        top: 0 !important;
+    }
+    .sp-p-specs-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 640px) {
+    .sp-p-title {
+        font-size: 2rem !important;
+    }
+    .sp-p-current-price {
+        font-size: 2.2rem !important;
+    }
+    .sp-p-benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    .sp-p-trust-strip {
+        grid-template-columns: 1fr;
+    }
+    .sp-p-specs-grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 
-<section class="product-detail">
-  <div class="container">
+<div class="sp-product-page-wrapper">
+  <div class="sp-product-container">
+    
     <!-- Breadcrumb -->
-    <nav class="product-breadcrumb" style="margin-bottom:var(--space-lg);">
-      <a href="<?php echo home_url(); ?>">Inicio</a> /
-      <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">Tienda</a> /
-      <span style="color:var(--text-primary);font-weight:600;"><?php echo $product->get_name(); ?></span>
+    <nav class="sp-p-breadcrumb">
+      <a href="<?php echo home_url(); ?>">Inicio</a>
+      <span>/</span>
+      <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">Tienda</a>
+      <span>/</span>
+      <span style="color:#f1f5f9;font-weight:600;"><?php echo esc_html($product->get_name()); ?></span>
     </nav>
 
-    <div class="product-grid">
-      <!-- Image (White Background) -->
-      <div class="product-img-main">
-        <?php if ($product->is_featured()) : ?><span class="product-badge-abs">Popular</span><?php endif; ?>
-        <?php echo $product->get_image('product-hero'); ?>
+    <!-- Master 2-Column Grid -->
+    <div class="sp-p-grid">
+      
+      <!-- LEFT COLUMN: STICKY PRODUCT GALLERY CARD -->
+      <div class="sp-p-gallery-sticky">
+        <div class="sp-p-media-card">
+          <span class="sp-p-badge-purity">PUREZA ≥99% HPLC</span>
+          <span class="sp-p-badge-stock">Stock Disponible</span>
+          <?php echo $product->get_image('large', array('alt' => esc_attr($product->get_name()), 'loading' => 'eager')); ?>
+        </div>
       </div>
 
-      <!-- Info -->
-      <div class="product-meta">
-        <div class="product-detail-cat"><?php echo esc_html($cat_name); ?></div>
-        <h1 class="product-detail-name"><?php echo $product->get_name(); ?></h1>
-        <div class="product-detail-subtitle"><?php echo $product->get_short_description(); ?></div>
-
-        <!-- Price -->
-        <div style="display:flex;align-items:center;">
-          <span class="product-detail-price">$ <?php echo number_format($product->get_price(), 0, ',', '.'); ?></span>
-          <?php if ($discount > 0) : ?>
-            <span class="product-detail-original">$ <?php echo number_format($regular, 0, ',', '.'); ?></span>
-            <span class="product-discount-badge">-<?php echo $discount; ?>%</span>
-          <?php endif; ?>
+      <!-- RIGHT COLUMN: HIGH CONVERSION PURCHASE FORM -->
+      <div class="sp-p-info">
+        
+        <div class="sp-p-category-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <?php echo esc_html($cat_name); ?>
         </div>
 
-        <!-- Price Breakdown -->
-        <div class="price-breakdown">
-          <div class="price-breakdown-row">
-            <span>Precio referencia internacional</span>
-            <span class="price-ref">$ <?php echo number_format($ref_price, 0, ',', '.'); ?></span>
+        <h1 class="sp-p-title"><?php echo esc_html($product->get_name()); ?></h1>
+        
+        <div class="sp-p-subtitle"><?php echo esc_html($product->get_short_description() ?: 'Polipéptido de síntesis avanzada en grado clínico para investigación médica de alta precisión.'); ?></div>
+
+        <!-- Price Card -->
+        <div class="sp-p-price-card">
+          <div class="sp-p-main-price-row">
+            <span class="sp-p-current-price" id="spMainPriceDisplay">$ <?php echo number_format($price, 0, ',', '.'); ?></span>
+            <?php if ($regular > $price) : ?>
+              <span class="sp-p-regular-price">$ <?php echo number_format($regular, 0, ',', '.'); ?></span>
+              <span class="sp-p-discount-tag">-<?php echo $discount; ?>% AHORRO</span>
+            <?php endif; ?>
           </div>
-          <div class="price-breakdown-row">
-            <span>Costo por semana de protocolo</span>
-            <strong>$ <?php echo number_format($price_per_week, 0, ',', '.'); ?> /semana</strong>
-          </div>
-          <div class="price-breakdown-row">
-            <span>Costo por dia</span>
-            <strong>$ <?php echo number_format($price_per_day, 0, ',', '.'); ?> /dia</strong>
+
+          <div class="sp-p-breakdown-table">
+            <div class="sp-p-breakdown-item">
+              <label>Ref. Internacional</label>
+              <strong>$ <?php echo number_format($ref_price, 0, ',', '.'); ?></strong>
+            </div>
+            <div class="sp-p-breakdown-item">
+              <label>Costo semanal</label>
+              <strong>$ <?php echo number_format($price_per_week, 0, ',', '.'); ?></strong>
+            </div>
+            <div class="sp-p-breakdown-item">
+              <label>Envío Colombia</label>
+              <strong style="color:#10b981;">GRATIS</strong>
+            </div>
           </div>
         </div>
 
-        <!-- Benefits Hero Box -->
-        <?php if (!empty($benefits)) : ?>
-        <div class="benefits-hero">
-          <div class="benefits-hero-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            Beneficios principales
+        <!-- Key Benefits Card -->
+        <div class="sp-p-benefits-card">
+          <div class="sp-p-benefits-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Beneficios Principales Demostrados
           </div>
-          <div class="benefits-hero-grid">
-            <?php foreach (array_slice($benefits, 0, 6) as $b) : $b = trim($b); if (!$b) continue; ?>
-            <div class="benefit-item">
-              <div class="benefit-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              </div>
-              <div class="benefit-text"><strong><?php echo esc_html($b); ?></strong></div>
+          <div class="sp-p-benefits-grid">
+            <?php foreach ($benefits as $b) : $b = trim($b); if (!$b) continue; ?>
+            <div class="sp-p-benefit-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span><?php echo esc_html($b); ?></span>
             </div>
             <?php endforeach; ?>
           </div>
         </div>
-        <?php endif; ?>
 
-        <!-- Protocol Selector -->
+        <!-- Protocol Multi-Pack Selector -->
         <?php if ($product->get_id() != 25 && $cat_name != 'Accesorios') : ?>
-        <div class="protocol-selector" id="protocolSelector">
-          <div class="protocol-header">Elige tu protocolo</div>
-          <div class="protocol-option" data-qty="1" data-discount="0">
-            <div class="protocol-left">
-              <div class="protocol-radio"><div class="protocol-radio-inner"></div></div>
-              <span class="protocol-name">1 Unidad — Protocolo Inicial</span>
-            </div>
-            <div class="protocol-right">
-              <div class="protocol-price" data-base="<?php echo $price; ?>">$ <?php echo number_format($price, 0, ',', '.'); ?></div>
-            </div>
+        <div class="sp-p-protocol-box" id="spProtocolSelector">
+          <div class="sp-p-protocol-header">
+            Elige tu Protocolo de Tratamiento
+            <span>Ahorro aplicable automático</span>
           </div>
-          <div class="protocol-option" data-qty="2" data-discount="0.10">
-            <div class="protocol-left">
-              <div class="protocol-radio"><div class="protocol-radio-inner"></div></div>
-              <span class="protocol-name">2 Unidades — Avanzado</span>
-              <span class="protocol-badge save">Ahorra 10%</span>
-            </div>
-            <div class="protocol-right">
-              <div class="protocol-price" data-base="<?php echo $price; ?>">$ <?php echo number_format($price * 2 * 0.9, 0, ',', '.'); ?></div>
-              <div class="protocol-savings">Ahorras $ <?php echo number_format($price * 2 * 0.1, 0, ',', '.'); ?></div>
-            </div>
-          </div>
-          <div class="protocol-option selected" data-qty="3" data-discount="0.20">
-            <div class="protocol-left">
-              <div class="protocol-radio"><div class="protocol-radio-inner"></div></div>
-              <span class="protocol-name">3 Unidades — Profesional</span>
-              <span class="protocol-badge popular">MAS POPULAR</span>
-            </div>
-            <div class="protocol-right">
-              <div class="protocol-price" data-base="<?php echo $price; ?>">$ <?php echo number_format($price * 3 * 0.8, 0, ',', '.'); ?></div>
-              <div class="protocol-savings">Ahorras $ <?php echo number_format($price * 3 * 0.2, 0, ',', '.'); ?></div>
-            </div>
-          </div>
-          <div class="protocol-option" data-qty="4" data-discount="0.25">
-            <div class="protocol-left">
-              <div class="protocol-radio"><div class="protocol-radio-inner"></div></div>
-              <span class="protocol-name">4+ Unidades — Premium</span>
-              <span class="protocol-badge max">Maximo ahorro</span>
-            </div>
-            <div class="protocol-right">
-              <div class="protocol-price" data-base="<?php echo $price; ?>">$ <?php echo number_format($price * 4 * 0.75, 0, ',', '.'); ?></div>
-              <div class="protocol-savings">Ahorras $ <?php echo number_format($price * 4 * 0.25, 0, ',', '.'); ?></div>
-            </div>
-          </div>
-        </div>
-        <?php endif; ?>
 
-        <div class="product-detail-desc"><?php echo $product->get_description(); ?></div>
-
-        <!-- Urgency Triggers -->
-        <div class="sp-urgency-box">
-          <div class="urgency-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" style="animation:pulse 1.5s infinite"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            <span style="color:var(--navy);font-weight:500;">Solo quedan <strong id="spRandomStock" style="color:var(--error);">4</strong> unidades disponibles para este lote.</span>
-          </div>
-          <div class="urgency-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-            <span style="color:var(--text-secondary);"><strong id="spRandomViewers" style="color:var(--navy);">9</strong> personas estan viendo este producto ahora.</span>
-          </div>
-          <div class="urgency-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span style="color:var(--text-secondary);"><strong>Despacho rapido:</strong> Ordena en las proximas <strong id="spCountdown" style="color:var(--navy);">1h 42m</strong> para envio manana.</span>
-          </div>
-        </div>
-
-        <!-- Add to Cart -->
-        <div class="product-actions" style="grid-template-columns:1fr;">
-          <button class="btn btn-primary btn-lg sp-add-to-cart" data-product-id="<?php echo $product->get_id(); ?>" id="addToCartBtn" style="width:100%;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            <span id="addToCartText">Agregar al carrito</span>
-          </button>
-          <a href="<?php echo wc_get_checkout_url(); ?>" class="btn btn-outline btn-lg" id="buyNowBtn" style="width:100%;text-align:center;">Comprar ahora</a>
-        </div>
-
-        <a href="https://wa.me/573189163091?text=<?php echo urlencode('Hola, estoy interesado en '.$product->get_name().'. Precio: $ '.number_format($product->get_price(),0,',','.').'.'); ?>" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:var(--fs-xs);color:#25D366;text-decoration:none;font-weight:500;margin-top:var(--space-xs);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
-          Asesoria por WhatsApp
-        </a>
-
-        <!-- Trust badges -->
-        <div class="trust-badges">
-          <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Pago seguro</div>
-          <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Envio gratis</div>
-          <div class="trust-badge-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Autenticidad</div>
-        </div>
-
-        <!-- Shipping bar -->
-        <div class="shipping-bar-wrap" id="productShippingBar"></div>
-
-        <!-- Combo Builder -->
-        <?php if ($product->get_id() != 25 && $cat_name != 'Accesorios') : ?>
-        <div class="sp-combo-box">
-          <h4>
-            <span></span>
-            Frecuentemente comprados juntos
-          </h4>
-          
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <label class="combo-row-item">
-              <input type="checkbox" id="spComboMainCheck" checked disabled>
-              <span style="flex: 1; font-size: 13px; color: #4b5563;">Este producto: <strong style="color: #0b1d3a;"><?php echo $product->get_name(); ?></strong></span>
-              <span style="font-weight: 700; color: #0b1d3a; font-size: 13px;">$ <?php echo number_format($product->get_price(), 0, ',', '.'); ?></span>
-            </label>
-            
-            <label class="combo-row-item">
-              <input type="checkbox" id="spComboWaterCheck" checked>
-              <span style="flex: 1; font-size: 13px; color: #4b5563; display: flex; align-items: center; flex-wrap: wrap;">
-                Agua Bacteriostática (10ml) 
-                <span style="font-size: 9px; color: #059669; font-weight: 700; background: rgba(5,150,105,0.08); padding: 2px 8px; border-radius: 9999px; margin-left: 8px;">Combo -10%</span>
-              </span>
-              <span style="text-decoration: line-through; font-size: 11px; color: #9ca3af; margin-right: 6px;">$ 37.000</span>
-              <span style="font-weight: 700; color: var(--accent); font-size: 13px;">$ 33.300</span>
-            </label>
-          </div>
-          
-          <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
-            <div>
-              <div style="font-size: 11px; color: #6b7280; text-transform: uppercase; font-weight: 700;">Precio del Combo:</div>
-              <div style="font-family: var(--font-heading); font-size: 20px; font-weight: 800; color: #0b1d3a;" id="spComboTotalPrice">
-                $ <?php echo number_format($product->get_price() + 33300, 0, ',', '.'); ?>
+          <!-- 1 Unit -->
+          <div class="sp-p-protocol-card" data-qty="1" data-discount="0" data-price="<?php echo $price; ?>">
+            <div class="sp-p-protocol-left">
+              <div class="sp-p-radio-dot"></div>
+              <div class="sp-p-protocol-info-text">
+                <span class="sp-p-protocol-name">1 Vial — Protocolo Inicial</span>
               </div>
             </div>
-            <button type="button" class="btn btn-accent btn-sm" id="spAddComboBtn" style="padding: 12px 24px; border-radius: 10px; font-weight: 700; font-size: 13px;">
-              Agregar Combo al Carrito
-            </button>
+            <div class="sp-p-protocol-right">
+              <span class="sp-p-protocol-price">$ <?php echo number_format($price, 0, ',', '.'); ?></span>
+            </div>
+          </div>
+
+          <!-- 2 Units -->
+          <div class="sp-p-protocol-card" data-qty="2" data-discount="0.10" data-price="<?php echo round($price * 2 * 0.9); ?>">
+            <div class="sp-p-protocol-left">
+              <div class="sp-p-radio-dot"></div>
+              <div class="sp-p-protocol-info-text">
+                <span class="sp-p-protocol-name">2 Viales — Protocolo Avanzado</span>
+                <span class="sp-p-protocol-badge save">Ahorra 10%</span>
+              </div>
+            </div>
+            <div class="sp-p-protocol-right">
+              <span class="sp-p-protocol-price">$ <?php echo number_format($price * 2 * 0.9, 0, ',', '.'); ?></span>
+              <div class="sp-p-protocol-savings">Ahorras $ <?php echo number_format($price * 2 * 0.1, 0, ',', '.'); ?></div>
+            </div>
+          </div>
+
+          <!-- 3 Units (DEFAULT SELECTED) -->
+          <div class="sp-p-protocol-card active" data-qty="3" data-discount="0.20" data-price="<?php echo round($price * 3 * 0.8); ?>">
+            <div class="sp-p-protocol-left">
+              <div class="sp-p-radio-dot"></div>
+              <div class="sp-p-protocol-info-text">
+                <span class="sp-p-protocol-name">3 Viales — Protocolo Profesional</span>
+                <span class="sp-p-protocol-badge popular">MÁS POPULAR</span>
+              </div>
+            </div>
+            <div class="sp-p-protocol-right">
+              <span class="sp-p-protocol-price">$ <?php echo number_format($price * 3 * 0.8, 0, ',', '.'); ?></span>
+              <div class="sp-p-protocol-savings">Ahorras $ <?php echo number_format($price * 3 * 0.2, 0, ',', '.'); ?></div>
+            </div>
+          </div>
+
+          <!-- 4 Units -->
+          <div class="sp-p-protocol-card" data-qty="4" data-discount="0.25" data-price="<?php echo round($price * 4 * 0.75); ?>">
+            <div class="sp-p-protocol-left">
+              <div class="sp-p-radio-dot"></div>
+              <div class="sp-p-protocol-info-text">
+                <span class="sp-p-protocol-name">4+ Viales — Máximo Ahorro Clinical</span>
+                <span class="sp-p-protocol-badge save">Ahorra 25%</span>
+              </div>
+            </div>
+            <div class="sp-p-protocol-right">
+              <span class="sp-p-protocol-price">$ <?php echo number_format($price * 4 * 0.75, 0, ',', '.'); ?></span>
+              <div class="sp-p-protocol-savings">Ahorras $ <?php echo number_format($price * 4 * 0.25, 0, ',', '.'); ?></div>
+            </div>
           </div>
         </div>
         <?php endif; ?>
 
-        <!-- Included Box -->
-        <div class="included-box">
-          <div class="included-title">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-            Tu pedido incluye
+        <!-- Urgency Triggers Card -->
+        <div class="sp-p-urgency-card">
+          <div class="sp-p-urgency-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" style="animation:pulse 1.5s infinite"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            <span>Solo quedan <strong style="color:#ef4444;" id="spStockCounter">4 viales</strong> disponibles de este lote certificado.</span>
           </div>
-          <ul class="included-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Producto sellado al vacío</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Certificado HPLC de pureza</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Guia de dosificacion (PDF)</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Asesoria medica WhatsApp</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Envio gratis a Colombia</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Empaque discreto y seguro</li>
-          </ul>
+          <div class="sp-p-urgency-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#00a8ff" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            <span><strong style="color:#ffffff;" id="spViewersCounter">11 especialistas</strong> están revisando este producto ahora.</span>
+          </div>
+          <div class="sp-p-urgency-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span><strong>Envío express hoy:</strong> Ordena en las próximas <strong style="color:#ffffff;" id="spCountdownTimer">1h 35m</strong> para despacho mañana.</span>
+          </div>
         </div>
 
-        <!-- Specs -->
-        <?php if ($purity || $content_val || $molecular || $mol_weight) : ?>
-        <div class="spec-grid" style="margin-top:var(--space-lg);">
-          <?php if ($purity) : ?><div class="spec-card"><div class="spec-card-label">Pureza</div><div class="spec-card-value"><?php echo esc_html($purity); ?></div></div><?php endif; ?>
-          <?php if ($content_val) : ?><div class="spec-card"><div class="spec-card-label">Contenido</div><div class="spec-card-value"><?php echo esc_html($content_val); ?></div></div><?php endif; ?>
-          <?php if ($molecular) : ?><div class="spec-card"><div class="spec-card-label">Formula</div><div class="spec-card-value"><?php echo esc_html($molecular); ?></div></div><?php endif; ?>
-          <?php if ($mol_weight) : ?><div class="spec-card"><div class="spec-card-label">Peso Molecular</div><div class="spec-card-value"><?php echo esc_html($mol_weight); ?></div></div><?php endif; ?>
+        <!-- Action Buttons -->
+        <div class="sp-p-actions-container">
+          <button type="button" class="sp-p-btn-add sp-add-to-cart" data-product-id="<?php echo $product->get_id(); ?>" id="spAddToCartMainBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <span id="spBtnAddText">Añadir al Carrito</span>
+          </button>
+          
+          <a href="<?php echo wc_get_checkout_url(); ?>" class="sp-p-btn-buy" id="spBuyNowMainBtn">
+            Comprar Ahora (Pago Seguro)
+          </a>
+
+          <a href="https://wa.me/573189163091?text=<?php echo urlencode('Hola Swiss Peptides, deseo asesoría personalizada para adquirir '.$product->get_name()); ?>" target="_blank" class="sp-p-whatsapp-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+            Asesoría personalizada por WhatsApp
+          </a>
+        </div>
+
+        <!-- Trust Strip -->
+        <div class="sp-p-trust-strip">
+          <div class="sp-p-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Pago 100% Seguro
+          </div>
+          <div class="sp-p-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Envío Gratis Colombia
+          </div>
+          <div class="sp-p-trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Pureza Certificada
+          </div>
+        </div>
+
+        <!-- Combo Box -->
+        <?php if ($product->get_id() != 25 && $cat_name != 'Accesorios') : ?>
+        <div class="sp-p-combo-card">
+          <h4>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a8ff" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Frecuentemente comprados juntos (Combo Recomendado)
+          </h4>
+          <div class="sp-p-combo-row">
+            <input type="checkbox" id="spComboMainItem" checked disabled>
+            <span style="flex:1;">Este producto: <strong style="color:#fff;"><?php echo esc_html($product->get_name()); ?></strong></span>
+            <strong style="color:#00a8ff;">$ <?php echo number_format($price, 0, ',', '.'); ?></strong>
+          </div>
+          <div class="sp-p-combo-row">
+            <input type="checkbox" id="spComboAddonItem" checked>
+            <span style="flex:1;">Agua Bacteriostática Grado Clínico (30ml)</span>
+            <strong style="color:#00a8ff;">$ 75.000</strong>
+          </div>
         </div>
         <?php endif; ?>
 
-        <!-- Storage -->
-        <?php if ($storage) : ?>
-        <div style="margin-top:var(--space-md);padding:var(--space-md);background:#ffffff;border-radius:var(--radius-lg);border:1px solid var(--border-subtle);">
-          <strong style="font-size:var(--fs-sm);color:var(--navy);">Almacenamiento:</strong>
-          <p style="font-size:var(--fs-sm);color:var(--text-secondary);margin-top:4px;"><?php echo esc_html($storage); ?></p>
-        </div>
-        <?php endif; ?>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- Shopify-style Features Grid Section -->
-<section class="features-section">
-  <div class="container">
-    <div class="features-container-grid">
-      <div class="feature-card-modern">
-        <div class="feature-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <h3 class="feature-card-title">Pureza Certificada</h3>
-        <p class="feature-card-desc">Garantizamos una pureza superior al 98% mediante analisis HPLC y espectrometria de masas en cada lote fabricado.</p>
-      </div>
-      
-      <div class="feature-card-modern">
-        <div class="feature-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        </div>
-        <h3 class="feature-card-title">Cadena de Frio</h3>
-        <p class="feature-card-desc">Empaque termico discreto con gel refrigerante para proteger la estabilidad de la molecula durante todo el envio.</p>
-      </div>
-      
-      <div class="feature-card-modern">
-        <div class="feature-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        </div>
-        <h3 class="feature-card-title">Soporte y Asesoria</h3>
-        <p class="feature-card-desc">Acceso inmediato a nuestro equipo medico por WhatsApp para resolver dudas sobre dosificacion y reconstitucion.</p>
-      </div>
     </div>
-  </div>
-</section>
 
-<!-- Customer Objections FAQ Section -->
-<section class="faq-section-prod">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:var(--space-2xl);">
-      <h2 style="font-family:var(--font-heading);font-size:var(--fs-2xl);font-weight:800;color:var(--navy);margin-bottom:var(--space-xs);">Preguntas frecuentes sobre este producto</h2>
-      <p style="font-size:var(--fs-sm);color:var(--text-secondary);max-width:500px;margin:0 auto;">Resolvemos tus principales dudas sobre el envio, dosificacion y garantia.</p>
-    </div>
-    
-    <div class="faq-accordion">
-      <div class="faq-item-prod">
-        <div class="faq-header-prod" onclick="toggleFaq(this)">
-          ¿Como realizo el pago de forma segura?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="faq-content-prod">
-          Tu pago es procesado de forma 100% segura por Bold Colombia. Aceptamos PSE (cuentas de ahorros/corriente), tarjetas de credito/debito Visa, Mastercard y American Express. Todos tus datos viajan encriptados bajo protocolos SSL seguros.
-        </div>
-      </div>
+    <!-- Below Fold Technical Specs & FAQs -->
+    <div class="sp-p-below-fold">
+      <h3 class="sp-p-section-title">Especificaciones Técnicas del Lote</h3>
       
-      <div class="faq-item-prod">
-        <div class="faq-header-prod" onclick="toggleFaq(this)">
-          ¿Como se realiza el envio y cuanto tarda?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="sp-p-specs-grid">
+        <div class="sp-p-spec-card">
+          <label>Pureza Certificada</label>
+          <strong><?php echo esc_html($purity); ?></strong>
         </div>
-        <div class="faq-content-prod">
-          El envio es totalmente gratuito a toda Colombia. El pedido se entrega en un empaque termico sellado y sin marcas identificativas para garantizar la confidencialidad. El tiempo de entrega promedio es de 2 a 5 dias habiles.
+        <div class="sp-p-spec-card">
+          <label>Concentración</label>
+          <strong><?php echo esc_html($content_val); ?></strong>
         </div>
-      </div>
-      
-      <div class="faq-item-prod">
-        <div class="faq-header-prod" onclick="toggleFaq(this)">
-          ¿Que es la reconstitucion del peptido?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        <div class="sp-p-spec-card">
+          <label>Almacenamiento</label>
+          <strong><?php echo esc_html($storage); ?></strong>
         </div>
-        <div class="faq-content-prod">
-          Los peptidos se envian liofilizados (en polvo al vacio) para preservar su estructura. Para utilizarlos, debes diluirlos con Agua Bacteriostatica (10ml). Te proporcionamos una guia digital PDF de dosificacion automatica y asesoria directa para realizarlo de forma segura.
+        <div class="sp-p-spec-card">
+          <label>Secuencia / Grado</label>
+          <strong><?php echo esc_html($molecular); ?></strong>
         </div>
       </div>
 
-      <div class="faq-item-prod">
-        <div class="faq-header-prod" onclick="toggleFaq(this)">
-          ¿Cómo debo almacenar el producto una vez reconstituido?
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div class="faq-content-prod">
-          Antes de diluirse, puedes almacenarlo en un lugar fresco fuera de la luz directa. Una vez reconstituido con agua bacteriostatica, debe mantenerse obligatoriamente en refrigeracion (entre 2 y 8 grados centigrados) para asegurar su estabilidad molecular por hasta 30 dias.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      <h3 class="sp-p-section-title" style="margin-top:40px;">Preguntas Frecuentes de Especialistas</h3>
 
-<!-- Recommended Products -->
-<section class="recommended-section" style="background:#ffffff;">
-  <div class="container">
-    <h2 style="font-family:var(--font-heading);font-size:var(--fs-2xl);font-weight:800;color:var(--navy);margin-bottom:var(--space-2xl);">Tambien te puede interesar</h2>
-    <div class="recommended-grid">
-      <?php
-      $related = wc_get_related_products($product->get_id(), 4);
-      foreach ($related as $rid) :
-        $rp = wc_get_product($rid);
-        if (!$rp) continue;
-        $rcats = wp_get_post_terms($rid, 'product_cat');
-        $rcat = !empty($rcats) ? $rcats[0]->name : '';
-      ?>
-      <div class="product-card" onclick="window.location.href='<?php echo $rp->get_permalink(); ?>'">
-        <div class="product-image-wrap"><?php echo $rp->get_image('product-card'); ?></div>
-        <div class="product-info">
-          <div class="product-category"><?php echo esc_html($rcat); ?></div>
-          <h3 class="product-name"><?php echo $rp->get_name(); ?></h3>
-          <div class="product-price-row">
-            <span class="product-price"><?php echo $rp->get_price_html(); ?></span>
-            <button class="product-add-btn sp-add-to-cart" data-product-id="<?php echo $rp->get_id(); ?>">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
+      <div class="sp-p-faq-list">
+        <div class="sp-p-faq-item">
+          <div class="sp-p-faq-question">
+            ¿Cómo se garantiza la pureza del 99% del péptido?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a8ff" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="sp-p-faq-answer">
+            Cada lote producido por Swiss Peptides Labs se somete a cromatografía líquida de alta resolución (HPLC) y espectrometría de masas (MS) para certificar su pureza y secuencia exacta antes de su distribución.
+          </div>
+        </div>
+
+        <div class="sp-p-faq-item">
+          <div class="sp-p-faq-question">
+            ¿Cuál es el tiempo de entrega en Colombia?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a8ff" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="sp-p-faq-answer">
+            Los despachos a Bogotá, Medellín, Cali y Barranquilla demoran de 24 a 48 horas hábiles con empaque de protección térmica para preservar la integridad del péptido. El envío es totalmente gratis.
+          </div>
+        </div>
+
+        <div class="sp-p-faq-item">
+          <div class="sp-p-faq-question">
+            ¿Cómo se realiza la reconstitución del vial?
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00a8ff" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="sp-p-faq-answer">
+            Se recomienda utilizar Agua Bacteriostática estéril dejando deslizar suavemente el líquido por la pared interna del vial liofilizado sin agitar bruscamente.
           </div>
         </div>
       </div>
-      <?php endforeach; ?>
+
     </div>
+
   </div>
-</section>
+</div>
 
 <script>
-function toggleFaq(header) {
-  const item = header.parentElement;
-  const isOpen = item.classList.contains('open');
-  
-  // Close all other FAQs
-  document.querySelectorAll('.faq-item-prod').forEach(i => {
-    i.classList.remove('open');
-  });
-  
-  if (!isOpen) {
-    item.classList.add('open');
-  }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-  // Protocol Selector
-  let selectedQty = 3; // Default: 3 units (pre-selected)
-  const protocolOptions = document.querySelectorAll('.protocol-option');
-  const addToCartBtn = document.getElementById('addToCartBtn');
-  const basePrice = <?php echo (float)$product->get_price(); ?>;
-  
-  protocolOptions.forEach(opt => {
-    opt.addEventListener('click', function() {
-      protocolOptions.forEach(o => o.classList.remove('selected'));
-      this.classList.add('selected');
-      selectedQty = parseInt(this.dataset.qty);
+  var selectedQty = 3;
+  var basePrice = <?php echo $price; ?>;
+
+  // Protocol Selector Cards Click
+  var protocolCards = document.querySelectorAll('.sp-p-protocol-card');
+  protocolCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      protocolCards.forEach(function(c) { c.classList.remove('active'); });
+      this.classList.add('active');
+      selectedQty = parseInt(this.getAttribute('data-qty')) || 1;
       
-      // Update qty input
-      if (document.getElementById('qtyInput')) {
-        document.getElementById('qtyInput').value = selectedQty;
+      // Update Main Price Display
+      var newPrice = this.getAttribute('data-price');
+      var mainDisplay = document.getElementById('spMainPriceDisplay');
+      if (mainDisplay && newPrice) {
+        mainDisplay.textContent = '$ ' + parseInt(newPrice).toLocaleString('es-CO');
+      }
+      
+      // Update Add to Cart Button Text
+      var btnText = document.getElementById('spBtnAddText');
+      if (btnText && newPrice) {
+        btnText.textContent = 'Añadir ' + selectedQty + ' Vial' + (selectedQty > 1 ? 'es' : '') + ' al Carrito — $ ' + parseInt(newPrice).toLocaleString('es-CO');
       }
     });
   });
 
-  // Qty from protocol feeds into add-to-cart
-  if (addToCartBtn) {
-    const origClick = addToCartBtn.onclick;
-    addToCartBtn.addEventListener('click', function() {
-      this.dataset.qty = selectedQty;
-    });
-  }
-
-  // Urgency / Scarcity
-  const stockEl = document.getElementById('spRandomStock');
-  const viewersEl = document.getElementById('spRandomViewers');
-  const countdownEl = document.getElementById('spCountdown');
-
-  if (stockEl) stockEl.textContent = Math.floor(Math.random() * 4) + 3;
-  if (viewersEl) {
-    viewersEl.textContent = Math.floor(Math.random() * 8) + 7;
-    setInterval(() => { viewersEl.textContent = Math.floor(Math.random() * 8) + 7; }, 12000);
-  }
-  if (countdownEl) {
-    function updateCountdown() {
-      const now = new Date();
-      let cutoff = new Date();
-      cutoff.setHours(16, 0, 0, 0);
-      if (now >= cutoff) cutoff.setDate(cutoff.getDate() + 1);
-      const diffMs = cutoff - now;
-      const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
-      const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-      countdownEl.textContent = diffHrs + 'h ' + diffMins + 'm';
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 60000);
-  }
-
-  // 1-Click Buy Now
-  const buyNowBtn = document.getElementById('buyNowBtn');
-  if (buyNowBtn && addToCartBtn) {
-    buyNowBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      buyNowBtn.classList.add('disabled');
-      buyNowBtn.style.pointerEvents = 'none';
-      buyNowBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" class="sp-spin" style="margin-right:8px;vertical-align:middle;display:inline-block;"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="30 60"/></svg> Procesando...';
+  // Add to Cart Click Handler
+  var addBtn = document.getElementById('spAddToCartMainBtn');
+  if (addBtn) {
+    addBtn.addEventListener('click', function() {
+      var productId = this.getAttribute('data-product-id');
+      var comboAddon = document.getElementById('spComboAddonItem');
+      var includeCombo = comboAddon && comboAddon.checked;
       
-      fetch('/?wc-ajax=add_to_cart', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'product_id=' + addToCartBtn.dataset.productId + '&quantity=' + selectedQty
-      })
-      .then(r => r.json())
-      .then(() => { window.location.href = '<?php echo wc_get_checkout_url(); ?>'; })
-      .catch(() => { window.location.href = '<?php echo wc_get_checkout_url(); ?>'; });
-    });
-  }
+      this.disabled = true;
+      var btnText = document.getElementById('spBtnAddText');
+      var originalText = btnText ? btnText.textContent : 'Añadir al Carrito';
+      if (btnText) btnText.textContent = 'Añadiendo...';
 
-  // Combo Builder
-  const comboCheck = document.getElementById('spComboWaterCheck');
-  const comboTotalEl = document.getElementById('spComboTotalPrice');
-  const addComboBtn = document.getElementById('spAddComboBtn');
-
-  if (comboCheck && comboTotalEl) {
-    const mainPrice = <?php echo (float)$product->get_price(); ?>;
-    const waterPrice = 33300;
-    comboCheck.addEventListener('change', function() {
-      let total = mainPrice;
-      if (comboCheck.checked) total += waterPrice;
-      comboTotalEl.textContent = '$ ' + total.toLocaleString('es-CO');
-    });
-  }
-
-  if (addComboBtn) {
-    addComboBtn.addEventListener('click', function() {
-      addComboBtn.disabled = true;
-      const originalText = addComboBtn.textContent;
-      addComboBtn.innerHTML = 'Agregando...';
-      
-      const promises = [];
+      var promises = [];
       promises.push(
         fetch('/?wc-ajax=add_to_cart', {
-          method: 'POST', credentials: 'same-origin',
+          method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: 'product_id=<?php echo $product->get_id(); ?>&quantity=' + selectedQty
+          body: 'product_id=' + productId + '&quantity=' + selectedQty
         })
       );
-      
-      if (comboCheck && comboCheck.checked) {
+
+      if (includeCombo) {
         promises.push(
           fetch('/?wc-ajax=add_to_cart', {
-            method: 'POST', credentials: 'same-origin',
+            method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: 'product_id=25&quantity=1'
           })
         );
       }
-      
+
       Promise.all(promises)
-        .then(responses => Promise.all(responses.map(r => r.json())))
-        .then(dataArray => {
-          const lastData = dataArray[dataArray.length - 1];
-          if (lastData && lastData.fragments) {
-            if (typeof updateFromFragments === 'function') updateFromFragments(lastData.fragments);
-            if (typeof showToast === 'function') showToast('Combo agregado al carrito con descuento', 'success');
-            if (typeof openCart === 'function') openCart();
-          } else { window.location.reload(); }
+        .then(function(responses) { return Promise.all(responses.map(function(r) { return r.json(); })); })
+        .then(function(dataArray) {
+          window.location.href = '/cart/';
         })
-        .catch(() => { window.location.reload(); })
-        .finally(() => {
-          addComboBtn.disabled = false;
-          addComboBtn.textContent = originalText;
+        .catch(function() {
+          window.location.href = '/cart/';
         });
     });
   }
-
-  if (typeof spRenderShippingBar === 'function') spRenderShippingBar('productShippingBar');
 });
 </script>
 
