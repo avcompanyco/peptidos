@@ -293,7 +293,7 @@ body.woocommerce-checkout {
     font-size: 1.05rem !important;
     font-weight: 800 !important;
     border: none !important;
-    border-radius: 16px !important;
+    border-radius: 50px !important;
     text-decoration: none !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
@@ -480,12 +480,12 @@ body.woocommerce-checkout {
             <?php endif; endforeach; ?>
           </div>
 
-          <div class="sp-review-line">
+          <div class="sp-review-line" style="border-bottom:none!important;">
             <span>Subtotal (<?php echo WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?> productos)</span>
             <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
 
-          <div class="sp-review-line">
+          <div class="sp-review-line" style="border-bottom:none!important;">
             <span>Envío a Colombia</span>
             <span style="color:#059669;font-weight:700;">GRATIS</span>
           </div>
