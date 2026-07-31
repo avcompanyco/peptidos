@@ -358,6 +358,15 @@ window.spUpdateCartDrawerFromAJAX = function() {
     const body = document.getElementById('cartSidebarBody');
     const totalEl = document.getElementById('cartTotalAmount');
     const countEl = document.getElementById('cartCount');
+    const floatSub = document.getElementById('floatingCartSubtotal');
+    if (floatSub) {
+      floatSub.textContent = '$ ' + parseInt(data.total || 0).toLocaleString('es-CO');
+    }
+    const floatCounts = document.querySelectorAll('.floating-cart-count, #floatingCartCount');
+    floatCounts.forEach(el => {
+      el.textContent = data.count || 0;
+      el.style.display = (data.count > 0) ? 'flex' : 'none';
+    });
 
     if (countEl) {
       countEl.textContent = data.count || 0;
