@@ -2314,3 +2314,23 @@ function sp_master_shop_template_override($template) {
     }
     return $template;
 }
+
+
+// FORCE SINGLE PRODUCT REWRITE RULES & TEMPLATE LOADING (/producto/ & /product/)
+add_action('init', 'sp_custom_product_rewrite_rules', 5);
+function sp_custom_product_rewrite_rules() {
+    add_rewrite_rule('^producto/([^/]+)/?$', 'index.php?product=$matches[1]', 'top');
+    add_rewrite_rule('^product/([^/]+)/?$', 'index.php?product=$matches[1]', 'top');
+}
+
+add_filter('template_include', 'sp_single_product_template_override', 99);
+function sp_single_product_template_override($template) {
+    if (is_admin()) return $template;
+    if (is_singular('product') || get_query_var('product') || (isset($_SERVER['REQUEST_URI']) && (strpos($_SERVER['REQUEST_URI'], '/producto/') !== false || strpos($_SERVER['REQUEST_URI'], '/product/') !== false))) {
+        $single_prod_template = get_template_directory() . '/single-product.php';
+        if (file_exists($single_prod_template)) {
+            return $single_prod_template;
+        }
+    }
+    return $template;
+}
