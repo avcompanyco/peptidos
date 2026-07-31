@@ -1,3 +1,26 @@
+
+<style id="single-product-master-visibility-fix">
+body.single-product,
+body.wp-singular.single-product {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+}
+.product-detail {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    padding-top: calc(var(--navbar-height, 80px) + 30px) !important;
+    min-height: 80vh !important;
+}
+.product-detail-name,
+.product-detail-price {
+    color: #0f172a !important;
+}
+.product-detail-desc,
+.product-detail-subtitle {
+    color: #334155 !important;
+}
+</style>
+
 <?php
 /**
  * WooCommerce Single Product — Session 2 Fully Optimized
