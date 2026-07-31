@@ -1,296 +1,508 @@
 <?php
 /**
- * Template Name: Carrito Premium
- * Custom Cart Page — Swiss Peptides Clinical Luxury
+ * Master Light Clinical Luxury Cart Page
+ * Swiss Peptides 2026 - Zero Emojis, 100% Responsive & High Contrast
  */
-defined('ABSPATH') || exit;
-
 get_header();
 
-// Ensure WC cart exists
-if (!function_exists('WC') || !WC()->cart) {
-    echo '<p>Error cargando el carrito.</p>';
-    get_footer();
-    return;
-}
-
-WC()->cart->calculate_totals();
 $cart_items = WC()->cart->get_cart();
-$is_empty   = WC()->cart->is_empty();
-$subtotal   = WC()->cart->get_subtotal();
-$total      = WC()->cart->get_total('');
+$subtotal = WC()->cart->get_subtotal();
+$total = WC()->cart->get_total();
 ?>
 
-<style>
-/* ── Cart Page Shell ── */
-.sp-cart-page{padding:calc(var(--navbar-height) + 60px) 0 var(--space-4xl);background:var(--bg-secondary);min-height:100vh}
-.sp-cart-breadcrumb{margin-bottom:var(--space-lg);font-size:var(--fs-xs);color:var(--text-muted)}
-.sp-cart-breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color .2s}
-.sp-cart-breadcrumb a:hover{color:var(--accent)}
-.sp-cart-title{font-family:var(--font-heading);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--navy);margin-bottom:var(--space-2xl)}
-.sp-cart-title span{color:var(--accent)}
-
-/* ── 2-Column Grid ── */
-.sp-cart-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:var(--space-2xl);align-items:start}
-
-/* ── Items Card ── */
-.sp-cart-items-card{background:var(--white);border:1px solid var(--border-color);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-sm)}
-
-/* Header Row */
-.sp-cart-header{display:grid;grid-template-columns:60px 1fr 120px 120px 120px 40px;gap:var(--space-md);padding:var(--space-md) var(--space-xl);background:var(--gray-50);border-bottom:1px solid var(--border-color);align-items:center}
-.sp-cart-header span{font-family:var(--font-heading);font-weight:700;font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-500)}
-
-/* Item Row */
-.sp-cart-item{display:grid;grid-template-columns:60px 1fr 120px 120px 120px 40px;gap:var(--space-md);padding:var(--space-lg) var(--space-xl);border-bottom:1px solid var(--border-subtle);align-items:center;transition:background .2s}
-.sp-cart-item:last-child{border-bottom:none}
-.sp-cart-item:hover{background:var(--gray-50)}
-.sp-cart-item-img{width:56px;height:56px;border-radius:var(--radius-md);overflow:hidden;background:var(--gray-50);border:1px solid var(--border-color);display:flex;align-items:center;justify-content:center}
-.sp-cart-item-img img{max-width:90%;max-height:90%;object-fit:contain}
-.sp-cart-item-name{font-family:var(--font-heading);font-weight:700;font-size:var(--fs-sm);color:var(--navy)}
-.sp-cart-item-name a{color:inherit;text-decoration:none;transition:color .2s}
-.sp-cart-item-name a:hover{color:var(--accent)}
-.sp-cart-item-cat{font-size:var(--fs-xs);color:var(--gray-500);margin-top:2px}
-.sp-cart-item-price{font-family:var(--font-heading);font-weight:700;color:var(--navy);font-size:var(--fs-sm)}
-.sp-cart-item-subtotal{font-family:var(--font-heading);font-weight:700;color:var(--navy);font-size:var(--fs-sm)}
-
-/* Quantity Control */
-.sp-qty-control{display:inline-flex;align-items:center;border:1.5px solid var(--border-color);border-radius:var(--radius-md);overflow:hidden}
-.sp-qty-btn{width:32px;height:36px;display:flex;align-items:center;justify-content:center;background:var(--gray-50);border:none;cursor:pointer;color:var(--navy);font-size:16px;font-weight:600;transition:background .2s}
-.sp-qty-btn:hover{background:var(--gray-200)}
-.sp-qty-input{width:40px;height:36px;text-align:center;border:none;border-left:1.5px solid var(--border-color);border-right:1.5px solid var(--border-color);font-family:var(--font-heading);font-weight:700;font-size:var(--fs-sm);color:var(--navy);background:var(--white);-moz-appearance:textfield}
-.sp-qty-input::-webkit-inner-spin-button,.sp-qty-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-
-/* Remove Button */
-.sp-cart-remove{width:32px;height:32px;display:flex;align-items:center;justify-content:center;background:var(--gray-50);border:none;border-radius:var(--radius-md);cursor:pointer;color:var(--gray-400);transition:all .2s}
-.sp-cart-remove:hover{background:#fef2f2;color:#ef4444}
-
-/* ── Coupon Row ── */
-.sp-cart-actions{display:flex;gap:var(--space-md);padding:var(--space-lg) var(--space-xl);background:var(--gray-50);align-items:center;flex-wrap:wrap}
-.sp-coupon-form{display:flex;gap:var(--space-sm);flex:1;min-width:200px}
-.sp-coupon-input{padding:12px 16px;border:1.5px solid var(--border-color);border-radius:var(--radius-lg);font-size:var(--fs-sm);font-family:var(--font-primary);background:var(--white);flex:1;max-width:240px;color:var(--navy)}
-.sp-coupon-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(14,165,233,.08)}
-.sp-coupon-btn{padding:12px 20px;background:var(--navy);color:var(--white);border:none;border-radius:var(--radius-lg);font-family:var(--font-heading);font-weight:600;font-size:var(--fs-xs);cursor:pointer;transition:all .3s;white-space:nowrap}
-.sp-coupon-btn:hover{background:var(--accent)}
-.sp-continue-shopping{margin-left:auto;font-size:var(--fs-sm);color:var(--accent);text-decoration:none;font-weight:500;display:flex;align-items:center;gap:6px;transition:color .2s}
-.sp-continue-shopping:hover{color:var(--navy)}
-
-/* ── Summary Sidebar ── */
-.sp-cart-summary{background:var(--white);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:var(--space-2xl);position:sticky;top:calc(var(--navbar-height) + var(--space-lg));box-shadow:var(--shadow-sm)}
-.sp-cart-summary h3{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;color:var(--navy);margin-bottom:var(--space-xl);padding-bottom:var(--space-md);border-bottom:1px solid var(--border-subtle)}
-.sp-summary-row{display:flex;justify-content:space-between;padding:var(--space-sm) 0;font-size:var(--fs-sm)}
-.sp-summary-row .label{color:var(--gray-600)}
-.sp-summary-row .value{font-weight:600;color:var(--navy)}
-.sp-summary-total{display:flex;justify-content:space-between;padding:var(--space-lg) 0 var(--space-md);font-family:var(--font-heading);font-weight:800;font-size:var(--fs-xl);color:var(--navy);border-top:2px solid var(--navy);margin-top:var(--space-md)}
-.sp-checkout-btn{display:block;width:100%;padding:18px 24px;background:var(--navy);color:var(--white);border:none;border-radius:var(--radius-xl);font-family:var(--font-heading);font-size:var(--fs-md);font-weight:700;cursor:pointer;transition:all .3s;text-align:center;text-decoration:none;margin-top:var(--space-lg)}
-.sp-checkout-btn:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 25px rgba(14,165,233,.25);color:var(--white)}
-.sp-summary-secure{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:var(--space-lg);font-size:var(--fs-xs);color:var(--text-muted)}
-.sp-summary-secure svg{width:14px;height:14px;flex-shrink:0}
-.sp-summary-badges{display:flex;gap:8px;justify-content:center;margin-top:var(--space-md);flex-wrap:wrap}
-.sp-summary-badge{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
-.sp-summary-badge svg{width:12px;height:12px;color:var(--accent)}
-
-/* ── Empty Cart ── */
-.sp-cart-empty{text-align:center;padding:var(--space-5xl) var(--space-xl)}
-.sp-cart-empty-icon{width:80px;height:80px;border-radius:var(--radius-full);background:var(--gray-50);display:flex;align-items:center;justify-content:center;margin:0 auto var(--space-xl)}
-.sp-cart-empty-icon svg{width:36px;height:36px;color:var(--gray-400)}
-.sp-cart-empty h2{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:700;color:var(--navy);margin-bottom:var(--space-md)}
-.sp-cart-empty p{font-size:var(--fs-sm);color:var(--gray-500);margin-bottom:var(--space-xl);max-width:400px;margin-left:auto;margin-right:auto}
-.sp-cart-empty .btn{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;background:var(--navy);color:var(--white);border-radius:var(--radius-xl);text-decoration:none;font-family:var(--font-heading);font-weight:700;font-size:var(--fs-sm);transition:all .3s}
-.sp-cart-empty .btn:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 25px rgba(14,165,233,.25)}
-
-/* ── Responsive ── */
-@media(max-width:1024px){
-  .sp-cart-grid{grid-template-columns:1fr}
-  .sp-cart-summary{position:static}
+<style id="sp-master-cart-page-style">
+body.woocommerce-cart {
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    font-family: var(--font-primary, system-ui, -apple-system, sans-serif) !important;
 }
-@media(max-width:768px){
-  .sp-cart-page{padding:calc(var(--navbar-height)+30px) 0 var(--space-2xl)}
-  .sp-cart-header{display:none}
-  .sp-cart-item{grid-template-columns:56px 1fr auto;gap:var(--space-sm);padding:var(--space-md)}
-  .sp-cart-item-price{display:none}
-  .sp-cart-item .sp-qty-control{grid-column:2;justify-self:start}
-  .sp-cart-item-subtotal{grid-column:3;grid-row:1/3}
-  .sp-cart-remove{grid-column:3;grid-row:2}
-  .sp-cart-actions{flex-direction:column;gap:var(--space-sm)}
-  .sp-coupon-form{width:100%;min-width:0}
-  .sp-continue-shopping{margin-left:0;justify-content:center}
+
+.sp-cart-page-wrapper {
+    padding: calc(var(--navbar-height, 80px) + 30px) 0 90px 0;
+    min-height: 85vh;
+}
+
+.sp-cart-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+}
+
+.sp-cart-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+.sp-cart-breadcrumb a {
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.sp-cart-breadcrumb a:hover {
+    color: #0284c7;
+}
+
+.sp-cart-page-title {
+    font-family: var(--font-heading, system-ui, sans-serif);
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+}
+.sp-cart-page-title span {
+    color: #0284c7;
+}
+
+.sp-cart-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Left Column: Cart Items Card */
+.sp-cart-items-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+.sp-cart-item-row {
+    display: grid;
+    grid-template-columns: 84px 1.5fr 1fr 110px 1fr 40px;
+    gap: 16px;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+.sp-cart-item-row:last-child {
+    border-bottom: none;
+}
+
+.sp-cart-item-img {
+    width: 84px;
+    height: 84px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.sp-cart-item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sp-cart-item-title {
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-decoration: none;
+    line-height: 1.3;
+}
+.sp-cart-item-cat {
+    font-size: 0.75rem;
+    color: #0284c7;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.sp-cart-item-unit-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #475569;
+}
+
+.sp-qty-pill-box {
+    display: inline-flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 4px;
+}
+.sp-qty-btn-sub {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #ffffff;
+    color: #0f172a;
+    font-weight: 800;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.sp-qty-input-sub {
+    width: 36px;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: #0f172a;
+    -moz-appearance: textfield;
+}
+.sp-qty-input-sub::-webkit-outer-spin-button,
+.sp-qty-input-sub::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.sp-cart-item-subtotal-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #0284c7;
+    text-align: right;
+}
+
+.sp-cart-btn-remove {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #ef4444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.sp-cart-btn-remove:hover {
+    background: #ef4444;
+    color: #ffffff;
+}
+
+/* Coupon & Actions Bar */
+.sp-cart-actions-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.sp-coupon-box {
+    display: flex;
+    gap: 10px;
+}
+.sp-coupon-input-field {
+    padding: 12px 18px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    outline: none;
+    width: 180px;
+    color: #0f172a;
+}
+.sp-coupon-btn-apply {
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-size: 0.88rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.sp-coupon-btn-apply:hover {
+    background: #0284c7;
+}
+
+.sp-continue-shopping-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #0284c7;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+/* Right Column: Order Summary Card */
+.sp-cart-summary-card {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 30px;
+    position: sticky;
+    top: calc(var(--navbar-height, 80px) + 20px);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+.sp-cart-summary-card h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 20px;
+}
+
+.sp-summary-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: 0.95rem;
+    color: #475569;
+    border-bottom: 1px solid #f1f5f9;
+}
+.sp-summary-total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 18px 0;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #0f172a;
+    border-top: 2px solid #e2e8f0;
+    margin-top: 10px;
+}
+.sp-summary-total-line span:last-child {
+    color: #0284c7;
+    font-size: 1.6rem;
+}
+
+.sp-cart-btn-whatsapp-checkout {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    height: 56px !important;
+    background: #25D366 !important;
+    color: #ffffff !important;
+    font-family: var(--font-heading, system-ui, sans-serif) !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    border-radius: 16px !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3) !important;
+    margin-top: 20px !important;
+    transition: all 0.25s ease !important;
+}
+.sp-cart-btn-whatsapp-checkout:hover {
+    background: #20bd5a !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 14px 35px rgba(37, 211, 102, 0.45) !important;
+}
+
+.sp-cart-empty-box {
+    text-align: center;
+    padding: 80px 20px;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .sp-cart-grid {
+        grid-template-columns: 1fr;
+    }
+    .sp-cart-item-row {
+        grid-template-columns: 70px 1fr 1fr 40px;
+        grid-template-areas:
+            "img title subtotal remove"
+            "img price qty remove";
+        gap: 10px;
+    }
+    .sp-cart-summary-card {
+        position: static;
+    }
+}
+@media (max-width: 640px) {
+    .sp-cart-container {
+        padding: 0 16px;
+    }
+    .sp-cart-items-card {
+        padding: 18px;
+    }
+    .sp-cart-btn-whatsapp-checkout {
+        font-size: 0.92rem !important;
+        height: 52px !important;
+    }
 }
 </style>
 
-<section class="sp-cart-page">
-  <div class="container">
+<section class="sp-cart-page-wrapper">
+  <div class="sp-cart-container">
+    
     <!-- Breadcrumb -->
     <nav class="sp-cart-breadcrumb">
       <a href="<?php echo home_url(); ?>">Inicio</a>
-      <span style="margin:0 var(--space-xs)">/</span>
+      <span>/</span>
       <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>">Tienda</a>
-      <span style="margin:0 var(--space-xs)">/</span>
-      <span style="color:var(--navy);font-weight:500">Carrito</span>
+      <span>/</span>
+      <span style="color:#0f172a;font-weight:700;">Tu Carrito</span>
     </nav>
 
-    <h1 class="sp-cart-title">Tu <span>Carrito</span></h1>
+    <h1 class="sp-cart-page-title">Tu Carrito <span>de Compra</span></h1>
 
     <?php wc_print_notices(); ?>
 
-    <?php if ($is_empty) : ?>
-    <!-- Empty Cart -->
-    <div class="sp-cart-empty">
-      <div class="sp-cart-empty-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <?php if (WC()->cart->is_empty()) : ?>
+      <div class="sp-cart-empty-box">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5" style="margin-bottom:16px;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <h2 style="font-size:1.4rem;font-weight:800;color:#0f172a;margin-bottom:10px;">Tu carrito está vacío</h2>
+        <p style="color:#64748b;margin-bottom:24px;">Explora nuestro catálogo de péptidos de grado clínico suizo y añade los productos que necesitas.</p>
+        <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="sp-cart-btn-whatsapp-checkout" style="background:#0284c7!important;box-shadow:0 8px 20px rgba(2,132,199,0.25)!important;max-width:280px;margin:0 auto!important;">Ir a la Tienda</a>
       </div>
-      <h2>Tu carrito está vacío</h2>
-      <p>Aún no has agregado productos a tu carrito. Explora nuestra tienda y encuentra los péptidos que necesitas.</p>
-      <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-        Explorar Tienda
-      </a>
-    </div>
-
     <?php else : ?>
-    <!-- Cart with Items -->
+
     <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
-      <?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
-
       <div class="sp-cart-grid">
-        <!-- LEFT: Items -->
-        <div>
-          <div class="sp-cart-items-card">
-            <div class="sp-cart-header">
-              <span></span>
-              <span>Producto</span>
-              <span>Precio</span>
-              <span>Cantidad</span>
-              <span>Subtotal</span>
-              <span></span>
-            </div>
-
-            <?php foreach ($cart_items as $cart_item_key => $cart_item) :
-              $product = $cart_item['data'];
-              $product_id = $cart_item['product_id'];
-              $product_name = $product->get_name();
-              $product_price = $product->get_price();
-              $qty = $cart_item['quantity'];
-              $subtotal_item = $product_price * $qty;
-              $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'thumbnail');
-              $image_url = $image ? $image[0] : wc_placeholder_img_src('thumbnail');
-              $permalink = $product->get_permalink($cart_item);
+        
+        <!-- LEFT: Items List -->
+        <div class="sp-cart-items-card">
+          
+          <?php foreach ($cart_items as $cart_item_key => $cart_item) :
+            $_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
+            $product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
+            if ($_product && $_product->exists() && $cart_item['quantity'] > 0) :
+              $product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
+              $thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image('thumbnail'), $cart_item, $cart_item_key);
+              $product_name = $_product->get_name();
+              $product_price = $_product->get_price();
+              $subtotal_val = $product_price * $cart_item['quantity'];
               $cats = wp_get_post_terms($product_id, 'product_cat', ['fields' => 'names']);
               $cat_name = !empty($cats) ? $cats[0] : '';
-            ?>
-            <div class="sp-cart-item">
-              <div class="sp-cart-item-img">
-                <a href="<?php echo esc_url($permalink); ?>"><img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($product_name); ?>"></a>
-              </div>
-              <div>
-                <div class="sp-cart-item-name"><a href="<?php echo esc_url($permalink); ?>"><?php echo esc_html($product_name); ?></a></div>
-                <?php if ($cat_name) : ?><div class="sp-cart-item-cat"><?php echo esc_html($cat_name); ?></div><?php endif; ?>
-              </div>
-              <div class="sp-cart-item-price">$ <?php echo number_format($product_price, 0, ',', '.'); ?></div>
-              <div>
-                <div class="sp-qty-control">
-                  <button type="button" class="sp-qty-btn sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">−</button>
-                  <input type="number" class="sp-qty-input" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $qty; ?>" min="0" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
-                  <button type="button" class="sp-qty-btn sp-qty-plus" data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
-                </div>
-              </div>
-              <div class="sp-cart-item-subtotal">$ <?php echo number_format($subtotal_item, 0, ',', '.'); ?></div>
-              <button type="button" class="sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-              </button>
+          ?>
+          
+          <div class="sp-cart-item-row">
+            <!-- Thumbnail -->
+            <div class="sp-cart-item-img">
+              <?php if ($product_permalink) : ?>
+                <a href="<?php echo esc_url($product_permalink); ?>"><?php echo $thumbnail; ?></a>
+              <?php else : echo $thumbnail; endif; ?>
             </div>
-            <?php endforeach; ?>
+
+            <!-- Title & Cat -->
+            <div>
+              <a href="<?php echo esc_url($product_permalink); ?>" class="sp-cart-item-title"><?php echo esc_html($product_name); ?></a>
+              <?php if ($cat_name) : ?><div class="sp-cart-item-cat"><?php echo esc_html($cat_name); ?></div><?php endif; ?>
+            </div>
+
+            <!-- Unit Price -->
+            <div class="sp-cart-item-unit-price">$ <?php echo number_format($product_price, 0, ',', '.'); ?></div>
+
+            <!-- Qty Counter -->
+            <div>
+              <div class="sp-qty-pill-box">
+                <button type="button" class="sp-qty-btn-sub sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">-</button>
+                <input type="number" class="sp-qty-input-sub" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $cart_item['quantity']; ?>" min="0" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
+                <button type="button" class="sp-qty-btn-sub sp-qty-plus" data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
+              </div>
+            </div>
+
+            <!-- Subtotal -->
+            <div class="sp-cart-item-subtotal-price">$ <?php echo number_format($subtotal_val, 0, ',', '.'); ?></div>
+
+            <!-- Remove Button -->
+            <button type="button" class="sp-cart-btn-remove sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar producto">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
 
-          <!-- Actions Row -->
-          <div class="sp-cart-items-card" style="margin-top:var(--space-md);border-radius:var(--radius-xl)">
-            <div class="sp-cart-actions">
-              <div class="sp-coupon-form">
-                <input type="text" name="coupon_code" class="sp-coupon-input" placeholder="Código de cupón" id="coupon_code">
-                <button type="submit" name="apply_coupon" class="sp-coupon-btn" value="Aplicar cupón">Aplicar</button>
-              </div>
-              <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="sp-continue-shopping">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-                Seguir comprando
-              </a>
+          <?php endif; endforeach; ?>
+
+          <!-- Coupon & Action Row -->
+          <div class="sp-cart-actions-bar">
+            <div class="sp-coupon-box">
+              <input type="text" name="coupon_code" class="sp-coupon-input-field" placeholder="Código de cupón" id="coupon_code">
+              <button type="submit" name="apply_coupon" class="sp-coupon-btn-apply" value="Aplicar cupón">Aplicar</button>
             </div>
+
+            <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="sp-continue-shopping-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Seguir comprando
+            </a>
           </div>
 
           <input type="hidden" name="update_cart" value="Actualizar carrito">
         </div>
 
-        <!-- RIGHT: Summary -->
-        <div class="sp-cart-summary">
-          <h3>Resumen del pedido</h3>
+        <!-- RIGHT: Order Summary Card -->
+        <div class="sp-cart-summary-card">
+          <h3>Resumen del Pedido</h3>
 
-          <div class="sp-summary-row">
-            <span class="label">Subtotal (<?php echo WC()->cart->get_cart_contents_count(); ?> productos)</span>
-            <span class="value">$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
-          </div>
-          <div class="sp-summary-row">
-            <span class="label">Envío</span>
-            <span class="value" style="color:var(--success)">Gratis</span>
+          <div class="sp-summary-line">
+            <span>Subtotal (<?php echo WC()->cart->get_cart_contents_count(); ?> productos)</span>
+            <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
 
-          <?php foreach (WC()->cart->get_coupons() as $code => $coupon) : ?>
-          <div class="sp-summary-row">
-            <span class="label">Cupón: <?php echo esc_html($code); ?></span>
-            <span class="value" style="color:var(--success)">-<?php echo wc_cart_totals_coupon_html($coupon); ?></span>
+          <div class="sp-summary-line">
+            <span>Envío a Colombia</span>
+            <span style="color:#059669;font-weight:700;">GRATIS</span>
           </div>
-          <?php endforeach; ?>
 
-          <div class="sp-summary-total">
+          <div class="sp-summary-total-line">
             <span>Total</span>
-            <span><?php echo WC()->cart->get_total(); ?></span>
+            <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
 
-          <a href="<?php echo wc_get_checkout_url(); ?>" class="sp-checkout-btn">
-            Finalizar Compra
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-left:4px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <a href="<?php echo wc_get_checkout_url(); ?>" class="sp-cart-btn-whatsapp-checkout">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+            Finalizar y Pagar por WhatsApp
           </a>
 
-          <div class="sp-summary-secure">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            Pago 100% seguro con Stripe
-          </div>
-
-          <div class="sp-summary-badges">
-            <div class="sp-summary-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-              Envío gratis
+          <div style="margin-top:20px;padding-top:16px;border-top:1px solid #e2e8f0;display:flex;flex-direction:column;gap:8px;font-size:0.82rem;color:#64748b;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Garantía de Venta Directa en Colombia
             </div>
-            <div class="sp-summary-badge">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              Pureza ≥98%
+            <div style="display:flex;align-items:center;gap:6px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Envío Gratis a todo el país
             </div>
           </div>
         </div>
+
       </div>
     </form>
+
     <?php endif; ?>
   </div>
 </section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Quantity buttons
   document.querySelectorAll('.sp-qty-minus').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      var input = this.closest('.sp-qty-control').querySelector('.sp-qty-input');
+      var input = this.closest('.sp-qty-pill-box').querySelector('.sp-qty-input-sub');
       var val = parseInt(input.value) || 1;
       if (val > 1) { input.value = val - 1; input.dispatchEvent(new Event('change')); }
     });
   });
   document.querySelectorAll('.sp-qty-plus').forEach(function(btn) {
     btn.addEventListener('click', function() {
-      var input = this.closest('.sp-qty-control').querySelector('.sp-qty-input');
+      var input = this.closest('.sp-qty-pill-box').querySelector('.sp-qty-input-sub');
       var val = parseInt(input.value) || 1;
       if (val < 99) { input.value = val + 1; input.dispatchEvent(new Event('change')); }
     });
   });
 
-  // Auto-update cart on quantity change
   var updateTimer;
-  document.querySelectorAll('.sp-qty-input').forEach(function(input) {
+  document.querySelectorAll('.sp-qty-input-sub').forEach(function(input) {
     input.addEventListener('change', function() {
       clearTimeout(updateTimer);
       updateTimer = setTimeout(function() {
@@ -303,11 +515,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Remove item
   document.querySelectorAll('.sp-cart-remove').forEach(function(btn) {
     btn.addEventListener('click', function() {
       var key = this.getAttribute('data-key');
-      var input = document.querySelector('.sp-qty-input[data-key="' + key + '"]');
+      var input = document.querySelector('.sp-qty-input-sub[data-key="' + key + '"]');
       if (input) {
         input.value = 0;
         var form = document.querySelector('.woocommerce-cart-form');

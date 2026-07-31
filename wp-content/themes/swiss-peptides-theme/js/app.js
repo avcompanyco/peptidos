@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div style="font-size:var(--fs-xs);color:var(--gray-500);margin-top:2px;">Cant: ${item.qty}</div>
         </div>
         <div style="text-align:right;display:flex;flex-direction:column;justify-content:space-between;">
-          ${item.removeUrl ? `<a href="${item.removeUrl}" class="sp-cart-remove-link" style="font-size:var(--fs-xs);color:var(--text-muted);text-decoration:underline;cursor:pointer;" onclick="event.preventDefault();event.stopPropagation();spRemoveItem(this);">Eliminar</a>` : ''}
+          ${item.removeUrl ? `<button type="button" class="sp-cart-remove-btn-icon" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="event.preventDefault();event.stopPropagation();spRemoveItemByUrl('${item.removeUrl}');" title="Eliminar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
         </div>
       </div>
     `).join('');
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <div style="flex:1;min-width:0;font-size:var(--fs-xs);line-height:1.4;color:var(--navy);">
             <div style="font-weight:700;margin-bottom:2px;">¿Olvidaste el Agua Bacteriostática?</div>
             <div>Requerida para reconstituir tus péptidos.</div>
-            <div style="font-weight:700;margin-top:4px;color:var(--accent-dark);">$ 37.000 COP</div>
+            <div style="font-weight:700;margin-top:4px;color:var(--accent-dark);">$ 75.000</div>
           </div>
           <button type="button" class="btn btn-accent btn-sm" style="padding:6px 12px;font-size:11px;flex-shrink:0;" onclick="spAddWaterFromDrawer(this);">
             Agregar
