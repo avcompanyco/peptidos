@@ -1,7 +1,7 @@
 <?php
 /**
- * Master Light Clinical Luxury Checkout Page V2
- * Swiss Peptides - Guaranteed Billing Fields, Ample Title Margins & WhatsApp Gateway
+ * Master 100% Responsive No-Overflow Checkout Page 2026
+ * Swiss Peptides - Strict Box-Sizing, No Horizontal Scroll, Mandatory WhatsApp Phone
  */
 get_header();
 
@@ -17,7 +17,12 @@ if (WC()->cart) {
 $checkout = WC()->checkout();
 ?>
 
-<style id="sp-master-checkout-style-v2">
+<style id="sp-master-checkout-responsive-style">
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+}
+
 body.woocommerce-checkout {
     background-color: #f8fafc !important;
     color: #0f172a !important;
@@ -27,13 +32,19 @@ body.woocommerce-checkout {
 .sp-checkout-wrapper {
     padding: calc(var(--navbar-height, 80px) + 30px) 0 90px 0;
     min-height: 85vh;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
 }
 
 .sp-checkout-container {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 24px;
-    box-sizing: border-box;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    overflow: hidden !important;
 }
 
 .sp-checkout-breadcrumb {
@@ -43,6 +54,7 @@ body.woocommerce-checkout {
     font-size: 0.88rem;
     color: #64748b;
     margin-bottom: 24px;
+    flex-wrap: wrap;
 }
 .sp-checkout-breadcrumb a {
     color: #64748b;
@@ -55,14 +67,17 @@ body.woocommerce-checkout {
 
 .sp-checkout-header-group {
     margin-bottom: 40px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 .sp-checkout-page-title {
     font-family: var(--font-heading, system-ui, sans-serif);
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
     font-weight: 800;
     color: #0f172a;
     margin-bottom: 20px !important;
     letter-spacing: -0.5px;
+    word-break: break-word;
 }
 .sp-checkout-page-title span {
     color: #0284c7;
@@ -70,7 +85,7 @@ body.woocommerce-checkout {
 
 .sp-checkout-trust-pills {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
     align-items: center;
     margin-top: 14px !important;
@@ -80,12 +95,12 @@ body.woocommerce-checkout {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: #475569;
     background: #ffffff;
     border: 1px solid #cbd5e1;
-    padding: 8px 18px;
+    padding: 8px 16px;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(15,23,42,0.03);
 }
@@ -101,6 +116,10 @@ body.woocommerce-checkout {
     justify-content: space-between;
     margin-bottom: 40px !important;
     box-shadow: 0 4px 15px rgba(15,23,42,0.08);
+    width: 100% !important;
+    box-sizing: border-box !important;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 .sp-stock-reservation-info {
     display: flex;
@@ -122,25 +141,32 @@ body.woocommerce-checkout {
 }
 
 .sp-checkout-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 40px;
-    align-items: start;
+    display: grid !important;
+    grid-template-columns: 1.15fr 0.85fr !important;
+    gap: 36px !important;
+    align-items: start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 /* Left Column: Form Card */
 .sp-checkout-form-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 24px;
-    padding: 36px;
-    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 24px !important;
+    padding: 32px !important;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
 }
 .sp-section-heading {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 800;
     color: #0f172a;
     margin-bottom: 28px;
@@ -158,25 +184,34 @@ body.woocommerce-checkout {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
-/* HIGH CONTRAST FORM INPUT OVERRIDES */
+/* HIGH CONTRAST FORM INPUT OVERRIDES (STRICT NO OVERFLOW) */
 .sp-custom-form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
 }
 .sp-form-group-full {
-    grid-column: span 2;
+    grid-column: span 2 !important;
 }
 
 .form-row, .sp-form-group {
-    margin-bottom: 20px !important;
+    margin-bottom: 18px !important;
     display: flex !important;
     flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    clear: both !important;
+    float: none !important;
 }
 .form-row label, .sp-form-group label {
-    font-size: 0.9rem !important;
+    font-size: 0.88rem !important;
     font-weight: 700 !important;
     color: #0f172a !important;
     margin-bottom: 8px !important;
@@ -188,8 +223,9 @@ body.woocommerce-checkout {
 .sp-form-group select,
 .sp-form-group textarea {
     width: 100% !important;
-    height: 54px !important;
-    padding: 0 18px !important;
+    max-width: 100% !important;
+    height: 52px !important;
+    padding: 0 16px !important;
     border: 1.5px solid #cbd5e1 !important;
     border-radius: 14px !important;
     background: #ffffff !important;
@@ -198,10 +234,11 @@ body.woocommerce-checkout {
     box-sizing: border-box !important;
     outline: none !important;
     transition: all 0.2s ease !important;
+    box-shadow: none !important;
 }
 .form-row textarea, .sp-form-group textarea {
     height: 100px !important;
-    padding: 14px 18px !important;
+    padding: 12px 16px !important;
 }
 .form-row input.input-text:focus,
 .form-row select:focus,
@@ -215,15 +252,17 @@ body.woocommerce-checkout {
 
 /* Right Column: Order Review Card */
 .sp-checkout-summary-card {
-    background: #ffffff;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 24px;
-    padding: 32px;
-    position: sticky;
-    top: calc(var(--navbar-height, 80px) + 20px);
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
-    box-sizing: border-box;
-    width: 100%;
+    background: #ffffff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 24px !important;
+    padding: 30px !important;
+    position: sticky !important;
+    top: calc(var(--navbar-height, 80px) + 20px) !important;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05) !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
 }
 .sp-checkout-summary-card h3 {
     font-size: 1.25rem;
@@ -240,9 +279,9 @@ body.woocommerce-checkout {
     border-bottom: 1px solid #f1f5f9;
 }
 .sp-review-item-img {
-    width: 64px;
-    height: 64px;
-    border-radius: 14px;
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
     background: #ffffff;
     border: 1px solid #e2e8f0;
     overflow: hidden;
@@ -260,7 +299,6 @@ body.woocommerce-checkout {
     padding: 12px 0;
     font-size: 0.95rem;
     color: #475569;
-    border-bottom: 1px solid #f1f5f9;
 }
 .sp-review-total-line {
     display: flex;
@@ -278,7 +316,7 @@ body.woocommerce-checkout {
     font-size: 1.6rem;
 }
 
-/* WOOCOMMERCE SUBMIT BUTTON OVERRIDE TO WHATSAPP GREEN */
+/* WOOCOMMERCE SUBMIT BUTTON (PILL ROUNDED WHATSAPP GREEN) */
 #place_order,
 .sp-checkout-btn-whatsapp-submit {
     display: flex !important;
@@ -286,6 +324,7 @@ body.woocommerce-checkout {
     justify-content: center !important;
     gap: 12px !important;
     width: 100% !important;
+    max-width: 100% !important;
     height: 60px !important;
     background: #25D366 !important;
     color: #ffffff !important;
@@ -312,25 +351,27 @@ body.woocommerce-checkout {
 
 @media (max-width: 1024px) {
     .sp-checkout-grid {
-        grid-template-columns: 1fr;
-    }
-    .sp-custom-form-grid {
-        grid-template-columns: 1fr;
-    }
-    .sp-form-group-full {
-        grid-column: span 1;
+        grid-template-columns: 1fr !important;
     }
     .sp-checkout-summary-card {
-        position: static;
+        position: static !important;
+    }
+}
+@media (max-width: 768px) {
+    .sp-custom-form-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .sp-form-group-full {
+        grid-column: span 1 !important;
     }
 }
 @media (max-width: 640px) {
     .sp-checkout-container {
-        padding: 0 16px;
+        padding: 0 16px !important;
     }
     .sp-checkout-form-card,
     .sp-checkout-summary-card {
-        padding: 20px;
+        padding: 20px !important;
     }
     #place_order {
         font-size: 0.92rem !important;
@@ -393,67 +434,65 @@ body.woocommerce-checkout {
             <span>Datos de Envío y Contacto</span>
           </div>
 
-          <?php if (WC()->checkout()->get_checkout_fields()) : ?>
-            <div class="sp-custom-form-grid">
-              <?php
-              $fields = WC()->checkout()->get_checkout_fields('billing');
-              foreach ($fields as $key => $field) {
-                  $is_full = in_array($key, array('billing_email', 'billing_address_1', 'billing_address_2', 'billing_phone', 'billing_country', 'billing_company'));
-                  $wrapper_class = $is_full ? 'sp-form-group-full' : '';
-                  echo '<div class="' . $wrapper_class . '">';
-                  woocommerce_form_field($key, $field, WC()->checkout()->get_value($key));
-                  echo '</div>';
-              }
-              ?>
-              
-              <!-- Additional Order Notes -->
-              <div class="sp-form-group-full">
-                <div class="sp-form-group">
-                  <label for="order_comments">Notas Adicionales del Pedido (Opcional)</label>
-                  <textarea name="order_comments" class="input-text" id="order_comments" placeholder="Indicaciones especiales para la entrega en tu domicilio..." rows="3"></textarea>
-                </div>
-              </div>
-
-            </div>
-          <?php else : ?>
-            <!-- Fallback Form Fields -->
-            <div class="sp-custom-form-grid">
-              <div class="sp-form-group-full">
-                <div class="sp-form-group">
-                  <label>Correo Electrónico *</label>
-                  <input type="email" name="billing_email" required placeholder="tu@email.com">
-                </div>
-              </div>
+          <div class="sp-custom-form-grid">
+            <div class="sp-form-group-full">
               <div class="sp-form-group">
-                <label>Nombre *</label>
-                <input type="text" name="billing_first_name" required placeholder="Tu nombre">
-              </div>
-              <div class="sp-form-group">
-                <label>Apellidos *</label>
-                <input type="text" name="billing_last_name" required placeholder="Tus apellidos">
-              </div>
-              <div class="sp-form-group-full">
-                <div class="sp-form-group">
-                  <label>Número Celular / WhatsApp *</label>
-                  <input type="tel" name="billing_phone" required placeholder="Ej: 300 123 4567" required>
-                </div>
-              </div>
-              <div class="sp-form-group-full">
-                <div class="sp-form-group">
-                  <label>Dirección de Entrega *</label>
-                  <input type="text" name="billing_address_1" required placeholder="Calle, Carrera, Transversal y Número">
-                </div>
-              </div>
-              <div class="sp-form-group">
-                <label>Ciudad *</label>
-                <input type="text" name="billing_city" required placeholder="Ej: Bogotá">
-              </div>
-              <div class="sp-form-group">
-                <label>Departamento *</label>
-                <input type="text" name="billing_state" required placeholder="Ej: Cundinamarca">
+                <label for="billing_email">Correo Electrónico *</label>
+                <input type="email" name="billing_email" id="billing_email" required placeholder="tu@email.com" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_email')); ?>">
               </div>
             </div>
-          <?php endif; ?>
+            <div class="sp-form-group">
+              <div class="sp-form-group">
+                <label for="billing_first_name">Nombre *</label>
+                <input type="text" name="billing_first_name" id="billing_first_name" required placeholder="Tu nombre" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_first_name')); ?>">
+              </div>
+            </div>
+            <div class="sp-form-group">
+              <div class="sp-form-group">
+                <label for="billing_last_name">Apellidos *</label>
+                <input type="text" name="billing_last_name" id="billing_last_name" required placeholder="Tus apellidos" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_last_name')); ?>">
+              </div>
+            </div>
+            <div class="sp-form-group-full">
+              <div class="sp-form-group">
+                <label for="billing_phone">Número Celular / WhatsApp *</label>
+                <input type="tel" name="billing_phone" id="billing_phone" required placeholder="Ej: 300 123 4567" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_phone')); ?>">
+              </div>
+            </div>
+            <div class="sp-form-group-full">
+              <div class="sp-form-group">
+                <label for="billing_address_1">Dirección de Entrega *</label>
+                <input type="text" name="billing_address_1" id="billing_address_1" required placeholder="Calle, Carrera, Transversal y Número de Edificio/Casa" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_address_1')); ?>">
+              </div>
+            </div>
+            <div class="sp-form-group-full">
+              <div class="sp-form-group">
+                <label for="billing_address_2">Apartamento, Suite, Edificio (Opcional)</label>
+                <input type="text" name="billing_address_2" id="billing_address_2" placeholder="Ej: Apto 502, Torre 3, Barrio El Poblado" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_address_2')); ?>">
+              </div>
+            </div>
+            <div class="sp-form-group">
+              <div class="sp-form-group">
+                <label for="billing_city">Ciudad *</label>
+                <input type="text" name="billing_city" id="billing_city" required placeholder="Ej: Bogotá" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_city')); ?>">
+              </div>
+            </div>
+            <div class="sp-form-group">
+              <div class="sp-form-group">
+                <label for="billing_state">Departamento *</label>
+                <input type="text" name="billing_state" id="billing_state" required placeholder="Ej: Cundinamarca" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_state')); ?>">
+              </div>
+            </div>
+            <input type="hidden" name="billing_country" value="CO">
+            
+            <!-- Additional Order Notes -->
+            <div class="sp-form-group-full">
+              <div class="sp-form-group">
+                <label for="order_comments">Notas Adicionales del Pedido (Opcional)</label>
+                <textarea name="order_comments" class="input-text" id="order_comments" placeholder="Indicaciones especiales para la entrega en tu domicilio..." rows="3"></textarea>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -480,7 +519,7 @@ body.woocommerce-checkout {
             <?php endif; endforeach; ?>
           </div>
 
-          <div class="sp-review-line" style="border-bottom:none!important;">
+          <div class="sp-review-line">
             <span>Subtotal (<?php echo WC()->cart ? WC()->cart->get_cart_contents_count() : 0; ?> productos)</span>
             <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
@@ -495,10 +534,10 @@ body.woocommerce-checkout {
             <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
 
-          <!-- Payment Gateway Selection Hidden input (Forces COD / WhatsApp Order) -->
+          <!-- Hidden payment method selection (Forces COD / WhatsApp Order) -->
           <input type="hidden" name="payment_method" value="cod">
 
-          <!-- Submit Button -->
+          <!-- Submit Button (Rounded Pill WhatsApp Green) -->
           <button type="submit" class="sp-checkout-btn-whatsapp-submit" name="woocommerce_checkout_place_order" id="place_order" value="Confirmar y Pagar por WhatsApp" data-value="Confirmar y Pagar por WhatsApp">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
             Confirmar y Pagar por WhatsApp
