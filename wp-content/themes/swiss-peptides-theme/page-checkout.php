@@ -411,7 +411,7 @@ html body .woocommerce-checkout #payment button#place_order {
 
 @media (max-width: 768px) {
     .sp-checkout-wrapper {
-        padding-top: 15px !important;
+        padding-top: calc(var(--navbar-height, 80px) + 24px) !important;
     }
     .sp-checkout-breadcrumb {
         margin-bottom: 12px !important;

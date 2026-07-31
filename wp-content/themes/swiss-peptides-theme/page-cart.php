@@ -1,7 +1,7 @@
 <?php
 /**
- * Master Light Clinical Luxury Cart Page V3
- * Swiss Peptides 2026 - 100% Mobile Optimized, Zero Overflow
+ * Master Light Clinical Luxury Cart Page V4
+ * Swiss Peptides 2026 - Perfect Desktop Alignment & Seamless Mobile Cards
  */
 get_header();
 
@@ -16,7 +16,7 @@ if (WC()->cart) {
 }
 ?>
 
-<style id="sp-master-cart-mobile-style">
+<style id="sp-master-cart-style-v4">
 html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
@@ -29,7 +29,7 @@ body.woocommerce-cart {
 }
 
 .sp-cart-page-wrapper {
-    padding: calc(var(--navbar-height, 80px) + 24px) 0 90px 0;
+    padding: calc(var(--navbar-height, 80px) + 30px) 0 90px 0;
     min-height: 85vh;
     width: 100% !important;
     max-width: 100vw !important;
@@ -79,7 +79,7 @@ body.woocommerce-cart {
 
 .sp-cart-grid {
     display: grid !important;
-    grid-template-columns: 1.15fr 0.85fr !important;
+    grid-template-columns: 1.2fr 0.8fr !important;
     gap: 36px !important;
     align-items: start !important;
     width: 100% !important;
@@ -103,7 +103,7 @@ body.woocommerce-cart {
 /* TABLE HEADERS BAR (DESKTOP) */
 .sp-cart-table-header {
     display: grid;
-    grid-template-columns: 74px 1.4fr 110px 120px 140px 40px;
+    grid-template-columns: 80px 1.4fr 110px 130px 130px 40px;
     gap: 16px;
     align-items: center;
     background: #f8fafc;
@@ -123,7 +123,7 @@ body.woocommerce-cart {
 /* DESKTOP ITEM ROW */
 .sp-cart-item-row {
     display: grid;
-    grid-template-columns: 74px 1.4fr 110px 120px 140px 40px;
+    grid-template-columns: 80px 1.4fr 110px 130px 130px 40px;
     gap: 16px;
     align-items: center;
     padding: 20px 16px;
@@ -134,8 +134,8 @@ body.woocommerce-cart {
 }
 
 .sp-cart-item-img {
-    width: 74px;
-    height: 74px;
+    width: 80px;
+    height: 80px;
     border-radius: 14px;
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -151,6 +151,11 @@ body.woocommerce-cart {
     object-fit: cover;
 }
 
+.sp-cart-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
 .sp-cart-item-title {
     font-size: 1.02rem;
     font-weight: 800;
@@ -158,12 +163,14 @@ body.woocommerce-cart {
     text-decoration: none;
     line-height: 1.3;
 }
+.sp-cart-item-title:hover {
+    color: #0284c7;
+}
 .sp-cart-item-cat {
     font-size: 0.75rem;
     color: #0284c7;
     font-weight: 800;
     text-transform: uppercase;
-    margin-top: 4px;
 }
 
 .sp-cart-item-unit-price {
@@ -359,29 +366,33 @@ body.woocommerce-cart {
     font-size: 1.6rem;
 }
 
-.sp-cart-btn-whatsapp-checkout {
+html body .sp-cart-btn-whatsapp-checkout {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 12px !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: 60px !important;
+    height: auto !important;
+    min-height: 64px !important;
+    padding: 16px 24px !important;
     background: #25D366 !important;
+    background-color: #25D366 !important;
     color: #ffffff !important;
     font-family: var(--font-heading, system-ui, sans-serif) !important;
-    font-size: 1.05rem !important;
+    font-size: 1.02rem !important;
     font-weight: 800 !important;
     border-radius: 50px !important;
     text-decoration: none !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5px !important;
-    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3) !important;
-    margin-top: 20px !important;
+    line-height: 1.3 !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35) !important;
+    margin-top: 24px !important;
     transition: all 0.25s ease !important;
     box-sizing: border-box !important;
 }
-.sp-cart-btn-whatsapp-checkout:hover {
+html body .sp-cart-btn-whatsapp-checkout:hover {
     background: #20bd5a !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 14px 35px rgba(37, 211, 102, 0.45) !important;
@@ -397,7 +408,10 @@ body.woocommerce-cart {
     margin: 0 auto;
 }
 
-/* RESPONSIVE BREAKPOINTS (MOBILE FIRST CLEANUP) */
+.sp-mobile-only { display: none !important; }
+.sp-desktop-only { display: contents !important; }
+
+/* RESPONSIVE BREAKPOINTS (DESKTOP & MOBILE PERFECT SEPARATION) */
 @media (max-width: 1024px) {
     .sp-cart-grid {
         grid-template-columns: 1fr !important;
@@ -406,7 +420,15 @@ body.woocommerce-cart {
         position: static !important;
     }
 }
+
 @media (max-width: 768px) {
+    .sp-mobile-only { display: block !important; }
+    .sp-desktop-only { display: none !important; }
+
+    .sp-cart-page-wrapper {
+        padding-top: calc(var(--navbar-height, 80px) + 24px) !important;
+    }
+
     .sp-cart-container {
         padding: 0 16px !important;
     }
@@ -418,16 +440,17 @@ body.woocommerce-cart {
         display: none !important;
     }
 
-    /* MOBILE ITEM CARD ROW STRUCTURE */
+    /* MOBILE ITEM ROW CARD STRUCTURE */
     .sp-cart-item-row {
         display: flex !important;
         flex-direction: column !important;
-        gap: 12px !important;
+        gap: 14px !important;
         padding: 18px 0 !important;
         position: relative !important;
+        border-bottom: 1px solid #f1f5f9 !important;
     }
 
-    .sp-cart-mobile-item-header {
+    .sp-cart-mobile-header-row {
         display: flex !important;
         align-items: center !important;
         gap: 14px !important;
@@ -449,7 +472,7 @@ body.woocommerce-cart {
         margin-left: 0 !important;
     }
 
-    .sp-cart-mobile-item-footer {
+    .sp-cart-mobile-footer-row {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
@@ -458,7 +481,6 @@ body.woocommerce-cart {
         padding: 10px 14px !important;
         border-radius: 14px !important;
         box-sizing: border-box !important;
-        margin-top: 2px !important;
     }
 
     .sp-coupon-bar-seamless {
@@ -471,52 +493,13 @@ body.woocommerce-cart {
     .sp-continue-shopping-link {
         justify-content: center !important;
     }
-}
 
-/* HIGH SPECIFICITY GREEN PILL BUTTON & REDUCED MOBILE TOP PADDING */
-html body .sp-cart-btn-whatsapp-checkout {
-    background: #25D366 !important;
-    background-color: #25D366 !important;
-    color: #ffffff !important;
-    font-family: var(--font-heading, system-ui, sans-serif) !important;
-    font-size: 1.02rem !important;
-    font-weight: 800 !important;
-    border: none !important;
-    border-radius: 50px !important;
-    height: auto !important;
-    min-height: 64px !important;
-    padding: 16px 24px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 12px !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    line-height: 1.3 !important;
-    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35) !important;
-    margin-top: 24px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-@media (max-width: 768px) {
-    .sp-cart-page-wrapper {
-        padding-top: 15px !important;
-    }
-    .sp-cart-breadcrumb {
-        margin-bottom: 12px !important;
-    }
-    .sp-cart-page-title {
-        font-size: 1.6rem !important;
-        margin-bottom: 20px !important;
-    }
     html body .sp-cart-btn-whatsapp-checkout {
         min-height: 66px !important;
         padding: 16px 20px !important;
         font-size: 0.96rem !important;
     }
 }
-
 </style>
 
 <section class="sp-cart-page-wrapper">
@@ -574,28 +557,22 @@ html body .sp-cart-btn-whatsapp-checkout {
           ?>
           
           <div class="sp-cart-item-row">
-            <!-- Mobile Item Header (Thumbnail + Title + Remove Button) -->
-            <div class="sp-cart-mobile-item-header">
+            
+            <!-- DESKTOP ITEM LAYOUT -->
+            <div class="sp-desktop-only">
               <div class="sp-cart-item-img">
                 <?php if ($product_permalink) : ?>
                   <a href="<?php echo esc_url($product_permalink); ?>"><?php echo $thumbnail; ?></a>
                 <?php else : echo $thumbnail; endif; ?>
               </div>
 
-              <div>
+              <div class="sp-cart-item-info">
                 <a href="<?php echo esc_url($product_permalink); ?>" class="sp-cart-item-title"><?php echo esc_html($product_name); ?></a>
                 <?php if ($cat_name) : ?><div class="sp-cart-item-cat"><?php echo esc_html($cat_name); ?></div><?php endif; ?>
-                <div class="sp-cart-item-unit-price" style="margin-top:4px;">$ <?php echo number_format($product_price, 0, ',', '.'); ?> c/u</div>
               </div>
-            </div>
 
-            <!-- Remove Button (Positioned top right on mobile) -->
-            <button type="button" class="sp-cart-btn-remove-perfect sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar producto">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
+              <div class="sp-cart-item-unit-price">$ <?php echo number_format($product_price, 0, ',', '.'); ?></div>
 
-            <!-- Mobile Item Footer (Pill Counter Left + Subtotal Price Right) -->
-            <div class="sp-cart-mobile-item-footer">
               <div class="sp-qty-pill-box-perfect">
                 <button type="button" class="sp-qty-btn-sub-perfect sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">-</button>
                 <input type="number" class="sp-qty-input-sub-perfect" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $cart_item['quantity']; ?>" min="0" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
@@ -603,7 +580,43 @@ html body .sp-cart-btn-whatsapp-checkout {
               </div>
 
               <div class="sp-cart-item-subtotal-price">$ <?php echo number_format($subtotal_val, 0, ',', '.'); ?></div>
+
+              <button type="button" class="sp-cart-btn-remove-perfect sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar producto">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </div>
+
+            <!-- MOBILE ITEM LAYOUT -->
+            <div class="sp-mobile-only">
+              <div class="sp-cart-mobile-header-row">
+                <div class="sp-cart-item-img">
+                  <?php if ($product_permalink) : ?>
+                    <a href="<?php echo esc_url($product_permalink); ?>"><?php echo $thumbnail; ?></a>
+                  <?php else : echo $thumbnail; endif; ?>
+                </div>
+
+                <div>
+                  <a href="<?php echo esc_url($product_permalink); ?>" class="sp-cart-item-title"><?php echo esc_html($product_name); ?></a>
+                  <?php if ($cat_name) : ?><div class="sp-cart-item-cat"><?php echo esc_html($cat_name); ?></div><?php endif; ?>
+                  <div class="sp-cart-item-unit-price" style="margin-top:4px;">$ <?php echo number_format($product_price, 0, ',', '.'); ?> c/u</div>
+                </div>
+              </div>
+
+              <button type="button" class="sp-cart-btn-remove-perfect sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar producto">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+
+              <div class="sp-cart-mobile-footer-row">
+                <div class="sp-qty-pill-box-perfect">
+                  <button type="button" class="sp-qty-btn-sub-perfect sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">-</button>
+                  <input type="number" class="sp-qty-input-sub-perfect" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $cart_item['quantity']; ?>" min="0" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
+                  <button type="button" class="sp-qty-btn-sub-perfect sp-qty-plus" data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
+                </div>
+
+                <div class="sp-cart-item-subtotal-price">$ <?php echo number_format($subtotal_val, 0, ',', '.'); ?></div>
+              </div>
+            </div>
+
           </div>
 
           <?php endif; endforeach; ?>
