@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
-    renderCartItems(items);
+    renderCartItems(items); spUpdateCartDrawerFromAJAX();
 
     // Get subtotal
     const totalEl = tmp.querySelector('.total .woocommerce-Price-amount');
@@ -144,11 +144,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function updateCartCount(count) {
-    const el = document.getElementById('cartCount');
-    if (el) {
+    const countElems = document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount');
+    countElems.forEach(el => {
       el.textContent = count;
       el.style.display = count > 0 ? 'flex' : 'none';
-    }
+    });
   }
 
   function renderCartItems(items) {
@@ -156,43 +156,42 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!body) return;
 
     if (!items || items.length === 0) {
-      body.innerHTML = `<div style="text-align:center;padding:var(--space-3xl);color:var(--text-muted);">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin-bottom:16px;opacity:.4;">
+      body.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#64748b;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:.5;">
           <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
         </svg>
-        <p>Tu carrito esta vacio</p>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a;">Tu carrito está vacío</div>
       </div>`;
       return;
     }
 
     let htmlContent = items.map(item => `
-      <div class="cart-item" style="display:flex;gap:var(--space-md);padding:var(--space-md);border-bottom:1px solid var(--border-subtle);">
-        <div style="width:64px;height:64px;border-radius:var(--radius-md);overflow:hidden;flex-shrink:0;background:var(--gray-50);border:1px solid var(--border-color);">
-          <img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:contain;">
+      <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;box-shadow:0 4px 12px rgba(15,23,42,0.03);margin-bottom:10px;box-sizing:border-box;">
+        <div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;flex-shrink:0;">
+          <img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div style="flex:1;min-width:0;">
-          <div style="font-weight:600;color:var(--navy);font-size:var(--fs-sm);line-height:1.3;">${item.name}</div>
-          <div style="font-size:var(--fs-xs);color:var(--text-muted);margin-top:4px;">${item.price}</div>
-          <div style="font-size:var(--fs-xs);color:var(--gray-500);margin-top:2px;">Cant: ${item.qty}</div>
+          <div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.name}</div>
+          <div style="font-size:0.78rem;color:#64748b;font-weight:600;margin-top:2px;">Cantidad: ${item.qty}</div>
+          <div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">${item.price}</div>
         </div>
-        <div style="text-align:right;display:flex;flex-direction:column;justify-content:space-between;">
-          ${item.removeUrl ? `<button type="button" class="sp-cart-remove-btn-icon" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;" onclick="event.preventDefault();event.stopPropagation();spRemoveItemByUrl('${item.removeUrl}');" title="Eliminar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
-        </div>
+        ${item.removeUrl ? `<button type="button" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" onclick="event.preventDefault();event.stopPropagation();spRemoveItemByUrl('${item.removeUrl}');" title="Eliminar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>` : ''}
       </div>
     `).join('');
 
     const hasWater = items.some(item => item.name.toLowerCase().includes('bacteriost'));
     if (!hasWater && items.length > 0) {
       htmlContent += `
-        <div class="cart-upsell-card" style="margin:var(--space-md);padding:var(--space-md);background:var(--teal-light);border:1.5px solid #bae6fd;background:#f0f9ff;border-radius:var(--radius-lg);display:flex;gap:var(--space-sm);align-items:center;">
-          <div style="font-size:24px;flex-shrink:0;">🧪</div>
-          <div style="flex:1;min-width:0;font-size:var(--fs-xs);line-height:1.4;color:var(--navy);">
-            <div style="font-weight:700;margin-bottom:2px;">¿Olvidaste el Agua Bacteriostática?</div>
-            <div>Requerida para reconstituir tus péptidos.</div>
-            <div style="font-weight:700;margin-top:4px;color:var(--accent-dark);">$ 75.000</div>
+        <div style="background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">
+          <div style="width:40px;height:40px;border-radius:12px;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2q0-.41-.293-.707T13 1h-2q-.41 0-.707.293T10 2z"/></svg>
           </div>
-          <button type="button" class="btn btn-accent btn-sm" style="padding:6px 12px;font-size:11px;flex-shrink:0;" onclick="spAddWaterFromDrawer(this);">
-            Agregar
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:800;font-size:0.85rem;color:#0f172a;">¿Necesitas Agua Bacteriostática?</div>
+            <div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clínico — $ 75.000</div>
+          </div>
+          <button type="button" onclick="spAddAddonWater(this)" style="background:#0284c7;color:#ffffff;padding:8px 14px;border-radius:20px;font-weight:800;font-size:0.75rem;border:none;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 12px rgba(2,132,199,0.25);flex-shrink:0;">
+            + AGREGAR
           </button>
         </div>
       `;
