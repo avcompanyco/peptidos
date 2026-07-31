@@ -2025,26 +2025,178 @@
 </div>
 
 
-  <!-- Overlay -->
-  <div class="overlay" id="overlay"></div>
+  <!-- Master 2026 Light Clinical Luxury Drawer CSS & Overlay -->
+<style id="sp-master-drawer-cart-fix">
+#cartSidebar {
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: 420px !important;
+    max-width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: #ffffff !important;
+    z-index: 999999 !important;
+    box-shadow: -10px 0 40px rgba(15, 23, 42, 0.15) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+}
+#cartSidebar.active,
+#cartSidebar.open {
+    right: 0 !important;
+}
 
-  <!-- Cart Sidebar Drawer -->
-  <div class="cart-sidebar" id="cartSidebar">
-    <div class="cart-sidebar-header" style="padding:20px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e2e8f0;">
-      <h3 style="margin:0;font-size:1.1rem;font-weight:800;color:#0f172a;">Tu Carrito</h3>
-      <button class="nav-action-btn cart-close-btn" id="cartCloseBtn" style="background:transparent;border:none;cursor:pointer;color:#64748b;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="cart-sidebar-body" id="cartSidebarBody" style="flex:1;overflow-y:auto;padding:24px;"></div>
-    <div class="cart-sidebar-footer" style="padding:24px;border-top:1px solid #e2e8f0;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <span style="font-size:0.9rem;color:#64748b;">Subtotal:</span>
-        <span class="cart-total-amount" id="cartTotalAmount" style="font-size:1.25rem;font-weight:800;color:#0f172a;">$ 0</span>
-      </div>
-      <a href="<?php echo function_exists("wc_get_checkout_url") ? function_exists('wc_get_checkout_url') ? wc_get_checkout_url() : home_url('/checkout/') : home_url("/checkout/"); ?>" class="cart-btn-checkout" style="display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;width:100%!important;padding:16px 24px!important;background:#25D366!important;color:#ffffff!important;border:none!important;border-radius:16px!important;font-size:15px!important;font-weight:800!important;text-align:center!important;text-decoration:none!important;text-transform:uppercase!important;box-shadow:0 8px 20px rgba(37,211,102,0.25)!important;transition:all 0.25s ease!important;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>Finalizar Pedido por WhatsApp</a>
-      <a href="<?php echo function_exists("wc_get_cart_url") ? function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart/') : home_url("/cart/"); ?>" class="cart-btn-view" style="display:block!important;width:100%!important;padding:14px 24px!important;background:#ffffff!important;color:#0284c7!important;border:2px solid #0284c7!important;border-radius:16px!important;font-size:14px!important;font-weight:800!important;text-align:center!important;text-decoration:none!important;text-transform:uppercase!important;margin-top:10px!important;transition:all 0.25s ease!important;">Ver mi carrito completo</a>
-    </div>
+.cart-sidebar-header {
+    padding: 20px 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    background: #ffffff !important;
+    box-sizing: border-box !important;
+}
+.cart-sidebar-header h3 {
+    margin: 0 !important;
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+}
+.cart-close-btn {
+    background: #f1f5f9 !important;
+    border: none !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    color: #64748b !important;
+    transition: all 0.2s ease !important;
+}
+.cart-close-btn:hover {
+    background: #ef4444 !important;
+    color: #ffffff !important;
+}
+
+.cart-sidebar-body {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.cart-sidebar-footer {
+    padding: 20px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    background: #ffffff !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+}
+
+.cart-btn-checkout-whatsapp {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 52px !important;
+    background: #25D366 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 16px !important;
+    font-size: 0.98rem !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 8px 20px rgba(37,211,102,0.25) !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+}
+.cart-btn-checkout-whatsapp:hover {
+    background: #20bd5a !important;
+    transform: translateY(-2px) !important;
+}
+
+.cart-btn-view-cart {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 48px !important;
+    background: #ffffff !important;
+    color: #0284c7 !important;
+    border: 2px solid #0284c7 !important;
+    border-radius: 16px !important;
+    font-size: 0.9rem !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+}
+.cart-btn-view-cart:hover {
+    background: #f0f9ff !important;
+}
+
+#overlay,
+.overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: rgba(15, 23, 42, 0.4) !important;
+    backdrop-filter: blur(4px) !important;
+    z-index: 999998 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+}
+#overlay.active,
+.overlay.active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+</style>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Cart Sidebar Drawer -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-sidebar-header">
+    <h3>Tu Carrito</h3>
+    <button class="cart-close-btn" id="cartCloseBtn" title="Cerrar carrito">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
   </div>
+  <div class="cart-sidebar-body" id="cartSidebarBody"></div>
+  <div class="cart-sidebar-footer">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+      <span style="font-size:0.92rem;color:#64748b;font-weight:600;">Subtotal:</span>
+      <span class="cart-total-amount" id="cartTotalAmount" style="font-size:1.3rem;font-weight:900;color:#0284c7;">$ 0</span>
+    </div>
+    <a href="<?php echo wc_get_checkout_url(); ?>" class="cart-btn-checkout-whatsapp">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+      Finalizar Pedido por WhatsApp
+    </a>
+    <a href="<?php echo wc_get_cart_url(); ?>" class="cart-btn-view-cart">Ver mi carrito completo</a>
+  </div>
+</div>
 
   <main>
