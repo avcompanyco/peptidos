@@ -67,7 +67,7 @@ body.woocommerce-cart {
 .sp-cart-page-title {
     font-family: var(--font-heading, system-ui, sans-serif);
     font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 800;
+    font-weight: 650;
     color: #0f172a;
     margin-bottom: 36px !important;
     letter-spacing: -0.5px;
@@ -111,7 +111,7 @@ body.woocommerce-cart {
     border-radius: 14px;
     padding: 12px 16px;
     font-size: 0.75rem;
-    font-weight: 800;
+    font-weight: 650;
     color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.8px;
@@ -158,7 +158,7 @@ body.woocommerce-cart {
 }
 .sp-cart-item-title {
     font-size: 1.02rem;
-    font-weight: 800;
+    font-weight: 650;
     color: #0f172a;
     text-decoration: none;
     line-height: 1.3;
@@ -169,7 +169,7 @@ body.woocommerce-cart {
 .sp-cart-item-cat {
     font-size: 0.75rem;
     color: #0284c7;
-    font-weight: 800;
+    font-weight: 650;
     text-transform: uppercase;
 }
 
@@ -198,7 +198,7 @@ body.woocommerce-cart {
     background: #ffffff !important;
     border: 1px solid #e2e8f0 !important;
     color: #0f172a !important;
-    font-weight: 800 !important;
+    font-weight: 700 !important;
     font-size: 1.05rem !important;
     cursor: pointer !important;
     display: flex !important;
@@ -224,7 +224,7 @@ body.woocommerce-cart {
     box-shadow: none !important;
     width: 32px !important;
     text-align: center !important;
-    font-weight: 800 !important;
+    font-weight: 700 !important;
     font-size: 1rem !important;
     color: #0f172a !important;
     padding: 0 !important;
@@ -238,7 +238,7 @@ body.woocommerce-cart {
 
 .sp-cart-item-subtotal-price {
     font-size: 1.15rem;
-    font-weight: 800;
+    font-weight: 650;
     color: #0284c7;
     text-align: right;
     white-space: nowrap !important;
@@ -303,7 +303,7 @@ body.woocommerce-cart {
     border-radius: 24px;
     padding: 8px 20px;
     font-size: 0.82rem;
-    font-weight: 800;
+    font-weight: 650;
     cursor: pointer;
     text-transform: uppercase;
     transition: background 0.2s;
@@ -338,7 +338,7 @@ body.woocommerce-cart {
 }
 .sp-cart-summary-card h3 {
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 650;
     color: #0f172a;
     margin-bottom: 20px;
 }
@@ -356,7 +356,7 @@ body.woocommerce-cart {
     align-items: baseline;
     padding: 18px 0;
     font-size: 1.3rem;
-    font-weight: 900;
+    font-weight: 700;
     color: #0f172a;
     border-top: 2px solid #e2e8f0;
     margin-top: 10px;
@@ -381,7 +381,7 @@ html body .sp-cart-btn-whatsapp-checkout {
     color: #ffffff !important;
     font-family: var(--font-heading, system-ui, sans-serif) !important;
     font-size: 1.02rem !important;
-    font-weight: 800 !important;
+    font-weight: 700 !important;
     border-radius: 50px !important;
     text-decoration: none !important;
     text-transform: uppercase !important;

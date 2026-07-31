@@ -73,7 +73,7 @@ body.woocommerce-checkout {
 .sp-checkout-page-title {
     font-family: var(--font-heading, system-ui, sans-serif);
     font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 800;
+    font-weight: 650;
     color: #0f172a;
     margin-bottom: 20px !important;
     letter-spacing: -0.5px;
@@ -135,7 +135,7 @@ body.woocommerce-checkout {
     border: 1px solid #0284c7;
     padding: 4px 12px;
     border-radius: 10px;
-    font-weight: 800;
+    font-weight: 650;
     font-size: 1rem;
     letter-spacing: 0.5px;
 }
@@ -167,7 +167,7 @@ body.woocommerce-checkout {
     align-items: center;
     gap: 12px;
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 650;
     color: #0f172a;
     margin-bottom: 28px;
     padding-bottom: 16px;
@@ -180,7 +180,7 @@ body.woocommerce-checkout {
     background: #0284c7;
     color: #ffffff;
     font-size: 1rem;
-    font-weight: 800;
+    font-weight: 650;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,7 +212,7 @@ body.woocommerce-checkout {
 }
 .form-row label, .sp-form-group label {
     font-size: 0.88rem !important;
-    font-weight: 700 !important;
+    font-weight: 600 !important;
     color: #0f172a !important;
     margin-bottom: 8px !important;
 }
@@ -266,7 +266,7 @@ body.woocommerce-checkout {
 }
 .sp-checkout-summary-card h3 {
     font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 650;
     color: #0f172a;
     margin-bottom: 24px;
 }
@@ -306,7 +306,7 @@ body.woocommerce-checkout {
     align-items: baseline;
     padding: 18px 0;
     font-size: 1.3rem;
-    font-weight: 900;
+    font-weight: 700;
     color: #0f172a;
     border-top: 2px solid #e2e8f0;
     margin-top: 10px;
@@ -330,7 +330,7 @@ body.woocommerce-checkout {
     color: #ffffff !important;
     font-family: var(--font-heading, system-ui, sans-serif) !important;
     font-size: 1.05rem !important;
-    font-weight: 800 !important;
+    font-weight: 600 !important;
     border: none !important;
     border-radius: 50px !important;
     text-decoration: none !important;
@@ -389,7 +389,7 @@ html body .woocommerce-checkout #payment button#place_order {
     color: #ffffff !important;
     font-family: var(--font-heading, system-ui, sans-serif) !important;
     font-size: 1.02rem !important;
-    font-weight: 800 !important;
+    font-weight: 600 !important;
     border: none !important;
     border-radius: 50px !important;
     height: auto !important;
