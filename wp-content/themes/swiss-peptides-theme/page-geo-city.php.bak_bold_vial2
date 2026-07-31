@@ -1,0 +1,382 @@
+<?php
+/**
+ * GEO SEO City Landing Page
+ * Dynamic page for /peptidos-en-{city}/ and /peptidos-en-{city}/{product}/
+ */
+
+$city_slug = get_query_var('sp_geo_city');
+$product_slug = get_query_var('sp_geo_product');
+$cities = sp_geo_cities();
+
+if (!$city_slug || !isset($cities[$city_slug])) {
+    wp_redirect(home_url('/'));
+    exit;
+}
+
+$city = $cities[$city_slug];
+$city_name = $city['name'];
+$dept = $city['dept'];
+
+// Resolve product if specified
+$product_obj = null;
+$wc_product = null;
+$is_product_page = false;
+
+if ($product_slug) {
+    // Query product by slug
+    $args = array(
+        'name'        => $product_slug,
+        'post_type'   => 'product',
+        'post_status' => 'publish',
+        'numberposts' => 1
+    );
+    $posts = get_posts($args);
+    if (!empty($posts)) {
+        $product_obj = $posts[0];
+        $wc_product = wc_get_product($product_obj->ID);
+        $is_product_page = true;
+    }
+}
+
+get_header();
+
+// Title and description generation based on context
+if ($is_product_page && $wc_product) {
+    $page_title = esc_html($wc_product->get_name()) . ' en ' . esc_html($city_name);
+    $hero_h1 = esc_html($wc_product->get_name()) . ' en <span>' . esc_html($city_name) . '</span>';
+    $hero_desc = 'Adquiere ' . esc_html($wc_product->get_name()) . ' de ultra-alta pureza directamente en ' . esc_html($city_name) . ', ' . esc_html($dept) . '. Cada lote cuenta con análisis de laboratorio HPLC superior al 98% de pureza. Despacho térmico urgente gratuito para preservar la cadena de frío.';
+} else {
+    $page_title = 'Péptidos de Investigación en ' . esc_html($city_name);
+    $hero_h1 = 'Péptidos de Investigación en <span>' . esc_html($city_name) . '</span>';
+    $hero_desc = 'Distribuimos péptidos de ultra-alta pureza directamente a ' . esc_html($city_name) . ', ' . esc_html($dept) . '. Cada vial cuenta con certificación HPLC de pureza y espectrometría de masas. Envío gratis con entrega en 2-5 días hábiles a toda la zona metropolitana.';
+}
+?>
+
+<style>
+.geo-hero {
+    padding: calc(var(--navbar-height) + 60px) 0 var(--space-3xl);
+    background: linear-gradient(135deg, rgba(11,29,58,0.02) 0%, rgba(14,165,233,0.04) 100%);
+    border-bottom: 1px solid var(--border-color);
+}
+.geo-hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+.geo-hero h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: var(--space-md);
+    line-height: 1.15;
+}
+.geo-hero h1 span { color: var(--accent); }
+.geo-hero-desc {
+    font-size: var(--fs-md);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-2xl);
+}
+.geo-stats {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+    flex-wrap: wrap;
+}
+.geo-stat {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-xl);
+    text-align: center;
+    flex: 1;
+    min-width: 130px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+.geo-stat-val {
+    font-family: var(--font-heading);
+    font-size: var(--fs-xl);
+    font-weight: 800;
+    color: var(--navy);
+}
+.geo-stat-label {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+.geo-featured-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+.geo-featured-card img {
+    max-height: 200px;
+    object-fit: contain;
+    margin-bottom: var(--space-md);
+    background: var(--white);
+}
+.geo-featured-title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: var(--space-xs);
+}
+.geo-featured-price {
+    font-size: var(--fs-lg);
+    font-weight: 700;
+    color: var(--accent-dark);
+    margin-bottom: var(--space-md);
+}
+
+.geo-products { padding: var(--space-3xl) 0; }
+.geo-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+}
+.geo-info {
+    padding: var(--space-3xl) 0;
+    background: var(--gray-50);
+}
+.geo-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+}
+.geo-info-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+}
+.geo-info-card h3 {
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: var(--space-sm);
+}
+.geo-info-card p {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.geo-faq { padding: var(--space-3xl) 0; }
+.geo-faq-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+}
+.geo-faq-q {
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 600;
+    color: var(--navy);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--fs-sm);
+}
+.geo-faq-q svg { transition: transform 0.3s; flex-shrink: 0; }
+.geo-faq-q.open svg { transform: rotate(180deg); }
+.geo-faq-a {
+    padding: 0 var(--space-lg) var(--space-md);
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    display: none;
+}
+.geo-faq-a.open { display: block; }
+
+@media(max-width: 1024px) {
+    .geo-hero-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+}
+@media(max-width: 768px) {
+    .geo-products-grid { grid-template-columns: repeat(2, 1fr); }
+    .geo-info-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<section class="geo-hero">
+  <div class="container">
+    <div class="geo-hero-grid">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(14,165,233,0.08);border-radius:var(--radius-full);font-size:var(--fs-xs);color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:var(--space-md);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Envío gratis a <?php echo esc_html($city_name); ?>
+        </div>
+        <h1><?php echo $hero_h1; ?></h1>
+        <p class="geo-hero-desc"><?php echo esc_html($hero_desc); ?></p>
+        
+        <div class="geo-stats">
+          <div class="geo-stat">
+            <div class="geo-stat-val"><?php echo wp_count_posts('product')->publish; ?>+</div>
+            <div class="geo-stat-label">Péptidos Activos</div>
+          </div>
+          <div class="geo-stat">
+            <div class="geo-stat-val">24-48h</div>
+            <div class="geo-stat-label">Entrega Urgente</div>
+          </div>
+          <div class="geo-stat">
+            <div class="geo-stat-val">GRATIS</div>
+            <div class="geo-stat-label">Envío a <?php echo esc_html($city_name); ?></div>
+          </div>
+          <div class="geo-stat">
+            <div class="geo-stat-val">&ge;98%</div>
+            <div class="geo-stat-label">Pureza Certificada</div>
+          </div>
+        </div>
+        
+        <div style="display:flex;gap:var(--space-md);flex-wrap:wrap;margin-bottom:var(--space-md);">
+          <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-primary btn-lg">Ver Catálogo Completo</a>
+          <a href="https://wa.me/573189163091?text=<?php echo urlencode('Hola, estoy en ' . $city_name . ' y me interesan sus péptidos de investigación.'); ?>" target="_blank" class="btn btn-outline btn-lg">Asesoría por WhatsApp</a>
+        </div>
+      </div>
+      
+      <div>
+        <?php if ($is_product_page && $wc_product) : ?>
+          <div class="geo-featured-card">
+            <?php echo $wc_product->get_image('large'); ?>
+            <div class="geo-featured-title"><?php echo esc_html($wc_product->get_name()); ?></div>
+            <div class="geo-featured-price"><?php echo $wc_product->get_price_html(); ?></div>
+            <a href="<?php echo esc_url($wc_product->get_permalink()); ?>" class="btn btn-accent btn-md" style="width:100%;">Comprar en <?php echo esc_html($city_name); ?></a>
+          </div>
+        <?php else : ?>
+          <div class="geo-featured-card">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:var(--space-md);"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <div class="geo-featured-title">Péptidos Suizos Labs</div>
+            <p style="font-size:var(--fs-sm);color:var(--text-secondary);margin-bottom:var(--space-md);">Garantizamos la pureza de todos nuestros compuestos liofilizados para investigación científica.</p>
+            <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-accent btn-md" style="width:100%;">Ver Catálogo</a>
+          </div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="geo-products">
+  <div class="container">
+    <div style="margin-bottom:var(--space-2xl);">
+      <div class="section-label">Disponibles para envío a <?php echo esc_html($city_name); ?></div>
+      <h2 class="section-title">Nuestros Péptidos Más Solicitados</h2>
+    </div>
+    <div class="geo-products-grid">
+      <?php
+      $products = wc_get_products(['status' => 'publish', 'limit' => 8, 'orderby' => 'popularity']);
+      foreach ($products as $prod) :
+        $cats = wp_get_post_terms($prod->get_id(), 'product_cat');
+        $cat_name = !empty($cats) ? $cats[0]->name : '';
+      ?>
+      <div class="product-card" onclick="window.location.href='<?php echo $prod->get_permalink(); ?>'">
+        <div class="product-image-wrap" style="background:#ffffff;"><?php echo $prod->get_image('product-card'); ?></div>
+        <div class="product-info">
+          <div class="product-category"><?php echo esc_html($cat_name); ?></div>
+          <h3 class="product-name"><?php echo $prod->get_name(); ?></h3>
+          <div class="product-price-row">
+            <span class="product-price"><?php echo $prod->get_price_html(); ?></span>
+            <button class="product-add-btn sp-add-to-cart" data-product-id="<?php echo $prod->get_id(); ?>" onclick="event.stopPropagation();">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<section class="geo-info">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:var(--space-2xl);">
+      <h2 class="section-title">Envío de Péptidos a <?php echo esc_html($city_name); ?></h2>
+    </div>
+    <div class="geo-info-grid">
+      <div class="geo-info-card">
+        <h3>Cobertura en <?php echo esc_html($city_name); ?></h3>
+        <p>Realizamos despachos inmediatos a toda la zona urbana de <?php echo esc_html($city_name); ?> y municipios aledaños del departamento de <?php echo esc_html($dept); ?>. Los despachos de péptidos se realizan con un empaque hermético discreto para salvaguardar la privacidad de tu investigación.</p>
+      </div>
+      <div class="geo-info-card">
+        <h3>Empaque y Cadena de Frío</h3>
+        <p>Los péptidos liofilizados se despachan protegidos en sobres térmicos reforzados con geles refrigerantes sellados. Este protocolo garantiza la estabilidad molecular óptima del compuesto durante las horas de tránsito terrestre o aéreo.</p>
+      </div>
+      <div class="geo-info-card">
+        <h3>Pasarela de Pago Segura</h3>
+        <p>Integramos Bold, la plataforma líder de recaudos en Colombia. Puedes abonar el importe a través de PSE (débito bancario), tarjetas de crédito nacionales e internacionales, o transferencia electrónica directa. Procesamiento cifrado HTTPS.</p>
+      </div>
+      <div class="geo-info-card">
+        <h3>Soporte Técnico de Reconstitución</h3>
+        <p>Ofrecemos asesoría técnica exclusiva por WhatsApp sobre protocolos de reconstitución molecular con agua bacteriostática, almacenamiento bajo refrigeración (2°C a 8°C) y dosificación científica para laboratorios de <?php echo esc_html($city_name); ?>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="geo-faq">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:var(--space-2xl);">
+      <h2 class="section-title">Preguntas Frecuentes — <?php echo esc_html($city_name); ?></h2>
+    </div>
+    
+    <?php
+    $prod_name = ($is_product_page && $wc_product) ? $wc_product->get_name() : 'los péptidos';
+    $faqs = [
+      [
+        'q' => '¿Cuánto demora el despacho de ' . $prod_name . ' a ' . $city_name . '?', 
+        'a' => 'El despacho a ' . $city_name . ', ' . $dept . ' se realiza a través de Servientrega o DHL. Toma de 24 a 48 horas hábiles después del envío. Pedidos antes de las 4:00 PM salen el mismo día.'
+      ],
+      [
+        'q' => '¿El envío de ' . $prod_name . ' a ' . $city_name . ' tiene costo adicional?', 
+        'a' => 'No. Todos los despachos a ' . $city_name . ' y municipios de la región son 100% gratuitos. El valor mostrado en la tienda web incluye entrega a domicilio sin cobros ocultos.'
+      ],
+      [
+        'q' => '¿Cómo se conserva ' . $prod_name . ' durante el envío a ' . $city_name . '?', 
+        'a' => 'Se envía liofilizado (polvo seco al vacío) dentro de un empaque térmico con gel refrigerante. Al estar liofilizado, el péptido es altamente estable a temperatura ambiente por periodos de hasta 2-3 semanas.'
+      ],
+      [
+        'q' => '¿Cómo puedo pagar en ' . $city_name . '?', 
+        'a' => 'El pago se realiza en línea de forma 100% segura usando Bold. Aceptamos PSE, tarjetas de crédito (Visa, Mastercard, Amex, Diners) y transferencias bancarias directas.'
+      ],
+      [
+        'q' => '¿Tienen punto de despacho o entrega física en ' . $city_name . '?', 
+        'a' => 'No contamos con tienda física para venta directa al público. Operamos como distribuidor en línea centralizado para mantener controles sanitarios rigurosos y ofrecer envío sin costo directo a tu puerta en ' . $city_name . '.'
+      ],
+    ];
+    foreach ($faqs as $i => $faq) :
+    ?>
+    <div class="geo-faq-item">
+      <div class="geo-faq-q" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open');">
+        <?php echo esc_html($faq['q']); ?>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="geo-faq-a"><?php echo esc_html($faq['a']); ?></div>
+    </div>
+    <?php endforeach; ?>
+  </div>
+</section>
+
+<?php
+// FAQ Schema for this city page
+$schema_items = [];
+foreach ($faqs as $faq) {
+    $schema_items[] = ['@type' => 'Question', 'name' => $faq['q'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['a']]];
+}
+echo '<script type="application/ld+json">' . wp_json_encode(['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => $schema_items], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>';
+?>
+
+<section class="cta-section">
+  <div class="container" style="position:relative;z-index:2;">
+    <h2 class="section-title" style="color:var(--white);max-width:600px;margin:0 auto var(--space-md);">Péptidos de alta pureza certificados con envío gratis a <?php echo esc_html($city_name); ?></h2>
+    <p style="color:rgba(255,255,255,.6);max-width:480px;margin:0 auto var(--space-2xl);font-size:var(--fs-md);">Adquiere tus compuestos activos y recíbelos en un lapso de 24-48 horas.</p>
+    <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-accent btn-lg">Ver Catálogo Completo</a>
+  </div>
+</section>
+
+<?php get_footer(); ?>

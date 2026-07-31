@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía de Administración - Swiss Peptides Colombia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0b1329;
+      --bg-secondary: #111c35;
+      --accent: #0ea5e9;
+      --accent-glow: rgba(14, 165, 233, 0.4);
+      --accent-green: #22c55e;
+      --accent-green-glow: rgba(34, 197, 94, 0.2);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: #1f2e54;
+      --radius-lg: 16px;
+      --radius-md: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    aside {
+      width: 320px;
+      background-color: var(--bg-secondary);
+      border-right: 1px solid var(--border-color);
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .brand img {
+      max-width: 200px;
+      height: auto;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 4px 10px var(--accent-glow));
+    }
+
+    .brand h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .menu-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      margin-top: 24px;
+      font-weight: 700;
+    }
+
+    nav ul {
+      list-style: none;
+    }
+
+    nav li {
+      margin-bottom: 8px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover, nav a.active {
+      color: #ffffff;
+      background-color: rgba(14, 165, 233, 0.1);
+      border-color: rgba(14, 165, 233, 0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a.active {
+      border-color: var(--accent);
+      background-color: rgba(14, 165, 233, 0.15);
+    }
+
+    nav a .icon {
+      margin-right: 12px;
+      font-size: 16px;
+    }
+
+    /* Main Content Area */
+    main {
+      margin-left: 320px;
+      flex: 1;
+      padding: 60px 80px;
+      max-width: 1100px;
+    }
+
+    header {
+      margin-bottom: 60px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 24px;
+    }
+
+    header h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    /* Section Styles */
+    section {
+      margin-bottom: 80px;
+      scroll-margin-top: 40px;
+    }
+
+    h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 15px;
+      color: var(--text-main);
+      opacity: 0.9;
+    }
+
+    /* Credentials Card */
+    .cred-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .cred-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cred-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background-color: var(--accent);
+    }
+
+    .cred-card.cpanel::before {
+      background-color: var(--accent-green);
+    }
+
+    .cred-card h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      color: #ffffff;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    .cred-row {
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .cred-label {
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .cred-val {
+      font-family: monospace;
+      font-size: 14px;
+      background: var(--bg-primary);
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .copy-btn:hover {
+      color: #ffffff;
+    }
+
+    /* Step Card */
+    .step-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      margin-bottom: 24px;
+    }
+
+    .step-number {
+      background-color: rgba(14, 165, 233, 0.1);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .step-card h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .step-card ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .step-card li {
+      margin-bottom: 8px;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-right: 6px;
+    }
+
+    .badge-blue {
+      background-color: rgba(14, 165, 233, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+
+    .badge-green {
+      background-color: rgba(34, 197, 94, 0.15);
+      color: var(--accent-green);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    /* Warnings / Alerts */
+    .alert-box {
+      background-color: rgba(14, 165, 233, 0.05);
+      border: 1px dashed var(--accent);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .alert-box.success {
+      background-color: rgba(34, 197, 94, 0.03);
+      border-color: var(--accent-green);
+    }
+
+    .alert-icon {
+      font-size: 24px;
+      margin-right: 16px;
+      line-height: 1;
+    }
+
+    .alert-content h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .alert-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      body {
+        flex-direction: column;
+      }
+      aside {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 30px 20px;
+      }
+      main {
+        margin-left: 0;
+        padding: 40px 20px;
+      }
+      .cred-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar Navigation -->
+  <aside>
+    <div class="brand">
+      <img src="https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png" alt="Swiss Peptides Logo">
+      <h1>Panel de Soporte</h1>
+    </div>
+    
+    <nav>
+      <div class="menu-title">Administración</div>
+      <ul>
+        <li><a href="#credenciales" class="active"><span class="icon">🔑</span> Acceso a la Web</a></li>
+        <li><a href="#productos"><span class="icon">📦</span> Gestión de Productos</a></li>
+        <li><a href="#pedidos"><span class="icon">🛒</span> Gestión de Pedidos</a></li>
+        <li><a href="#envios"><span class="icon">🚚</span> Guías de Envío</a></li>
+        <li><a href="#pruebas"><span class="icon">🧪</span> Compras de Prueba</a></li>
+        <li><a href="#stripe"><span class="icon">💳</span> Pasarela Stripe</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main>
+    <header>
+      <h2>Guía Completa de Administración</h2>
+      <p>Manual interactivo para el control de inventario, despachos y soporte técnico de Swiss Peptides Colombia.</p>
+    </header>
+
+    <!-- Credenciales -->
+    <section id="credenciales">
+      <h3>🔑 Credenciales y Enlaces de Acceso</h3>
+      <p>A continuación se detallan los enlaces y datos de acceso para la administración de la tienda en producción.</p>
+      
+      <div class="cred-grid">
+        <!-- WordPress Admin -->
+        <div class="cred-card">
+          <h4>WordPress & Tienda</h4>
+          <div class="cred-row">
+            <span class="cred-label">Enlace de Administrador</span>
+            <div class="cred-val">
+              <a href="https://peptidossuizos.com/wp-admin/" target="_blank" style="color: var(--accent);">peptidossuizos.com/wp-admin/</a>
+            </div>
+          </div>
+          <div class="cred-row">
+            <span class="cred-label">Usuario</span>
+            <div class="cred-val">
+              <span>swisspeptides_admin</span>
+              <button class="copy-btn" onclick="navigator.clipboard.writeText('swisspeptides_admin')">Copiar</button>
+            </div>
+          </div>
+          <div class="cred-row">
+            <span class="cred-label">Contraseña</span>
+            <div class="cred-val">
+              <span>SwPept2026!Secure</span>
+              <button class="copy-btn" onclick="navigator.clipboard.writeText('SwPept2026!Secure')">Copiar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gestión de Productos -->
+    <section id="productos">
+      <h3>📦 Gestión del Catálogo de Productos</h3>
+      <p>El cliente o el administrador puede gestionar todo el catálogo directamente desde la pestaña de productos en WordPress. Esto permite actualizar precios, stock y crear nuevos productos de manera sencilla.</p>
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>Ver y Editar Productos Existentes</h4>
+        <p>Para modificar un precio, nombre o descripción:</p>
+        <ul>
+          <li>Ingresa al WP-Admin y haz clic en el menú izquierdo en <strong style="color:#ffffff;">Productos > Todos los productos</strong>.</li>
+          <li>Coloca el cursor sobre el producto que deseas editar y haz clic en <strong style="color:var(--accent);">Editar</strong>.</li>
+          <li>En la sección <strong style="color:#ffffff;">General</strong> puedes cambiar el <strong>Precio normal</strong> o programar un <strong>Precio rebajado</strong>.</li>
+          <li>En el editor de texto superior puedes cambiar la descripción larga, y al final de la página la descripción corta.</li>
+          <li>Haz clic en el botón azul <strong style="color:#ffffff;">Actualizar</strong> a la derecha para guardar los cambios.</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h4>Crear un Nuevo Producto</h4>
+        <p>Para añadir productos al catálogo y que se muestren en la tienda automáticamente:</p>
+        <ul>
+          <li>Haz clic en <strong style="color:#ffffff;">Productos > Añadir nuevo</strong>.</li>
+          <li>Escribe el título (Nombre del péptido) y la descripción detallada.</li>
+          <li>En la barra lateral derecha, selecciona la categoría adecuada (ej: *Pérdida de Peso*) y sube la <strong>Imagen del producto</strong>.</li>
+          <li>En la pestaña de <strong>Inventario</strong>, puedes habilitar "Gestión de inventario" para controlar el stock disponible.</li>
+          <li>Haz clic en el botón azul <strong style="color:#ffffff;">Publicar</strong> arriba a la derecha.</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h4>Eliminar un Producto</h4>
+        <ul>
+          <li>Ve a <strong style="color:#ffffff;">Productos</strong>, pasa el cursor sobre el producto y haz clic en <strong style="color:#ef4444;">Enviar a la papelera</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Gestión de Pedidos -->
+    <section id="pedidos">
+      <h3>🛒 Control y Gestión de Pedidos</h3>
+      <p>Cuando un usuario realiza una compra, el pedido entra al panel en un estado específico. Los estados se actualizan automáticamente, pero también pueden gestionarse manualmente.</p>
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>Acceder a los Pedidos</h4>
+        <ul>
+          <li>En el menú de WordPress, navega a <strong style="color:#ffffff;">WooCommerce > Pedidos</strong>.</li>
+          <li>Aquí verás la lista de compras, el número de pedido, el nombre del cliente, la fecha, el total y el estado de la compra.</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h4>Estados Comunes de los Pedidos</h4>
+        <ul>
+          <li><span class="badge badge-blue">Procesando</span>: El pago fue aprobado y está listo para ser empacado y despachado.</li>
+          <li><span class="badge badge-green">Completado</span>: El producto ya fue enviado al cliente y se da por cerrada la venta.</li>
+          <li><span class="badge badge-blue">En Espera</span>: Pendiente de confirmación de pago o manual.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Guías de Envío -->
+    <section id="envios">
+      <h3>🚚 Envío de Guías de Seguimiento Automáticas</h3>
+      <p>Hemos implementado un sistema personalizado de seguimiento para Swiss Peptides. Cuando despaches el paquete con la transportadora, puedes adjuntar los datos para que el cliente reciba un correo hermoso con un botón de rastreo directo.</p>
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>Ingresar Información de Envío</h4>
+        <ul>
+          <li>Abre el pedido en <strong style="color:#ffffff;">WooCommerce > Pedidos</strong>.</li>
+          <li>En la barra lateral derecha verás la caja titulada <strong style="color:var(--accent);">Información de Envío (Seguimiento)</strong>.</li>
+          <li>Rellena los campos con los datos reales:
+            <ul>
+              <li><strong>Empresa Transportadora</strong>: Ej: *Servientrega*, *Coordinadora*, *Interrapidisimo*.</li>
+              <li><strong>Número de Guía</strong>: Código de rastreo otorgado por la transportadora.</li>
+              <li><strong>URL de Seguimiento</strong>: Enlace directo para rastrear la guía en el portal web (Ej: *https://coordinadora.com/tracking/?guia=123*).</li>
+            </ul>
+          </li>
+          <li>Marca la casilla <strong style="color:#ffffff;">Reenviar correo de seguimiento al cliente</strong> si deseas forzar el envío del correo de inmediato.</li>
+          <li>Haz clic en el botón <strong style="color:#ffffff;">Guardar pedido</strong> en la barra derecha.</li>
+        </ul>
+      </div>
+
+      <div class="alert-box success">
+        <div class="alert-icon">✨</div>
+        <div class="alert-content">
+          <h4>Notificación Instantánea y Visual</h4>
+          <p>Al guardar el pedido con el número de guía, el sistema enviará automáticamente un correo electrónico premium al cliente. Este correo contiene un botón directo para el rastreo y el resumen visual de su compra.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compras de Prueba -->
+    <section id="pruebas">
+      <h3>🧪 Cómo Realizar Compras de Prueba (100% Gratis)</h3>
+      <p>Para comprobar que la pasarela de pago, el flujo de emails, las redirecciones y la creación del pedido funcionan al 100%, puedes utilizar el cupón especial que hemos creado.</p>
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>Flujo de Compra y Verificación de "Pedido Confirmado"</h4>
+        <ul>
+          <li>Ingresa a la tienda pública de la web, añade péptidos al carrito y dirígete al Checkout.</li>
+          <li>En la sección superior del Checkout, introduce el código de cupón <strong style="color:var(--accent);">PRUEBA100</strong> y aplícalo.</li>
+          <li>El total de la compra bajará inmediatamente a <strong style="color:var(--accent-green);">$ 0 COP</strong>.</li>
+          <li>Al ser un pedido gratis, no se requiere tarjeta. Rellena los datos de facturación con tu nombre y haz clic en <strong style="color:#ffffff;">Realizar Pedido</strong>.</li>
+          <li>Serás redirigido inmediatamente a la <strong>Página de Confirmación de Pedido (Thank You Page)</strong>, la cual cuenta con un diseño limpio, el listado de productos, y un botón directo para confirmar el pedido vía WhatsApp.</li>
+          <li>Revisa tu correo electrónico: te llegará la confirmación con el nuevo diseño visual de alto contraste y excelente legibilidad.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Stripe -->
+    <section id="stripe">
+      <h3>💳 Pasarela de Pago Stripe</h3>
+      <p>Actualmente la tienda está configurada en **Producción Real (Live Mode)** para recibir pagos legítimos. A continuación explicamos los aspectos claves sobre la pasarela.</p>
+
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h4>Activar el Modo de Pruebas (Test Mode)</h4>
+        <p>Si deseas probar transacciones con tarjetas falsas de Stripe en lugar de usar el cupón de descuento:</p>
+        <ul>
+          <li>Ve a <strong style="color:#ffffff;">WooCommerce > Ajustes > Pagos > Stripe</strong>.</li>
+          <li>Marca la casilla <strong>Modo de pruebas</strong>.</li>
+          <li>Introduce las llaves de prueba de Stripe de tu cliente:
+            <ul>
+              <li><strong>Clave pública de prueba</strong> (comienza con `pk_test_...`)</li>
+              <li><strong>Clave secreta de prueba</strong> (comienza con `sk_test_...`)</li>
+            </ul>
+          </li>
+          <li>Guarda los ajustes. Ahora podrás simular pagos usando tarjetas de prueba de Stripe en el checkout.</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h4>Revisión de Errores y Logs</h4>
+        <p>Hemos activado el registro de eventos para Stripe. Si un pago es rechazado o el cliente ve un error como *"El importe es demasiado elevado..."*, puedes inspeccionar la respuesta detallada de Stripe:</p>
+        <ul>
+          <li>Ve a <strong style="color:#ffffff;">WooCommerce > Estado > Registros (Logs)</strong>.</li>
+          <li>En el desplegable de la derecha, selecciona el log más reciente que empiece por <strong style="color:var(--accent);">woocommerce-gateway-stripe-...</strong> y haz clic en <strong>Ver</strong>.</li>
+          <li>Allí verás el registro exacto enviado a Stripe y el motivo técnico por el cual el banco o Stripe rechazó el cargo.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Smooth scrolling & active state highlights
+    const links = document.querySelectorAll('nav a');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        links.forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Detect section scroll and update active link
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY + 100;
+      document.querySelectorAll('section').forEach(section => {
+        if (scrollPos >= section.offsetTop && scrollPos < (section.offsetTop + section.offsetHeight)) {
+          const id = section.getAttribute('id');
+          links.forEach(l => {
+            if (l.getAttribute('href') === `#${id}`) {
+              links.forEach(link => link.classList.remove('active'));
+              l.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

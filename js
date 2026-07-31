@@ -1,0 +1,1 @@
+/www/wwwroot/peptidossuizos.com/wp-content/themes/swiss-peptides-theme/js

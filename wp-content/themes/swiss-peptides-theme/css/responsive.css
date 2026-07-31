@@ -1,0 +1,32 @@
+/* Swiss Peptides Colombia - Mobile Responsive Optimization */
+
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .clinical-hero {
+        padding-top: calc(var(--navbar-height, 80px) + 20px);
+        padding-bottom: 50px;
+    }
+    
+    .hero-title-clinical {
+        font-size: 2.2rem;
+    }
+    
+    .prod-grid-clinical {
+        grid-template-columns: 1fr;
+    }
+    
+    .ticker-grid {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

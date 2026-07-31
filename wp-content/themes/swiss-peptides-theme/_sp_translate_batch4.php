@@ -1,0 +1,47 @@
+<?php
+define('ABSPATH', dirname(__FILE__) . '/../../../');
+require_once ABSPATH . 'wp-load.php';
+header('Content-Type: text/plain; charset=utf-8');
+
+$translations = [
+80 => [
+'short' => 'Retatrutida es un polipéptido de investigación avanzado y triple agonista para los receptores de GIP, GLP-1 y glucagón. Se investiga como una de las moléculas más prometedoras en el manejo del peso y el metabolismo.',
+'desc' => '<h3>Descripción General</h3><p>Retatrutida es un polipéptido sintético y triple agonista de los receptores GIP, GLP-1 y glucagón. Representa una nueva generación de moléculas investigadas por su potencial en el manejo del peso, la regulación metabólica y el control glucémico.</p><h3>Mecanismo de Acción</h3><p>Activa simultáneamente tres receptores: GLP-1R (saciedad y secreción de insulina), GIPR (metabolismo lipídico) y GCGR (gasto energético y lipólisis hepática), logrando un efecto sinérgico superior a los agonistas duales.</p><h3>Áreas de Investigación</h3><ul><li>Manejo avanzado del peso corporal</li><li>Triple agonismo receptor y metabolismo</li><li>Control glucémico y diabetes tipo 2</li><li>Esteatosis hepática no alcohólica (NAFLD)</li><li>Gasto energético y termogénesis</li></ul><h3>Especificaciones</h3><p>Péptido liofilizado de alta pureza (≥98%). Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+82 => [
+'short' => 'Selank es un neuropéptido sintético derivado del péptido inmune endógeno tuftsin. Se investiga por sus propiedades ansiolíticas, neuroprotectoras y de mejora cognitiva sin efectos sedantes significativos.',
+'desc' => '<h3>Descripción General</h3><p>Selenyx™ (Selank) es un neuropéptido sintético derivado de la tuftsin. Es investigado por sus propiedades ansiolíticas, inmunomoduladoras y nootrópicas, con un perfil de seguridad favorable y sin efectos sedantes significativos.</p><h3>Mecanismo de Acción</h3><p>Selank modula el sistema GABAérgico, aumenta la expresión de BDNF, regula los niveles de monoaminas (serotonina, dopamina, norepinefrina) y potencia la actividad del sistema inmune a través de la modulación de citocinas.</p><h3>Áreas de Investigación</h3><ul><li>Ansiedad y trastornos de estrés</li><li>Función cognitiva y memoria</li><li>Inmunomodulación y defensa inmune</li><li>Neuroprotección y neurogénesis</li><li>Regulación del estado de ánimo</li></ul><h3>Especificaciones</h3><p>Péptido liofilizado de alta pureza (≥98%). Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+84 => [
+'short' => 'Semaglutida es un péptido sintético y agonista del receptor de GLP-1 (péptido similar al glucagón tipo 1). Se investiga extensamente por su eficacia en el control del peso corporal y la regulación glucémica.',
+'desc' => '<h3>Descripción General</h3><p>Semaglutida es un agonista sintético del receptor de GLP-1 con una vida media prolongada. Es uno de los péptidos más investigados actualmente por su eficacia en el control del peso corporal, la regulación glucémica y la protección cardiovascular.</p><h3>Mecanismo de Acción</h3><p>Se une al receptor GLP-1R, estimulando la secreción de insulina dependiente de glucosa, suprimiendo el glucagón, ralentizando el vaciamiento gástrico y actuando a nivel central para reducir el apetito y promover la saciedad.</p><h3>Áreas de Investigación</h3><ul><li>Control del peso corporal y obesidad</li><li>Diabetes tipo 2 y control glucémico</li><li>Protección cardiovascular</li><li>Esteatosis hepática (NAFLD/NASH)</li><li>Señalización de saciedad central</li></ul><h3>Especificaciones</h3><p>Péptido liofilizado de alta pureza (≥98%). Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+86 => [
+'short' => 'SomatoNova™ HGH es una forma recombinante de la hormona de crecimiento humana (somatotropina) estudiada extensamente por sus efectos en el crecimiento celular, la composición corporal y el metabolismo.',
+'desc' => '<h3>Descripción General</h3><p>SomatoNova™ es hormona de crecimiento humana recombinante (somatotropina), investigada por sus efectos en el crecimiento celular, la composición corporal, el metabolismo y la regeneración tisular.</p><h3>Mecanismo de Acción</h3><p>La HGH se une al receptor de GH en los tejidos diana, activando la vía JAK2/STAT5 y estimulando la producción hepática de IGF-1, que media muchos de sus efectos anabólicos, lipolíticos y regenerativos.</p><h3>Áreas de Investigación</h3><ul><li>Composición corporal y masa muscular</li><li>Metabolismo lipídico y reducción de grasa</li><li>Regeneración y reparación tisular</li><li>Densidad ósea y salud articular</li><li>Envejecimiento y deficiencia de GH</li></ul><h3>Especificaciones</h3><p>Hormona recombinante liofilizada de alta pureza. Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+88 => [
+'short' => 'Tesamorelina es un análogo sintético de la hormona liberadora de hormona de crecimiento (GHRH) diseñado para estimular la secreción de GH de forma fisiológica y selectiva.',
+'desc' => '<h3>Descripción General</h3><p>TesaLean™ (Tesamorelina) es un análogo sintético de la GHRH diseñado para estimular la secreción pulsátil y fisiológica de GH. Es investigado particularmente por sus efectos en la reducción de grasa visceral.</p><h3>Mecanismo de Acción</h3><p>Tesamorelina se une al receptor de GHRH en la hipófisis anterior, estimulando la liberación de GH endógena. Su estructura modificada proporciona mayor estabilidad y vida media que la GHRH nativa.</p><h3>Áreas de Investigación</h3><ul><li>Reducción de grasa visceral abdominal</li><li>Lipodistrofia asociada al VIH</li><li>Esteatosis hepática (NAFLD)</li><li>Composición corporal y metabolismo</li><li>Función cognitiva y neuroprotección</li></ul><h3>Especificaciones</h3><p>Péptido liofilizado de alta pureza (≥98%). Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+90 => [
+'short' => 'ThymaRegen™ (Timalina) es un péptido tímico sintético formulado para investigación avanzada en inmunomodulación, regeneración del timo y restauración de la función inmune asociada al envejecimiento.',
+'desc' => '<h3>Descripción General</h3><p>ThymaRegen™ (Timalina) es un péptido tímico sintético investigado por su capacidad para regenerar la función del timo, restaurar la inmunidad celular y modular los procesos de inmunosenescencia.</p><h3>Mecanismo de Acción</h3><p>Timalina estimula la diferenciación y maduración de linfocitos T en el timo, modula el balance Th1/Th2, y promueve la producción de citocinas inmunorreguladoras, contribuyendo a la restauración de la función inmune.</p><h3>Áreas de Investigación</h3><ul><li>Regeneración tímica y función inmune</li><li>Inmunosenescencia y envejecimiento</li><li>Maduración de linfocitos T</li><li>Deficiencias inmunológicas</li><li>Regulación neuroendocrina</li></ul><h3>Especificaciones</h3><p>Péptido liofilizado de alta pureza (≥98%). Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+92 => [
+'short' => 'Tirzepatida es un polipéptido sintético y doble agonista de los receptores GIP y GLP-1. Representa una nueva clase de terapias investigadas para el manejo del peso y el control metabólico.',
+'desc' => '<h3>Descripción General</h3><p>Tirzepatida es un doble agonista sintético de los receptores GIP y GLP-1, representando una nueva generación de péptidos investigados por su eficacia superior en el manejo del peso y el control glucémico.</p><h3>Mecanismo de Acción</h3><p>Activa simultáneamente los receptores GLP-1R (saciedad, secreción de insulina) y GIPR (metabolismo lipídico y sensibilidad a la insulina), logrando efectos sinérgicos en la pérdida de peso y el control metabólico.</p><h3>Áreas de Investigación</h3><ul><li>Manejo del peso y obesidad</li><li>Diabetes tipo 2 y control glucémico</li><li>Doble agonismo GIP/GLP-1</li><li>Síndrome metabólico</li><li>Esteatosis hepática y protección cardiovascular</li></ul><h3>Especificaciones</h3><p>Péptido liofilizado de alta pureza (≥98%). Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+94 => [
+'short' => 'VIP-NeuroX™ es una formulación de alta pureza del Péptido Intestinal Vasoactivo (VIP), desarrollada para investigación avanzada en neuroprotección, regulación inmune e inflamación sistémica.',
+'desc' => '<h3>Descripción General</h3><p>VIP-NeuroX™ es una formulación de alta pureza del Péptido Intestinal Vasoactivo (VIP), investigado por sus propiedades neuroprotectoras, antiinflamatorias y reguladoras del sistema inmune.</p><h3>Mecanismo de Acción</h3><p>VIP se une a los receptores VPAC1 y VPAC2, activando vías de señalización AMPc/PKA que modulan la respuesta inflamatoria, promueven la neuroprotección y regulan la vasodilatación y la secreción gastrointestinal.</p><h3>Áreas de Investigación</h3><ul><li>Neuroprotección y enfermedades neurodegenerativas</li><li>Enfermedades inflamatorias crónicas</li><li>CIRS y biotoxinas ambientales</li><li>Regulación de la barrera hematoencefálica</li><li>Función gastrointestinal y motilidad</li></ul><h3>Especificaciones</h3><p>Péptido liofilizado de alta pureza (≥98%). Almacenar entre 2-8°C. Solo para uso en investigación.</p>'
+],
+];
+
+$updated = 0;
+foreach ($translations as $id => $data) {
+    $r = wp_update_post(['ID'=>$id,'post_content'=>$data['desc'],'post_excerpt'=>$data['short']], true);
+    if (!is_wp_error($r)) { $updated++; echo "OK: ID $id\n"; } else { echo "ERR: ID $id\n"; }
+}
+echo "\nBatch 4 (FINAL): $updated / " . count($translations) . "\n";
+echo "ALL 39 PRODUCTS TRANSLATED!\n";

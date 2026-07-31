@@ -1,0 +1,902 @@
+<?php get_header(); ?>
+
+<style>
+/* --- LUXURY SYSTEM FOR HOMEPAGE --- */
+body.home {
+    background-color: #030712 !important;
+    color: #f3f4f6 !important;
+}
+
+body.home h1, body.home h2, body.home h3, body.home h4 {
+    color: #ffffff !important;
+}
+
+body.home .section--gray {
+    background: #090d16 !important;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+/* --- TRANSPARENT NAV OVERRIDES --- */
+body.home .navbar {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: none !important;
+    top: 0;
+}
+
+body.home .navbar.scrolled {
+    background: rgba(11, 29, 58, 0.95) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.2) !important;
+    top: 0 !important;
+}
+
+body.home .navbar .nav-link {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+body.home .navbar .nav-link:hover,
+body.home .navbar .nav-link.active {
+    color: #ffffff !important;
+}
+
+body.home .navbar .nav-link.active::after {
+    background: var(--accent) !important;
+}
+
+body.home .navbar .nav-logo img {
+    filter: brightness(0) invert(1) !important;
+}
+
+body.home .navbar .nav-action-btn {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+body.home .navbar .nav-action-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+body.home .navbar .nav-hamburger span {
+    background: #ffffff !important;
+}
+
+body.home .top-bar {
+    background: rgba(3, 7, 18, 0.8) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    position: relative;
+    min-height: 95vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #030712;
+}
+
+.hero-video-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.hero-video-bg video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%,-50%);
+    object-fit: cover;
+    opacity: 0.55;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(3,7,18,0.2) 0%, rgba(3,7,18,0.92) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: calc(var(--navbar-height) + 80px) 0 var(--space-4xl);
+}
+
+.hero-card {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: var(--space-3xl);
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-2xl);
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: rgba(14, 165, 233, 0.15);
+    color: var(--accent);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(14, 165, 233, 0.25);
+    margin-bottom: var(--space-xl);
+}
+
+.hero-tag svg {
+    width: 12px;
+    height: 12px;
+}
+
+.hero-title {
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-lg);
+    color: #ffffff;
+}
+
+.hero-desc {
+    font-size: var(--fs-md);
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    margin-bottom: var(--space-2xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-features {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    flex-wrap: wrap;
+}
+
+.hero-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+.hero-feature-item svg {
+    color: var(--accent);
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* --- TICKER ROW --- */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: #020617;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 16px 0;
+}
+
+.ticker {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 35s linear infinite;
+    width: max-content;
+}
+
+.ticker-item {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-right: var(--space-5xl);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ticker-item svg {
+    color: var(--accent);
+    width: 12px;
+    height: 12px;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- PEPTIDE CARD STYLE --- */
+.peptide-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: 20px;
+}
+
+.peptide-card {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.35s var(--ease-out);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.peptide-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15);
+    transform: translateY(-4px);
+    background: rgba(15, 23, 42, 0.6);
+}
+
+.peptide-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+}
+
+.peptide-image-box {
+    width: 72px;
+    height: 72px;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.peptide-image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.peptide-badge {
+    padding: 4px 10px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--accent);
+    color: #ffffff;
+    border-radius: var(--radius-full);
+}
+
+.peptide-name {
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.peptide-desc {
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+    min-height: 64px;
+}
+
+.peptide-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.peptide-price {
+    font-family: var(--font-heading);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.peptide-add-btn {
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,0.08);
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.peptide-card:hover .peptide-add-btn {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+}
+
+/* --- TABS SYSTEM --- */
+.tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 12px 28px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover, .tab-btn.active {
+    background: #ffffff;
+    color: var(--navy);
+    border-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+}
+
+/* --- WEIGHT LOSS FOCUS --- */
+.wl-card-featured {
+    background: linear-gradient(135deg, rgba(15,23,42,0.6) 0%, rgba(30,41,59,0.6) 100%);
+    border: 1.5px solid rgba(14, 165, 233, 0.25);
+}
+
+/* --- LOGISTICS & DISCOUNTS --- */
+.logistics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: stretch;
+}
+
+.logistics-card {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+}
+
+.discount-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.discount-row:last-child {
+    border-bottom: none;
+}
+
+.discount-qty {
+    font-weight: 700;
+    font-size: var(--fs-sm);
+    color: #ffffff;
+}
+
+.discount-val {
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.discount-row.recommended {
+    background: rgba(14, 165, 233, 0.08);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media(max-width: 1024px) {
+    .peptide-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .logistics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 640px) {
+    .peptide-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero-card {
+        padding: var(--space-xl);
+    }
+    .hero-features {
+        gap: var(--space-md);
+    }
+}
+</style>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="<?php echo get_template_directory_uri(); ?>/video/hero-bg.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-card" data-animate="fade-up">
+        <div class="hero-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Laboratorio Clínico Suizo • Pureza Certificada
+        </div>
+        <h1 class="hero-title">Ciencia Suiza.<br><span class="text-gradient">Pureza Absoluta.</span></h1>
+        <p class="hero-desc">Proveedor exclusivo en Colombia de péptidos de ultra-alta pureza (HPLC ≥99%). Diseñados para investigación científica avanzada con máxima precisión.</p>
+        <div class="hero-features">
+          <div class="hero-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Envío Express Gratis
+          </div>
+          <div class="hero-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Hasta 25% OFF por Volumen
+          </div>
+          <div class="hero-feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Análisis HPLC Incluido
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-accent btn-lg">Explorar Catálogo</a>
+          <a href="<?php echo home_url('/calculadora'); ?>" class="btn btn-outline btn-lg" style="color:#ffffff; border-color:rgba(255,255,255,0.3);">Calculadora de Reconstitución</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> PUREZA ≥99% HPLC VERIFICADA</div>
+    <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> CALIDAD DE GRADO CLÍNICO SUIZO</div>
+    <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> ENVÍO EXPRESS GRATUITO EN COLOMBIA</div>
+    <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> PUREZA ≥99% HPLC VERIFICADA</div>
+    <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> CALIDAD DE GRADO CLÍNICO SUIZO</div>
+    <div class="ticker-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg> ENVÍO EXPRESS GRATUITO EN COLOMBIA</div>
+  </div>
+</div>
+
+<!-- HELPERS & PHP RENDERING -->
+<?php
+function sp_render_peptide_card($product_id, $clinical_desc, $badge = '') {
+    $product = wc_get_product($product_id);
+    if (!$product) return;
+    
+    $name = $product->get_name();
+    $price = $product->get_price_html();
+    $url = $product->get_permalink();
+    $image = $product->get_image('thumbnail');
+    ?>
+    <div class="peptide-card" onclick="window.location.href='<?php echo esc_url($url); ?>'">
+        <div class="peptide-card-header">
+            <div class="peptide-image-box">
+                <?php echo $image; ?>
+            </div>
+            <?php if ($badge) : ?>
+                <span class="peptide-badge"><?php echo esc_html($badge); ?></span>
+            <?php endif; ?>
+        </div>
+        <div class="peptide-name"><?php echo esc_html($name); ?></div>
+        <div class="peptide-desc"><?php echo esc_html($clinical_desc); ?></div>
+        <div class="peptide-price-row">
+            <span class="peptide-price"><?php echo $price; ?></span>
+            <button class="peptide-add-btn sp-add-to-cart" data-product-id="<?php echo $product_id; ?>" onclick="event.stopPropagation();">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+        </div>
+    </div>
+    <?php
+}
+?>
+
+<!-- INTERACTIVE GUIDE SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: var(--space-2xl);">
+      <div class="section-label" data-animate="fade-up">Buscador de Objetivos</div>
+      <h2 class="section-title" data-animate="fade-up" data-delay="1">Guía Clínica de Péptidos</h2>
+      <p class="section-subtitle" data-animate="fade-up" data-delay="2">Encuentra los péptidos exactos recomendados para tu área de estudio científico.</p>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs-nav" data-animate="fade-up">
+      <button class="tab-btn active" data-tab="grasa">Pérdida de Grasa</button>
+      <button class="tab-btn" data-tab="regen">Regeneración</button>
+      <button class="tab-btn" data-tab="longevidad">Longevidad</button>
+      <button class="tab-btn" data-tab="rendimiento">Rendimiento</button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tabs-content-container">
+      
+      <!-- Tab Fat Loss -->
+      <div class="tab-content active" id="tab-grasa">
+        <div class="peptide-grid">
+          <?php 
+            sp_render_peptide_card(92, "Doble agonista GLP-1/GIP de última generación. Activa receptores de saciedad y optimiza la quema lipídica profunda.", "Premium"); 
+            sp_render_peptide_card(84, "Agonista GLP-1 estándar de alta pureza. Retrasa el vaciado gástrico y estabiliza el apetito.", "Top Ventas"); 
+            sp_render_peptide_card(80, "Triple agonista (GLP-1/GIP/GCGR) para la máxima aceleración del gasto energético diario.", "Innovación"); 
+          ?>
+        </div>
+      </div>
+
+      <!-- Tab Regeneration -->
+      <div class="tab-content" id="tab-regen">
+        <div class="peptide-grid">
+          <?php 
+            sp_render_peptide_card(29, "Combo regenerativo de tendones, ligamentos, piel y tejidos blandos. Ideal para recuperación deportiva.", "Combo"); 
+            sp_render_peptide_card(31, "Formulación pura de BPC-157 para sanación de la mucosa digestiva y tejidos conectivos inflamados.", "Reparación"); 
+            sp_render_peptide_card(90, "Optimización del timo y modulación inmune para reparación celular general profunda.", "Sistema Inmune"); 
+          ?>
+        </div>
+      </div>
+
+      <!-- Tab Longevity -->
+      <div class="tab-content" id="tab-longevidad">
+        <div class="peptide-grid">
+          <?php 
+            sp_render_peptide_card(39, "Bioregulador de la glándula pineal y activador de la telomerasa. Retrasa la senescencia celular.", "Longevidad"); 
+            sp_render_peptide_card(69, "Coadyuvante en la producción de energía mitocondrial celular, vitalidad general y reparación de ADN.", "Energía"); 
+            sp_render_peptide_card(67, "Protector mitocondrial de alta potencia para combatir el estrés oxidativo sistémico.", "Escudo"); 
+          ?>
+        </div>
+      </div>
+
+      <!-- Tab Performance -->
+      <div class="tab-content" id="tab-rendimiento">
+        <div class="peptide-grid">
+          <?php 
+            sp_render_peptide_card(51, "Estimulador natural de la hormona del crecimiento para ganancia magra e incremento de la densidad muscular.", "Fuerza"); 
+            sp_render_peptide_card(53, "Péptido anabólico directo para hipertrofia y regeneración de fibras musculares profundas.", "Hipertrofia"); 
+            sp_render_peptide_card(57, "Estimulador selectivo de la secreción de GH sin alterar el cortisol ni la prolactina.", "Definición"); 
+          ?>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TOP WEIGHT LOSS PRODUCTS SECTION -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: var(--space-2xl);">
+      <div class="section-label">Enfoque Clínico</div>
+      <h2 class="section-title">Productos Top para Pérdida de Peso</h2>
+      <p class="section-subtitle">Los péptidos más eficientes y estudiados a nivel mundial para el control metabólico y reducción del tejido adiposo.</p>
+    </div>
+
+    <div class="peptide-grid">
+      <?php
+      // 1. Tirzepatide
+      $tirz_prod = wc_get_product(92);
+      if ($tirz_prod) : ?>
+      <div class="peptide-card wl-card-featured" onclick="window.location.href='<?php echo esc_url($tirz_prod->get_permalink()); ?>'">
+        <div class="peptide-card-header">
+          <div class="peptide-image-box"><?php echo $tirz_prod->get_image('thumbnail'); ?></div>
+          <span class="peptide-badge" style="background:#0284C7;">Máxima Potencia</span>
+        </div>
+        <div class="peptide-name"><?php echo esc_html($tirz_prod->get_name()); ?> (10mg)</div>
+        <p class="peptide-desc">Agonista dual de los receptores GIP y GLP-1. Regula el apetito a nivel del sistema nervioso central, retrasa la digestión y optimiza la secreción de insulina de manera natural.</p>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.7);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Reconstituir con: 2ml de agua bacteriostática
+        </div>
+        <div class="peptide-price-row">
+          <span class="peptide-price"><?php echo $tirz_prod->get_price_html(); ?></span>
+          <button class="peptide-add-btn sp-add-to-cart" data-product-id="92" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+      <?php endif; ?>
+
+      <?php
+      // 2. Semaglutide
+      $sema_prod = wc_get_product(84);
+      if ($sema_prod) : ?>
+      <div class="peptide-card wl-card-featured" onclick="window.location.href='<?php echo esc_url($sema_prod->get_permalink()); ?>'">
+        <div class="peptide-card-header">
+          <div class="peptide-image-box"><?php echo $sema_prod->get_image('thumbnail'); ?></div>
+          <span class="peptide-badge" style="background:#059669;">El Estándar Clínico</span>
+        </div>
+        <div class="peptide-name"><?php echo esc_html($sema_prod->get_name()); ?> (5mg)</div>
+        <p class="peptide-desc">Agonista selectivo de GLP-1 de alta duración. Induce una saciedad sostenida de hasta 7 días por dosis, bloquea antojos y estabiliza los niveles de azúcar en sangre.</p>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.7);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Reconstituir con: 2ml de agua bacteriostática
+        </div>
+        <div class="peptide-price-row">
+          <span class="peptide-price"><?php echo $sema_prod->get_price_html(); ?></span>
+          <button class="peptide-add-btn sp-add-to-cart" data-product-id="84" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+      <?php endif; ?>
+
+      <?php
+      // 3. Retatrutide
+      $reta_prod = wc_get_product(80);
+      if ($reta_prod) : ?>
+      <div class="peptide-card wl-card-featured" onclick="window.location.href='<?php echo esc_url($reta_prod->get_permalink()); ?>'">
+        <div class="peptide-card-header">
+          <div class="peptide-image-box"><?php echo $reta_prod->get_image('thumbnail'); ?></div>
+          <span class="peptide-badge" style="background:#b45309;">Nueva Generación</span>
+        </div>
+        <div class="peptide-name"><?php echo esc_html($reta_prod->get_name()); ?> (10mg)</div>
+        <p class="peptide-desc">Triple agonista de receptores GIP, GLP-1 y Glucagón (GCGR). Maximiza la quema calórica celular basal y es la última frontera en investigación metabólica avanzada.</p>
+        <div style="font-size:0.75rem;color:rgba(255,255,255,0.7);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0ea5e9" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Reconstituir con: 2ml de agua bacteriostática
+        </div>
+        <div class="peptide-price-row">
+          <span class="peptide-price"><?php echo $reta_prod->get_price_html(); ?></span>
+          <button class="peptide-add-btn sp-add-to-cart" data-product-id="80" onclick="event.stopPropagation();">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+      <?php endif; ?>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOUNTS & COLOMBIAN SHIPPING LOGISTICS -->
+<section class="section">
+  <div class="container">
+    <div class="logistics-grid">
+      
+      <!-- Column 1: Volume Discounts -->
+      <div class="logistics-card" data-animate="fade-right">
+        <div class="section-label">Ahorro Inteligente</div>
+        <h3 style="font-size:var(--fs-2xl);margin-bottom:var(--space-md);font-family:var(--font-heading);font-weight:700;">Descuentos por Volumen</h3>
+        <p style="color:rgba(255,255,255,0.7);font-size:var(--fs-sm);margin-bottom:var(--space-xl);line-height:1.6;">Maximiza tu presupuesto de investigación adquiriendo múltiples unidades. El descuento se aplica automáticamente al agregar los productos a tu carrito.</p>
+        
+        <div class="discount-table">
+          <div class="discount-row">
+            <span class="discount-qty">1 Unidad</span>
+            <span class="discount-val">Precio estándar de lista</span>
+          </div>
+          <div class="discount-row">
+            <span class="discount-qty">2 Unidades</span>
+            <span class="discount-val">10% de Descuento (Ahorra $120.000+)</span>
+          </div>
+          <div class="discount-row recommended">
+            <span class="discount-qty">3 Unidades <span style="font-size:10px;background:#ffffff;color:var(--navy);padding:2px 6px;border-radius:var(--radius-sm);margin-left:6px;font-weight:800;">RECOMENDADO</span></span>
+            <span class="discount-val" style="color:#ffffff;">20% de Descuento (Ahorra $360.000+ y Agua Gratis)</span>
+          </div>
+          <div class="discount-row">
+            <span class="discount-qty">4+ Unidades</span>
+            <span class="discount-val">25% de Descuento (Ahorra $600.000+)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2: Colombian Shipping Logistics -->
+      <div class="logistics-card" data-animate="fade-left">
+        <div class="section-label">Logística y Envíos</div>
+        <h3 style="font-size:var(--fs-2xl);margin-bottom:var(--space-md);font-family:var(--font-heading);font-weight:700;">Envíos Express en Colombia</h3>
+        <p style="color:rgba(255,255,255,0.7);font-size:var(--fs-sm);margin-bottom:var(--space-xl);line-height:1.6;">Garantizamos la estabilidad y protección de la estructura molecular de tus péptidos durante todo el trayecto de entrega nacional.</p>
+        
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;gap:14px;">
+            <div style="width:40px;height:40px;background:rgba(14,165,233,0.1);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div>
+              <h4 style="font-size:var(--fs-base);margin-bottom:4px;font-weight:700;">Cobertura Nacional Gratuita</h4>
+              <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.5;">Envíos gratis a Bogotá, Medellín, Cali, Barranquilla, Bucaramanga, Pereira y todo el territorio colombiano (2-5 días hábiles).</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;">
+            <div style="width:40px;height:40px;background:rgba(14,165,233,0.1);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h4 style="font-size:var(--fs-base);margin-bottom:4px;font-weight:700;">Empaque Térmico Clínico</h4>
+              <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.5;">Todos los péptidos viajan en recipientes con aislamiento térmico y geles protectores para asegurar su temperatura y estabilidad molecular.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;">
+            <div style="width:40px;height:40px;background:rgba(14,165,233,0.1);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <h4 style="font-size:var(--fs-base);margin-bottom:4px;font-weight:700;">Despacho Inmediato</h4>
+              <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.5;">Los pedidos confirmados antes de la 1:00 PM se despachan el mismo día hábil, entregándote un número de seguimiento al instante.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY SWISS PEPTIDES CLÍNICO -->
+<section class="section section--gray">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:var(--space-3xl);align-items:center;">
+      <div style="position:relative;border-radius:var(--radius-2xl);overflow:hidden;border:1px solid rgba(255,255,255,0.08);box-shadow:0 20px 40px rgba(0,0,0,0.4);">
+        <img src="<?php echo get_template_directory_uri(); ?>/img/hero/hero-scientists.png" alt="Laboratorio de investigación" style="width:100%;height:450px;object-fit:cover;opacity:0.9;">
+      </div>
+      <div>
+        <div class="section-label">Estándares de Calidad</div>
+        <h2 class="section-title">Ingeniería y Pureza de Grado Suizo</h2>
+        <p class="section-subtitle" style="margin-bottom:var(--space-2xl);color:rgba(255,255,255,0.7);">Cada lote es sometido a un riguroso control analítico para certificar su pureza antes de ser liberado al mercado.</p>
+        
+        <ul style="display:flex;flex-direction:column;gap:var(--space-lg);">
+          <li style="display:flex;gap:var(--space-md);">
+            <div style="width:44px;height:44px;border-radius:var(--radius-lg);background:rgba(14,165,233,0.1);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <h4 style="font-size:var(--fs-base);font-weight:700;margin-bottom:4px;color:#ffffff;">Pureza HPLC Garantizada ≥99%</h4>
+              <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.6;">La cromatografía líquida de alta eficacia confirma que estás recibiendo el principio activo puro sin metales pesados ni solventes residuales.</p>
+            </div>
+          </li>
+          <li style="display:flex;gap:var(--space-md);">
+            <div style="width:44px;height:44px;border-radius:var(--radius-lg);background:rgba(14,165,233,0.1);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+              <h4 style="font-size:var(--fs-base);font-weight:700;margin-bottom:4px;color:#ffffff;">Certificado de Análisis en Cada Lote</h4>
+              <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.6;">Proveemos espectrografía de masas e informes HPLC legibles para que verifiques los datos técnicos de tu producto.</p>
+            </div>
+          </li>
+          <li style="display:flex;gap:var(--space-md);">
+            <div style="width:44px;height:44px;border-radius:var(--radius-lg);background:rgba(14,165,233,0.1);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <h4 style="font-size:var(--fs-base);font-weight:700;margin-bottom:4px;color:#ffffff;">Soporte de Integridad y Asesoría</h4>
+              <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.6;">Nuestro equipo te asiste en todo momento a través de WhatsApp para guiarte en el proceso de almacenamiento y reconstitución.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREQUENTLY ASKED QUESTIONS -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom: var(--space-3xl);">
+      <div class="section-label">Resolución de Dudas</div>
+      <h2 class="section-title">Preguntas Frecuentes</h2>
+      <p class="section-subtitle">Toda la información clave explicada de manera directa y honesta para garantizar tu tranquilidad.</p>
+    </div>
+    
+    <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:16px;">
+      
+      <div style="background:rgba(15,23,42,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:var(--space-lg) var(--space-xl);">
+        <h4 style="font-size:var(--fs-base);margin-bottom:8px;font-weight:700;color:#ffffff;display:flex;justify-content:space-between;align-items:center;">
+          ¿Cómo se garantiza la calidad de los péptidos?
+        </h4>
+        <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.6;">Cada lote fabricado es verificado mediante cromatografía líquida de alta eficacia (HPLC) y análisis de espectrometría de masas para comprobar la identidad del principio activo y certificar una pureza superior al 99% sin impurezas.</p>
+      </div>
+
+      <div style="background:rgba(15,23,42,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:var(--space-lg) var(--space-xl);">
+        <h4 style="font-size:var(--fs-base);margin-bottom:8px;font-weight:700;color:#ffffff;">
+          ¿Cómo es el proceso de envío dentro de Colombia?
+        </h4>
+        <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.6;">Los despachos son gratuitos e incluyen embalaje térmico hermético y refrigeración protectora. La entrega se realiza mediante transportadoras autorizadas con tracking en un plazo de 2 a 5 días hábiles a cualquier ciudad de Colombia.</p>
+      </div>
+
+      <div style="background:rgba(15,23,42,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:var(--space-lg) var(--space-xl);">
+        <h4 style="font-size:var(--fs-base);margin-bottom:8px;font-weight:700;color:#ffffff;">
+          ¿Qué formas de pago aceptan?
+        </h4>
+        <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.6;">Aceptamos pagos 100% seguros a través del portal transaccional de Bold, permitiendo pagar con tarjetas de crédito de todas las franquicias, tarjetas débito, PSE, Nequi y Daviplata de forma inmediata.</p>
+      </div>
+
+      <div style="background:rgba(15,23,42,0.45);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:var(--space-lg) var(--space-xl);">
+        <h4 style="font-size:var(--fs-base);margin-bottom:8px;font-weight:700;color:#ffffff;">
+          ¿Qué necesito para reconstituir los productos?
+        </h4>
+        <p style="font-size:var(--fs-sm);color:rgba(255,255,255,0.6);line-height:1.6;">Para reconstituir tus péptidos de investigación requieres Agua Bacteriostática (disponible en nuestra tienda). Te proporcionamos una calculadora interactiva de reconstitución directamente en nuestra web para guiarte en el cálculo de dosis precisas.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<section class="cta-section">
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="section-label" style="color:rgba(255,255,255,.5);">Swiss Peptides Labs</div>
+    <h2 class="section-title" style="color:#ffffff;max-width:600px;margin:0 auto var(--space-md);">La excelencia científica suiza en Colombia</h2>
+    <p style="color:rgba(255,255,255,.6);max-width:480px;margin:0 auto var(--space-2xl);font-size:var(--fs-md);">Explora hoy el catálogo completo y recibe asesoría directa por canal preferente.</p>
+    <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;">
+      <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-accent btn-lg">Explorar Catálogo</a>
+      <a href="https://wa.me/573189163091" target="_blank" class="btn btn-lg" style="background:rgba(255,255,255,0.1);color:#ffffff;border:1px solid rgba(255,255,255,0.2);">Asesoría por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const target = this.dataset.tab;
+            
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            this.classList.add('active');
+            const targetContent = document.getElementById('tab-' + target);
+            if (targetContent) targetContent.classList.add('active');
+        });
+    });
+});
+</script>
+
+<?php get_footer(); ?>

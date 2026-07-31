@@ -1,0 +1,246 @@
+<?php get_header(); ?>
+
+<style>
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-video-bg{position:absolute;inset:0;z-index:0}
+.hero-video-bg video{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;transform:translate(-50%,-50%);object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.93) 0%,rgba(255,255,255,.88) 40%,rgba(255,255,255,.7) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;width:100%;padding:calc(var(--navbar-height) + 60px) 0 var(--space-4xl)}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--space-3xl);align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;background:var(--teal-light);color:var(--teal-dark);border-radius:var(--radius-full);margin-bottom:var(--space-lg);border:1px solid rgba(14,165,233,.15)}
+.hero-title{font-size:clamp(2.5rem,5vw,3.8rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:var(--space-lg);color:var(--navy)}
+.hero-desc{font-size:var(--fs-md);color:var(--gray-700);line-height:1.7;margin-bottom:var(--space-2xl);max-width:500px}
+.hero-actions{display:flex;gap:var(--space-md);align-items:center;flex-wrap:wrap}
+.hero-stats{display:flex;gap:var(--space-md);margin-top:var(--space-2xl)}
+.hero-stat-card{background:rgba(255,255,255,.7);backdrop-filter:blur(12px);border:1px solid var(--gray-200);border-radius:var(--radius-lg);padding:var(--space-lg) var(--space-xl);text-align:center;flex:1;transition:all .3s ease}
+.hero-stat-card:hover{border-color:var(--accent);box-shadow:0 4px 20px rgba(14,165,233,.1);transform:translateY(-2px)}
+.hero-stat-value{font-family:var(--font-heading);font-size:var(--fs-2xl);font-weight:800;color:var(--navy);line-height:1}
+.hero-stat-label{font-size:var(--fs-xs);color:var(--gray-500);margin-top:6px;font-weight:500}
+.hero-right{position:relative;display:flex;justify-content:center}
+.hero-visual{position:relative;width:100%;max-width:460px;border-radius:var(--radius-2xl);overflow:hidden;box-shadow:var(--shadow-xl)}
+.hero-visual img{width:100%;height:auto;display:block}
+.hero-trust-row{display:flex;gap:var(--space-2xl);margin-top:var(--space-lg);flex-wrap:wrap}
+.hero-trust-item{display:flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--gray-600)}
+.hero-trust-item svg{width:15px;height:15px;color:var(--accent);flex-shrink:0}
+.categories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-lg)}
+.category-card{background:var(--white);border:1px solid var(--border-color);border-radius:var(--radius-xl);padding:var(--space-xl);text-align:center;transition:all .35s var(--ease-out);cursor:pointer;text-decoration:none;color:inherit;display:block}
+.category-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.category-icon{width:48px;height:48px;margin:0 auto var(--space-md);background:var(--gray-50);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;color:var(--accent);transition:all .3s ease}
+.category-card:hover .category-icon{background:var(--teal-light)}
+.category-name{font-family:var(--font-heading);font-size:var(--fs-sm);font-weight:700;color:var(--navy);margin-bottom:4px}
+.category-count{font-size:var(--fs-xs);color:var(--gray-500)}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg)}
+.lifestyle-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3xl);align-items:center}
+.lifestyle-img{border-radius:var(--radius-2xl);overflow:hidden}
+.lifestyle-img img{width:100%;height:400px;object-fit:cover}
+.lifestyle-list{list-style:none;display:flex;flex-direction:column;gap:var(--space-lg)}
+.lifestyle-list li{display:flex;gap:var(--space-md);align-items:flex-start}
+.lifestyle-list .li-icon{width:44px;height:44px;border-radius:var(--radius-lg);background:var(--teal-light);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--teal-dark)}
+.lifestyle-list .li-text h4{font-family:var(--font-heading);font-size:var(--fs-base);font-weight:700;color:var(--navy);margin-bottom:4px}
+.lifestyle-list .li-text p{font-size:var(--fs-sm);color:var(--gray-600);line-height:1.6}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-lg)}
+.trust-card{padding:var(--space-2xl);text-align:center;border:1px solid var(--border-color);border-radius:var(--radius-xl);background:var(--white);transition:all .35s var(--ease-out)}
+.trust-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.trust-icon{width:56px;height:56px;margin:0 auto var(--space-lg);background:var(--teal-light);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;color:var(--teal-dark)}
+.trust-title{font-family:var(--font-heading);font-size:var(--fs-base);font-weight:700;margin-bottom:var(--space-xs);color:var(--navy)}
+.trust-desc{font-size:var(--fs-sm);color:var(--gray-500);line-height:1.7}
+.cta-section{background:var(--navy);padding:var(--space-4xl) 0;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(14,165,233,.12) 0%,transparent 60%)}
+@media(max-width:1024px){.categories-grid{grid-template-columns:repeat(3,1fr)}.trust-grid{grid-template-columns:repeat(2,1fr)}.products-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:768px){.hero-grid,.lifestyle-grid{grid-template-columns:1fr}.hero-right{margin-top:var(--space-xl)}.products-grid{grid-template-columns:repeat(2,1fr)}.trust-grid{grid-template-columns:1fr}.categories-grid{grid-template-columns:repeat(2,1fr)}.hero-stats{flex-wrap:wrap;justify-content:center;gap:var(--space-sm)}.hero-stat-card{padding:var(--space-md) var(--space-sm);flex:1 1 40%}}
+@media(max-width:480px){.products-grid{grid-template-columns:1fr}.hero-title{font-size:2rem}}
+</style>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video-bg">
+    <video autoplay muted loop playsinline>
+      <source src="<?php echo get_template_directory_uri(); ?>/video/hero-bg.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-left">
+          <div class="hero-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Distribuidor exclusivo en Colombia
+          </div>
+          <h1 class="hero-title">Ciencia Suiza.<br><span class="text-gradient">Pureza Absoluta.</span></h1>
+          <p class="hero-desc">Peptidos de investigacion de ultra-alta pureza directamente desde nuestro laboratorio en Suiza. <?php echo wp_count_posts('product')->publish; ?> referencias con certificacion HPLC y espectrometria de masas.</p>
+          <div class="hero-actions">
+            <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-primary btn-lg">Explorar catalogo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            <a href="<?php echo home_url('/nosotros'); ?>" class="btn btn-outline btn-lg">Conocer mas</a>
+          </div>
+          <div class="hero-trust-row">
+            <div class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Certificado HPLC + MS</div>
+            <div class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Envio gratis a toda Colombia</div>
+            <div class="hero-trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Calidad Suiza</div>
+          </div>
+          <div class="hero-stats">
+            <div class="hero-stat-card"><div class="hero-stat-value"><?php echo wp_count_posts('product')->publish; ?>+</div><div class="hero-stat-label">Productos</div></div>
+            <div class="hero-stat-card"><div class="hero-stat-value">≥98%</div><div class="hero-stat-label">Pureza HPLC</div></div>
+            <div class="hero-stat-card"><div class="hero-stat-value">2-5</div><div class="hero-stat-label">Dias de entrega</div></div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-visual">
+            <img src="<?php echo get_template_directory_uri(); ?>/img/hero/hero-scientists.png" alt="Cientificos investigadores Swiss Peptides" style="width:100%;height:420px;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:var(--space-3xl);">
+      <div class="section-label" data-animate="fade-up">Categorias</div>
+      <h2 class="section-title" data-animate="fade-up" data-delay="1">Explora por especialidad</h2>
+      <p class="section-subtitle" data-animate="fade-up" data-delay="2">Peptidos de investigacion para cada area de estudio. Formulaciones exclusivas con pureza certificada.</p>
+    </div>
+    <div class="categories-grid">
+      <?php
+      $accesorios_term = get_term_by('slug', 'accesorios', 'product_cat');
+      $exclude_ids = [get_option('default_product_cat')];
+      if ($accesorios_term) $exclude_ids[] = $accesorios_term->term_id;
+      $acc_en = get_term_by('slug', 'accessories', 'product_cat');
+      if ($acc_en) $exclude_ids[] = $acc_en->term_id;
+      $cats = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => true, 'parent' => 0, 'exclude' => $exclude_ids]);
+      $cat_icons = [
+        // Spanish slugs
+        'perdida-de-peso' => '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+        'anti-aging' => '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+        'rendimiento' => '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
+        'regeneracion' => '<path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>',
+        'dermatologia' => '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 007.207 9.694A9 9 0 1112 3z"/>',
+        'neurologia' => '<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>',
+        'inmunologia' => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        'salud-sexual' => '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7z"/>',
+        'sueno' => '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>',
+        'accesorios' => '<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>',
+        // English slugs (from WooCommerce import)
+        'weight-loss' => '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+        'performance' => '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
+        'regeneration' => '<path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>',
+        'dermatology' => '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 007.207 9.694A9 9 0 1112 3z"/>',
+        'neurology' => '<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>',
+        'immunology' => '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        'sexual-health' => '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.3 1.5 4.05 3 5.5l7 7z"/>',
+        'sleep' => '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>',
+        'accessories' => '<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>',
+      ];
+      if ($cats) : foreach ($cats as $cat) :
+        $icon = $cat_icons[$cat->slug] ?? '<circle cx="12" cy="12" r="10"/>';
+      ?>
+      <a href="<?php echo get_term_link($cat); ?>" class="category-card">
+        <div class="category-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><?php echo $icon; ?></svg></div>
+        <div class="category-name"><?php echo $cat->name; ?></div>
+        <div class="category-count"><?php echo $cat->count; ?> productos</div>
+      </a>
+      <?php endforeach; endif; ?>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="section">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--space-2xl);flex-wrap:wrap;gap:var(--space-md);">
+      <div><div class="section-label">Productos destacados</div><h2 class="section-title">Los mas solicitados</h2></div>
+      <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-outline">Ver todos <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    </div>
+    <div class="products-grid">
+      <?php
+      $featured = wc_get_products([
+        'status' => 'publish',
+        'limit' => 8,
+        'featured' => true,
+        'orderby' => 'rand',
+      ]);
+      if (empty($featured)) {
+        $featured = wc_get_products(['status' => 'publish', 'limit' => 8, 'orderby' => 'popularity']);
+      }
+      foreach ($featured as $product) :
+        $cats = wp_get_post_terms($product->get_id(), 'product_cat');
+        $cat_name = !empty($cats) ? $cats[0]->name : '';
+        $badge_text = $product->is_featured() ? 'Popular' : '';
+      ?>
+      <div class="product-card" onclick="window.location.href='<?php echo $product->get_permalink(); ?>'">
+        <div class="product-image-wrap">
+          <?php echo $product->get_image('product-card'); ?>
+          <?php if ($badge_text) : ?><span class="product-badge"><?php echo $badge_text; ?></span><?php endif; ?>
+        </div>
+        <div class="product-info">
+          <div class="product-category"><?php echo esc_html($cat_name); ?></div>
+          <h3 class="product-name"><?php echo $product->get_name(); ?></h3>
+          <div class="product-subtitle"><?php echo $product->get_short_description(); ?></div>
+          <div class="product-price-row">
+            <div>
+              <span class="product-price"><?php echo $product->get_price_html(); ?></span>
+            </div>
+            <button class="product-add-btn sp-add-to-cart" data-product-id="<?php echo $product->get_id(); ?>" onclick="event.stopPropagation();">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="lifestyle-grid">
+      <div class="lifestyle-img">
+        <img src="<?php echo get_template_directory_uri(); ?>/img/hero/hero-scientists.png" alt="Investigador en laboratorio">
+      </div>
+      <div>
+        <div class="section-label">Por que Swiss Peptides</div>
+        <h2 class="section-title">Respaldados por ciencia de clase mundial</h2>
+        <p class="section-subtitle" style="margin-bottom:var(--space-2xl);">Cada vial es producido bajo los mas estrictos estandares de manufactura suiza.</p>
+        <ul class="lifestyle-list">
+          <li><div class="li-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="li-text"><h4>Pureza verificada por HPLC</h4><p>Cromatografia liquida de alta eficacia confirma pureza ≥98% en cada lote.</p></div></li>
+          <li><div class="li-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="li-text"><h4>Certificado de analisis incluido</h4><p>Cada producto incluye CoA con resultados de espectrometria de masas y HPLC.</p></div></li>
+          <li><div class="li-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="li-text"><h4>Envio gratis garantizado</h4><p>Entrega segura a domicilio en toda Colombia en 2-5 dias habiles.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="section">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:var(--space-3xl);">
+      <div class="section-label">Garantias</div>
+      <h2 class="section-title">Estandares suizos de calidad</h2>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card"><div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><h3 class="trust-title">Pureza ≥98% HPLC</h3><p class="trust-desc">Cada lote verificado por cromatografia liquida y espectrometria de masas.</p></div>
+      <div class="trust-card"><div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3 class="trust-title">Pago 100% seguro</h3><p class="trust-desc">Transacciones encriptadas procesadas por Stripe con certificacion PCI DSS.</p></div>
+      <div class="trust-card"><div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><h3 class="trust-title">Envio gratis</h3><p class="trust-desc">Entrega segura a domicilio con tracking. 2-5 dias habiles a toda Colombia.</p></div>
+      <div class="trust-card"><div class="trust-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><h3 class="trust-title">Asesoria experta</h3><p class="trust-desc">Equipo de soporte por WhatsApp para orientacion personalizada.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="section-label" style="color:rgba(255,255,255,.5);">Comienza ahora</div>
+    <h2 class="section-title" style="color:var(--white);max-width:600px;margin:0 auto var(--space-md);">La excelencia suiza al alcance de Colombia</h2>
+    <p style="color:rgba(255,255,255,.6);max-width:480px;margin:0 auto var(--space-2xl);font-size:var(--fs-md);">Explora nuestro catalogo completo de <?php echo wp_count_posts('product')->publish; ?> peptidos de investigacion.</p>
+    <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap;">
+      <a href="<?php echo get_permalink(wc_get_page_id('shop')); ?>" class="btn btn-accent btn-lg">Explorar catalogo</a>
+      <a href="https://wa.me/573189163091" target="_blank" class="btn btn-lg" style="background:rgba(255,255,255,.1);color:var(--white);border:1px solid rgba(255,255,255,.2);">Contactar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<?php get_footer(); ?>

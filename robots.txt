@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+Disallow: /wp-admin/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /wp-login.php
+Disallow: /wp-includes/
+Disallow: /?s=
+Disallow: /search/
+Allow: /wp-admin/admin-ajax.php
+Allow: /wp-content/uploads/
+
+# Sitemap
+Sitemap: https://peptidossuizos.com/sitemap.xml
+
+# Host
+Host: https://peptidossuizos.com

@@ -1,0 +1,10 @@
+# WordPress .gitignore
+wp-config.php
+*.log
+*.tmp
+/wp-content/cache/
+/wp-content/upgrade/
+/wp-content/uploads/cache/
+node_modules/
+.DS_Store
+Thumbs.db
