@@ -1,7 +1,7 @@
 <?php
 /**
  * 2026 World-Class High-Conversion Single Product Template
- * Swiss Peptides Light Clinical Luxury Design - 100% Spanish & Perfect Fit
+ * Swiss Peptides Light Clinical Luxury Design - Master Bottom Section Redesign
  */
 get_header();
 
@@ -21,16 +21,16 @@ $cat_slug = !empty($cats) ? $cats[0]->slug : '';
 // 100% Spanish metadata fallbacks
 $purity = get_post_meta($product->get_id(), 'sp_purity', true);
 if (!$purity || strpos($purity, 'Tested') !== false) {
-    $purity = 'Pureza ≥99.8% Certificada por HPLC';
+    $purity = '≥99.8% Certificada HPLC';
 }
 $content_val = get_post_meta($product->get_id(), 'sp_content', true) ?: '10mg / presentación estéril';
 
 $storage = get_post_meta($product->get_id(), 'sp_storage', true);
 if (!$storage || strpos($storage, 'Store') !== false || strpos($storage, 'lyophilized') !== false) {
-    $storage = 'Conservar entre 2°C y 8°C (Refrigeración continua). Protegido de la luz directa.';
+    $storage = 'Conservar a 2°C - 8°C (Refrigerado)';
 }
 
-$molecular = get_post_meta($product->get_id(), 'sp_molecular', true) ?: 'Síntesis Polipeptídica de Grado Clínico Suizo';
+$molecular = get_post_meta($product->get_id(), 'sp_molecular', true) ?: 'Síntesis de Grado Clínico Suizo';
 
 $benefits_raw = get_post_meta($product->get_id(), 'sp_benefits', true);
 $benefits = $benefits_raw ? array_filter(explode("\n", $benefits_raw)) : [
@@ -51,7 +51,7 @@ $price_per_week = round($price / 10);
 $price_per_day = round($price / 70);
 ?>
 
-<style id="single-product-light-perfect-2026">
+<style id="single-product-master-bottom-redesign-2026">
 /* LIGHT CLINICAL LUXURY THEME */
 body.single-product,
 body.wp-singular.single-product {
@@ -64,7 +64,7 @@ body.wp-singular.single-product {
 .sp-perfect-product-wrapper {
     background-color: #f8fafc !important;
     padding-top: calc(var(--navbar-height, 80px) + 30px) !important;
-    padding-bottom: 80px !important;
+    padding-bottom: 100px !important;
     min-height: 90vh !important;
 }
 
@@ -110,7 +110,7 @@ body.wp-singular.single-product {
     gap: 16px !important;
 }
 
-/* ZERO PADDING IMAGE CONTAINER - FILLS 100% OF CARD WITHOUT MARGINS */
+/* ZERO PADDING IMAGE CONTAINER */
 .sp-p-media-card-zero-padding {
     background: #ffffff !important;
     border-radius: 24px !important;
@@ -341,7 +341,7 @@ body.wp-singular.single-product {
     flex-shrink: 0 !important;
 }
 
-/* Protocol Selector Box (No Viales - Usa Unidades / Productos) */
+/* Protocol Selector Box */
 .sp-p-protocol-box {
     display: flex;
     flex-direction: column;
@@ -486,7 +486,7 @@ body.wp-singular.single-product {
     flex-shrink: 0 !important;
 }
 
-/* Action Buttons Container - CENTERED PERFECTLY */
+/* CENTERED Action Buttons Container */
 .sp-p-actions-container-centered {
     display: flex !important;
     flex-direction: column !important;
@@ -564,9 +564,6 @@ body.wp-singular.single-product {
     text-align: center;
     transition: opacity 0.2s;
 }
-.sp-p-whatsapp-link-centered:hover {
-    opacity: 0.85;
-}
 
 /* Trust Strip */
 .sp-p-trust-strip {
@@ -596,7 +593,7 @@ body.wp-singular.single-product {
 }
 
 /* Combo Card Box */
-.sp-p-combo-card {
+.sp-l-combo-card {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 20px;
@@ -604,7 +601,7 @@ body.wp-singular.single-product {
     margin-top: 12px;
     box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
 }
-.sp-p-combo-card h4 {
+.sp-l-combo-card h4 {
     font-size: 0.95rem;
     font-weight: 800;
     color: #0f172a;
@@ -613,12 +610,12 @@ body.wp-singular.single-product {
     align-items: center;
     gap: 8px;
 }
-.sp-p-combo-card h4 svg {
+.sp-l-combo-card h4 svg {
     width: 18px !important;
     height: 18px !important;
     flex-shrink: 0 !important;
 }
-.sp-p-combo-row {
+.sp-l-combo-row {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -626,102 +623,166 @@ body.wp-singular.single-product {
     color: #334155;
     padding: 8px 0;
 }
-.sp-p-combo-row input[type="checkbox"] {
+.sp-l-combo-row input[type="checkbox"] {
     accent-color: #0284c7;
     width: 18px;
     height: 18px;
     cursor: pointer;
 }
 
-/* Below Fold Specs & Details - 100% SPANISH & INTUITIVE ICONS */
-.sp-p-below-fold {
-    margin-top: 60px;
-    padding-top: 40px;
-    border-top: 1px solid #e2e8f0;
-}
-.sp-p-section-title {
-    font-family: var(--font-heading, system-ui, sans-serif);
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 24px;
+/* ==========================================================================
+   MASTER REDESIGNED BELOW-THE-FOLD SECTION (FULL 100% WIDTH GRID)
+   ========================================================================== */
+.sp-master-bottom-section {
+    width: 100% !important;
+    margin-top: 64px !important;
+    padding-top: 50px !important;
+    border-top: 2px solid #e2e8f0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 60px !important;
 }
 
-.sp-p-specs-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 40px;
+.sp-m-title-block {
+    text-align: center !important;
+    margin-bottom: 32px !important;
 }
-.sp-p-spec-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+.sp-m-title-block h3 {
+    font-family: var(--font-heading, system-ui, sans-serif) !important;
+    font-size: clamp(1.8rem, 3vw, 2.4rem) !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    margin: 0 0 10px 0 !important;
+    letter-spacing: -0.5px !important;
 }
-.sp-p-spec-icon-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 4px;
+.sp-m-title-block p {
+    font-size: 1.05rem !important;
+    color: #64748b !important;
+    margin: 0 !important;
 }
-.sp-p-spec-icon-row svg {
-    width: 22px !important;
-    height: 22px !important;
+
+/* 4-Column High-Visual Technical Specs Cards Grid */
+.sp-m-specs-4col-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 24px !important;
+    width: 100% !important;
+}
+
+.sp-m-spec-luxury-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    padding: 28px 24px !important;
+    box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+.sp-m-spec-luxury-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 20px 40px -10px rgba(2, 132, 199, 0.12) !important;
+    border-color: #0284c7 !important;
+}
+
+.sp-m-spec-header-row {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+}
+
+.sp-m-spec-icon-box {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 14px !important;
+    background: #e0f2fe !important;
+    color: #0284c7 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+}
+.sp-m-spec-icon-box svg {
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0 !important;
+}
+
+.sp-m-spec-label {
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    color: #64748b !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+}
+
+.sp-m-spec-value {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    line-height: 1.4 !important;
+}
+
+/* Master FAQ Accordion Styling */
+.sp-m-faq-container {
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+}
+
+.sp-m-faq-card {
+    background: #ffffff !important;
+    border: 1.5px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03) !important;
+    transition: all 0.25s ease !important;
+}
+.sp-m-faq-card:hover {
+    border-color: #0284c7 !important;
+}
+
+.sp-m-faq-header {
+    padding: 22px 28px !important;
+    font-size: 1.08rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    cursor: pointer !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 16px !important;
+    user-select: none !important;
+}
+.sp-m-faq-header svg {
+    width: 20px !important;
+    height: 20px !important;
     color: #0284c7 !important;
     flex-shrink: 0 !important;
-}
-.sp-p-spec-card label {
-    font-size: 0.78rem;
-    color: #64748b;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-.sp-p-spec-card strong {
-    font-size: 0.98rem;
-    color: #0f172a;
-    font-weight: 700;
-    line-height: 1.5;
+    transition: transform 0.3s ease !important;
 }
 
-/* FAQ Accordion */
-.sp-p-faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+.sp-m-faq-card.open .sp-m-faq-header svg {
+    transform: rotate(180deg) !important;
 }
-.sp-p-faq-item {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+
+.sp-m-faq-content {
+    padding: 0 28px 24px 28px !important;
+    color: #334155 !important;
+    font-size: 0.98rem !important;
+    line-height: 1.7 !important;
+    background: #f8fafc !important;
+    border-top: 1px solid #f1f5f9 !important;
+    display: none;
 }
-.sp-p-faq-question {
-    padding: 20px 24px;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #0f172a;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.sp-p-faq-question svg {
-    width: 18px !important;
-    height: 18px !important;
-    flex-shrink: 0 !important;
-}
-.sp-p-faq-answer {
-    padding: 0 24px 20px 24px;
-    color: #475569;
-    line-height: 1.7;
-    font-size: 0.95rem;
+.sp-m-faq-card.open .sp-m-faq-content {
+    display: block !important;
 }
 
 /* Responsive Breakpoints */
@@ -734,8 +795,8 @@ body.wp-singular.single-product {
         position: relative !important;
         top: 0 !important;
     }
-    .sp-p-specs-grid {
-        grid-template-columns: 1fr 1fr;
+    .sp-m-specs-4col-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 @media (max-width: 640px) {
@@ -751,8 +812,15 @@ body.wp-singular.single-product {
     .sp-p-trust-strip {
         grid-template-columns: 1fr;
     }
-    .sp-p-specs-grid {
-        grid-template-columns: 1fr;
+    .sp-m-specs-4col-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .sp-m-faq-header {
+        padding: 18px 20px !important;
+        font-size: 0.98rem !important;
+    }
+    .sp-m-faq-content {
+        padding: 0 20px 20px 20px !important;
     }
 }
 </style>
@@ -775,7 +843,7 @@ body.wp-singular.single-product {
       <!-- LEFT COLUMN: STICKY PRODUCT GALLERY & BADGES BELOW -->
       <div class="sp-p-gallery-sticky">
         
-        <!-- ZERO PADDING IMAGE CONTAINER (Covers 100% without margins) -->
+        <!-- ZERO PADDING IMAGE CONTAINER -->
         <div class="sp-p-media-card-zero-padding">
           <?php echo $product->get_image('large', array('alt' => esc_attr($product->get_name()), 'loading' => 'eager')); ?>
         </div>
@@ -847,7 +915,7 @@ body.wp-singular.single-product {
           </div>
         </div>
 
-        <!-- Protocol Multi-Pack Selector (Uses "Unidad / Unidades" instead of "Vial") -->
+        <!-- Protocol Multi-Pack Selector -->
         <?php if ($product->get_id() != 25 && $cat_name != 'Accesorios') : ?>
         <div class="sp-p-protocol-box" id="spProtocolSelector">
           <div class="sp-p-protocol-header">
@@ -964,7 +1032,7 @@ body.wp-singular.single-product {
           </div>
         </div>
 
-        <!-- Combo Box -->
+        <!-- Combo Card Box -->
         <?php if ($product->get_id() != 25 && $cat_name != 'Accesorios') : ?>
         <div class="sp-l-combo-card">
           <h4>
@@ -988,81 +1056,106 @@ body.wp-singular.single-product {
 
     </div>
 
-    <!-- Below Fold Technical Specs & FAQs - 100% SPANISH & INTUITIVE ICONS -->
-    <div class="sp-l-below-fold">
-      <h3 class="sp-l-section-title">Especificaciones Técnicas del Producto</h3>
+    <!-- ==========================================================================
+         MASTER REDESIGNED BELOW-THE-FOLD SECTION (FULL 100% WIDTH GRID)
+         ========================================================================== -->
+    <div class="sp-master-bottom-section">
       
-      <div class="sp-l-specs-grid">
-        
-        <!-- Spec 1: Pureza -->
-        <div class="sp-l-spec-card">
-          <div class="sp-p-spec-icon-row">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2q0-.41-.293-.707T13 1h-2q-.41 0-.707.293T10 2z"/></svg>
-            <label>Pureza Certificada</label>
-          </div>
-          <strong><?php echo esc_html($purity); ?></strong>
+      <!-- SECTION 1: TECHNICAL SPECS 4-COLUMN CARDS GRID -->
+      <div>
+        <div class="sp-m-title-block">
+          <h3>Especificaciones Técnicas del Producto</h3>
+          <p>Certificación de calidad y grado de pureza farmacológica suiza</p>
         </div>
 
-        <!-- Spec 2: Concentración -->
-        <div class="sp-l-spec-card">
-          <div class="sp-p-spec-icon-row">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <label>Concentración Estándar</label>
+        <div class="sp-m-specs-4col-grid">
+          
+          <!-- Card 1: Pureza -->
+          <div class="sp-m-spec-luxury-card">
+            <div class="sp-m-spec-header-row">
+              <div class="sp-m-spec-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2q0-.41-.293-.707T13 1h-2q-.41 0-.707.293T10 2z"/></svg>
+              </div>
+              <span class="sp-m-spec-label">Pureza Certificada</span>
+            </div>
+            <div class="sp-m-spec-value"><?php echo esc_html($purity); ?></div>
           </div>
-          <strong><?php echo esc_html($content_val); ?></strong>
-        </div>
 
-        <!-- Spec 3: Almacenamiento (100% SPANISH) -->
-        <div class="sp-l-spec-card">
-          <div class="sp-p-spec-icon-row">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5"><path d="M2 12h20M12 2v20M20 16l-4-4 4-4M4 8l4 4-4 4M16 4l-4 4-4-4M8 20l4-4 4 4"/></svg>
-            <label>Modo de Almacenamiento</label>
+          <!-- Card 2: Concentración -->
+          <div class="sp-m-spec-luxury-card">
+            <div class="sp-m-spec-header-row">
+              <div class="sp-m-spec-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <span class="sp-m-spec-label">Concentración</span>
+            </div>
+            <div class="sp-m-spec-value"><?php echo esc_html($content_val); ?></div>
           </div>
-          <strong><?php echo esc_html($storage); ?></strong>
-        </div>
 
-        <!-- Spec 4: Grado -->
-        <div class="sp-l-spec-card">
-          <div class="sp-p-spec-icon-row">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <label>Grado de Síntesis</label>
+          <!-- Card 3: Almacenamiento -->
+          <div class="sp-m-spec-luxury-card">
+            <div class="sp-m-spec-header-row">
+              <div class="sp-m-spec-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 12h20M12 2v20M20 16l-4-4 4-4M4 8l4 4-4 4M16 4l-4 4-4-4M8 20l4-4 4 4"/></svg>
+              </div>
+              <span class="sp-m-spec-label">Almacenamiento</span>
+            </div>
+            <div class="sp-m-spec-value"><?php echo esc_html($storage); ?></div>
           </div>
-          <strong><?php echo esc_html($molecular); ?></strong>
-        </div>
 
+          <!-- Card 4: Grado -->
+          <div class="sp-m-spec-luxury-card">
+            <div class="sp-m-spec-header-row">
+              <div class="sp-m-spec-icon-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span class="sp-m-spec-label">Grado de Síntesis</span>
+            </div>
+            <div class="sp-m-spec-value"><?php echo esc_html($molecular); ?></div>
+          </div>
+
+        </div>
       </div>
 
-      <h3 class="sp-l-section-title" style="margin-top:40px;">Preguntas Frecuentes de Clientes</h3>
-
-      <div class="sp-l-faq-list">
-        <div class="sp-l-faq-item">
-          <div class="sp-p-faq-question">
-            ¿Cómo garantizan la calidad y autenticidad del producto?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="sp-p-faq-answer">
-            Todos nuestros productos provienen directamente de laboratorios certificados en Suiza con análisis de pureza por HPLC y espectrometría de masas. Cada lote cuenta con su certificado de autenticidad.
-          </div>
+      <!-- SECTION 2: INTERACTIVE FAQ ACCORDION -->
+      <div>
+        <div class="sp-m-title-block">
+          <h3>Preguntas Frecuentes de Clientes</h3>
+          <p>Respuestas claras a las dudas más habituales sobre tu compra y entrega</p>
         </div>
 
-        <div class="sp-l-faq-item">
-          <div class="sp-p-faq-question">
-            ¿Cuánto tiempo tarda el envío dentro de Colombia?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        <div class="sp-m-faq-container">
+          
+          <div class="sp-m-faq-card open">
+            <div class="sp-m-faq-header" onclick="this.parentElement.classList.toggle('open')">
+              ¿Cómo garantizan la calidad y autenticidad del producto?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="sp-m-faq-content">
+              Todos nuestros productos provienen directamente de laboratorios certificados en Suiza con análisis de pureza por HPLC y espectrometría de masas. Cada lote cuenta con su certificado de autenticidad y sello estéril.
+            </div>
           </div>
-          <div class="sp-p-faq-answer">
-            Los despachos a principales ciudades como Bogotá, Medellín, Cali y Barranquilla se entregan en un lapso de 24 a 48 horas hábiles con empaque de protección térmica. El envío es totalmente gratuito.
-          </div>
-        </div>
 
-        <div class="sp-l-faq-item">
-          <div class="sp-p-faq-question">
-            ¿Qué métodos de pago aceptan?
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          <div class="sp-m-faq-card">
+            <div class="sp-m-faq-header" onclick="this.parentElement.classList.toggle('open')">
+              ¿Cuánto tiempo tarda el envío dentro de Colombia?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="sp-m-faq-content">
+              Los despachos a principales ciudades como Bogotá, Medellín, Cali y Barranquilla se entregan en un lapso de 24 a 48 horas hábiles con empaque de protección térmica para preservar la calidad. El envío es totalmente gratuito.
+            </div>
           </div>
-          <div class="sp-p-faq-answer">
-            Aceptamos tarjetas de crédito, PSE, Nequi, Daviplata y transferencias bancarias de forma 100% segura mediante nuestra pasarela encriptada.
+
+          <div class="sp-m-faq-card">
+            <div class="sp-m-faq-header" onclick="this.parentElement.classList.toggle('open')">
+              ¿Qué métodos de pago aceptan en la tienda?
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="sp-m-faq-content">
+              Aceptamos tarjetas de crédito, PSE, Nequi, Daviplata y transferencias bancarias de forma 100% segura mediante nuestra pasarela encriptada.
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -1091,7 +1184,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mainDisplay.textContent = '$ ' + parseInt(newPrice).toLocaleString('es-CO');
       }
       
-      // Update Add to Cart Button Text (No Viales -> Unidades / Productos)
+      // Update Add to Cart Button Text
       var btnText = document.getElementById('spBtnAddText');
       if (btnText && newPrice) {
         btnText.textContent = 'Añadir ' + selectedQty + ' Unidad' + (selectedQty > 1 ? 'es' : '') + ' al Carrito — $ ' + parseInt(newPrice).toLocaleString('es-CO');
