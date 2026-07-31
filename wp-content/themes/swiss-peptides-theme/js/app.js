@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const hasWater = items.some(item => item.name.toLowerCase().includes('bacteriost'));
     if (!hasWater && items.length > 0) {
       htmlContent += `
-        <div class="cart-upsell-card" style="margin:var(--space-md);padding:var(--space-md);background:var(--teal-light);border:1.5px dashed var(--accent);border-radius:var(--radius-lg);display:flex;gap:var(--space-sm);align-items:center;">
+        <div class="cart-upsell-card" style="margin:var(--space-md);padding:var(--space-md);background:var(--teal-light);border:1.5px solid #bae6fd;background:#f0f9ff;border-radius:var(--radius-lg);display:flex;gap:var(--space-sm);align-items:center;">
           <div style="font-size:24px;flex-shrink:0;">🧪</div>
           <div style="flex:1;min-width:0;font-size:var(--fs-xs);line-height:1.4;color:var(--navy);">
             <div style="font-weight:700;margin-bottom:2px;">¿Olvidaste el Agua Bacteriostática?</div>
