@@ -1,7 +1,7 @@
 <?php
 /**
- * Master Light Clinical Luxury Cart Page V7
- * Swiss Peptides 2026 - Direct 5-Column Grid, Zero Nesting Bugs & Ultra-Premium Design
+ * Master Light Clinical Luxury Cart Page V8
+ * Swiss Peptides 2026 - Bulletproof Remove Items & Instant Quantity Controls
  */
 get_header();
 
@@ -16,7 +16,7 @@ if (WC()->cart) {
 }
 ?>
 
-<style id="sp-master-cart-style-v7">
+<style id="sp-master-cart-style-v8">
 html, body {
     overflow-x: hidden !important;
     max-width: 100vw !important;
@@ -96,7 +96,7 @@ body.woocommerce-cart {
     box-sizing: border-box;
 }
 
-/* MASTER ULTRA-PREMIUM PRODUCT CARD (DIRECT 5 COLUMNS) */
+/* MASTER ULTRA-PREMIUM PRODUCT CARD */
 .sp-cart-product-card {
     background: #ffffff !important;
     border: 1.5px solid #e2e8f0 !important;
@@ -174,12 +174,7 @@ body.woocommerce-cart {
     font-weight: 600 !important;
 }
 
-/* Col 3: Qty Pill */
-.sp-cart-card-qty {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
+/* SLEEK QUANTITY PILL COUNTER */
 .sp-qty-pill-box-perfect {
     display: inline-flex !important;
     align-items: center !important;
@@ -230,11 +225,6 @@ body.woocommerce-cart {
     padding: 0 !important;
     margin: 0 !important;
 }
-.sp-qty-input-sub-perfect::-webkit-outer-spin-button,
-.sp-qty-input-sub-perfect::-webkit-inner-spin-button {
-    -webkit-appearance: none !important;
-    margin: 0 !important;
-}
 
 /* Col 4: Subtotal */
 .sp-cart-card-subtotal {
@@ -245,7 +235,7 @@ body.woocommerce-cart {
     white-space: nowrap !important;
 }
 
-/* Col 5: Remove Button */
+/* Col 5: Direct Remove Link */
 .sp-cart-card-remove {
     width: 36px !important;
     height: 36px !important;
@@ -259,6 +249,7 @@ body.woocommerce-cart {
     cursor: pointer !important;
     transition: all 0.2s !important;
     margin-left: auto !important;
+    text-decoration: none !important;
 }
 .sp-cart-card-remove:hover {
     background: #ef4444 !important;
@@ -414,7 +405,6 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
     margin: 0 auto;
 }
 
-/* RESPONSIVE BREAKPOINTS (CLEAN MOBILE FLEX CARD) */
 @media (max-width: 1024px) {
     .sp-cart-grid {
         grid-template-columns: 1fr !important;
@@ -441,15 +431,6 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
         position: relative !important;
     }
 
-    .sp-cart-card-mobile-header {
-        display: flex !important;
-        align-items: center !important;
-        gap: 14px !important;
-        width: 100% !important;
-        padding-right: 40px !important;
-        box-sizing: border-box !important;
-    }
-
     .sp-cart-card-img {
         width: 64px !important;
         height: 64px !important;
@@ -461,17 +442,6 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
         top: 18px !important;
         right: 18px !important;
         margin-left: 0 !important;
-    }
-
-    .sp-cart-card-mobile-footer {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        width: 100% !important;
-        background: #f8fafc !important;
-        padding: 10px 14px !important;
-        border-radius: 14px !important;
-        box-sizing: border-box !important;
     }
 
     .sp-qty-pill-box-perfect {
@@ -523,7 +493,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
       </div>
     <?php else : ?>
 
-    <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
+    <form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post" id="spCartForm">
       <div class="sp-cart-grid">
         
         <!-- LEFT: Items Column -->
@@ -540,9 +510,10 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
               $subtotal_val = $product_price * $cart_item['quantity'];
               $cats = wp_get_post_terms($product_id, 'product_cat', ['fields' => 'names']);
               $cat_name = !empty($cats) ? $cats[0] : 'PÉPTIDOS SUIZOS';
+              $remove_url = wc_get_cart_remove_url($cart_item_key);
           ?>
           
-          <!-- INDIVIDUAL LUXURY PRODUCT CARD (DIRECT 5 COLUMNS ON DESKTOP) -->
+          <!-- INDIVIDUAL LUXURY PRODUCT CARD -->
           <div class="sp-cart-product-card">
             
             <!-- Col 1: Image -->
@@ -567,7 +538,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
             <div class="sp-cart-card-qty">
               <div class="sp-qty-pill-box-perfect">
                 <button type="button" class="sp-qty-btn-sub-perfect sp-qty-minus" data-key="<?php echo esc_attr($cart_item_key); ?>">-</button>
-                <input type="number" class="sp-qty-input-sub-perfect" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $cart_item['quantity']; ?>" min="0" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
+                <input type="number" class="sp-qty-input-sub-perfect" name="cart[<?php echo esc_attr($cart_item_key); ?>][qty]" value="<?php echo $cart_item['quantity']; ?>" min="1" max="99" data-key="<?php echo esc_attr($cart_item_key); ?>">
                 <button type="button" class="sp-qty-btn-sub-perfect sp-qty-plus" data-key="<?php echo esc_attr($cart_item_key); ?>">+</button>
               </div>
             </div>
@@ -577,10 +548,10 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
               $ <?php echo number_format($subtotal_val, 0, ',', '.'); ?>
             </div>
 
-            <!-- Col 5: Remove Button -->
-            <button type="button" class="sp-cart-card-remove sp-cart-remove" data-key="<?php echo esc_attr($cart_item_key); ?>" title="Eliminar producto">
+            <!-- Col 5: Direct WooCommerce Remove Link -->
+            <a href="<?php echo esc_url($remove_url); ?>" class="sp-cart-card-remove" title="Eliminar producto">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
+            </a>
 
           </div>
 
@@ -599,7 +570,8 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
             </a>
           </div>
 
-          <input type="hidden" name="update_cart" value="Actualizar carrito">
+          <!-- Hidden update_cart button for auto-submission -->
+          <input type="submit" name="update_cart" value="Actualizar carrito" id="spUpdateCartSubmitBtn" style="display:none!important;">
         </div>
 
         <!-- RIGHT: Order Summary Card -->
@@ -647,44 +619,43 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  function spSubmitCartForm() {
+    var submitBtn = document.getElementById('spUpdateCartSubmitBtn');
+    if (submitBtn) {
+      submitBtn.click();
+    } else {
+      var form = document.getElementById('spCartForm');
+      if (form) form.submit();
+    }
+  }
+
   document.querySelectorAll('.sp-qty-minus').forEach(function(btn) {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
       var input = this.closest('.sp-qty-pill-box-perfect').querySelector('.sp-qty-input-sub-perfect');
       var val = parseInt(input.value) || 1;
-      if (val > 1) { input.value = val - 1; input.dispatchEvent(new Event('change')); }
-    });
-  });
-  document.querySelectorAll('.sp-qty-plus').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var input = this.closest('.sp-qty-pill-box-perfect').querySelector('.sp-qty-input-sub-perfect');
-      var val = parseInt(input.value) || 1;
-      if (val < 99) { input.value = val + 1; input.dispatchEvent(new Event('change')); }
+      if (val > 1) {
+        input.value = val - 1;
+        spSubmitCartForm();
+      }
     });
   });
 
-  var updateTimer;
+  document.querySelectorAll('.sp-qty-plus').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var input = this.closest('.sp-qty-pill-box-perfect').querySelector('.sp-qty-input-sub-perfect');
+      var val = parseInt(input.value) || 1;
+      if (val < 99) {
+        input.value = val + 1;
+        spSubmitCartForm();
+      }
+    });
+  });
+
   document.querySelectorAll('.sp-qty-input-sub-perfect').forEach(function(input) {
     input.addEventListener('change', function() {
-      clearTimeout(updateTimer);
-      updateTimer = setTimeout(function() {
-        var form = document.querySelector('.woocommerce-cart-form');
-        if (form) {
-          var btn = form.querySelector('[name="update_cart"]');
-          if (btn) { btn.click(); } else { form.submit(); }
-        }
-      }, 800);
-    });
-  });
-
-  document.querySelectorAll('.sp-cart-remove').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var key = this.getAttribute('data-key');
-      var input = document.querySelector('.sp-qty-input-sub-perfect[data-key="' + key + '"]');
-      if (input) {
-        input.value = 0;
-        var form = document.querySelector('.woocommerce-cart-form');
-        if (form) { form.submit(); }
-      }
+      spSubmitCartForm();
     });
   });
 });
