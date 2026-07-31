@@ -472,6 +472,51 @@ body.woocommerce-cart {
         justify-content: center !important;
     }
 }
+
+/* HIGH SPECIFICITY GREEN PILL BUTTON & REDUCED MOBILE TOP PADDING */
+html body .sp-cart-btn-whatsapp-checkout {
+    background: #25D366 !important;
+    background-color: #25D366 !important;
+    color: #ffffff !important;
+    font-family: var(--font-heading, system-ui, sans-serif) !important;
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    border: none !important;
+    border-radius: 50px !important;
+    height: auto !important;
+    min-height: 64px !important;
+    padding: 16px 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    line-height: 1.3 !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35) !important;
+    margin-top: 24px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+    .sp-cart-page-wrapper {
+        padding-top: 15px !important;
+    }
+    .sp-cart-breadcrumb {
+        margin-bottom: 12px !important;
+    }
+    .sp-cart-page-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 20px !important;
+    }
+    html body .sp-cart-btn-whatsapp-checkout {
+        min-height: 66px !important;
+        padding: 16px 20px !important;
+        font-size: 0.96rem !important;
+    }
+}
+
 </style>
 
 <section class="sp-cart-page-wrapper">

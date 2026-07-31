@@ -378,6 +378,64 @@ body.woocommerce-checkout {
         height: 54px !important;
     }
 }
+
+/* HIGH SPECIFICITY GREEN PILL BUTTON OVERRIDES (01/2026) */
+html body #place_order,
+html body .sp-checkout-btn-whatsapp-submit,
+html body button#place_order.button,
+html body .woocommerce-checkout #payment button#place_order {
+    background: #25D366 !important;
+    background-color: #25D366 !important;
+    color: #ffffff !important;
+    font-family: var(--font-heading, system-ui, sans-serif) !important;
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    border: none !important;
+    border-radius: 50px !important;
+    height: auto !important;
+    min-height: 60px !important;
+    padding: 14px 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35) !important;
+    margin-top: 24px !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    transition: all 0.25s ease !important;
+}
+
+@media (max-width: 768px) {
+    .sp-checkout-wrapper {
+        padding-top: 15px !important;
+    }
+    .sp-checkout-breadcrumb {
+        margin-bottom: 12px !important;
+    }
+    .sp-checkout-header-group {
+        margin-bottom: 20px !important;
+    }
+    .sp-checkout-page-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 12px !important;
+    }
+    .sp-stock-reservation-bar {
+        margin-bottom: 24px !important;
+        padding: 12px 16px !important;
+    }
+    html body #place_order,
+    html body .sp-checkout-btn-whatsapp-submit {
+        min-height: 64px !important;
+        padding: 14px 18px !important;
+        font-size: 0.95rem !important;
+        line-height: 1.3 !important;
+    }
+}
+
 </style>
 
 <section class="sp-checkout-wrapper">
@@ -480,7 +538,41 @@ body.woocommerce-checkout {
             <div class="sp-form-group">
               <div class="sp-form-group">
                 <label for="billing_state">Departamento *</label>
-                <input type="text" name="billing_state" id="billing_state" required placeholder="Ej: Cundinamarca" value="<?php echo esc_attr(WC()->checkout()->get_value('billing_state')); ?>">
+                <select name="billing_state" id="billing_state" required class="input-text">
+                  <option value="">Selecciona tu Departamento...</option>
+<option value="Bogotá D.C.">Bogotá D.C.</option>
+<option value="Antioquia">Antioquia</option>
+<option value="Atlantico">Atlántico</option>
+<option value="Bolivar">Bolívar</option>
+<option value="Boyaca">Boyacá</option>
+<option value="Caldas">Caldas</option>
+<option value="Caqueta">Caquetá</option>
+<option value="Cauca">Cauca</option>
+<option value="Cesar">Cesar</option>
+<option value="Cordoba">Córdoba</option>
+<option value="Cundinamarca">Cundinamarca</option>
+<option value="Huila">Huila</option>
+<option value="La Guajira">La Guajira</option>
+<option value="Magdalena">Magdalena</option>
+<option value="Meta">Meta</option>
+<option value="Nariño">Nariño</option>
+<option value="Norte de Santander">Norte de Santander</option>
+<option value="Quindio">Quindío</option>
+<option value="Risaralda">Risaralda</option>
+<option value="Santander">Santander</option>
+<option value="Sucre">Sucre</option>
+<option value="Tolima">Tolima</option>
+<option value="Valle del Cauca">Valle del Cauca</option>
+<option value="Arauca">Arauca</option>
+<option value="Casanare">Casanare</option>
+<option value="Putumayo">Putumayo</option>
+<option value="San Andres y Providencia">San Andrés y Providencia</option>
+<option value="Amazonas">Amazonas</option>
+<option value="Guania">Guainía</option>
+<option value="Guaviare">Guaviare</option>
+<option value="Vaupes">Vaupés</option>
+<option value="Vichada">Vichada</option>
+                </select>
               </div>
             </div>
             <input type="hidden" name="billing_country" value="CO">
