@@ -225,11 +225,18 @@ get_header();
     </svg>
     <span>Carrito</span>
     <?php 
-    $sp_cart_c = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
-    $sp_cart_s = WC()->cart ? WC()->cart->get_subtotal() : 0;
+    $sp_c = 0; $sp_s = 0;
+    if (WC()->cart) {
+        $sp_c = WC()->cart->get_cart_contents_count();
+        foreach (WC()->cart->get_cart() as $ci) {
+            if (!empty($ci['data']) && $ci['data']->exists()) {
+                $sp_s += ((float) $ci['data']->get_price()) * ((int) $ci['quantity']);
+            }
+        }
+    }
     ?>
-    <span class="floating-cart-badge floating-cart-count" style="<?php echo ($sp_cart_c > 0) ? 'display:flex;' : 'display:none;'; ?>"><?php echo $sp_cart_c; ?></span>
-    <span id="floatingCartSubtotal" style="color:#00a8ff;font-weight:800;margin-left:4px;">$ <?php echo number_format($sp_cart_s, 0, ',', '.'); ?></span>
+    <span class="floating-cart-badge floating-cart-count" style="<?php echo ($sp_c > 0) ? 'display:inline-flex;' : 'display:none;'; ?>"><?php echo $sp_c; ?></span>
+    <span id="floatingCartSubtotal" style="color:#00a8ff;font-weight:800;margin-left:4px;">$ <?php echo number_format($sp_s, 0, ',', '.'); ?></span>
 </a>
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/interactive-catalog.js?v=<?php echo time(); ?>"></script>

@@ -355,7 +355,7 @@ window.spUpdateCartDrawerFromAJAX = function() {
   .then(data => {
     if (!data) return;
     const count = data.count || 0;
-    const totalFormatted = '$ ' + parseInt(data.total || 0).toLocaleString('es-CO');
+    const totalFormatted = data.total_formatted || ('$ ' + parseInt(data.total || 0).toLocaleString('es-CO'));
 
     // Update all count badges across header, navbar, floating widget
     const countElems = document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount');
