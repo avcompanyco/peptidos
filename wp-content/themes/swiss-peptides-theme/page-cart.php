@@ -60,7 +60,7 @@ body.woocommerce-cart {
 
 .sp-cart-grid {
     display: grid;
-    grid-template-columns: 1.25fr 0.75fr;
+    grid-template-columns: 1.15fr 0.85fr;
     gap: 40px;
     align-items: start;
 }
@@ -296,6 +296,9 @@ body.woocommerce-cart {
 
 /* Right Column: Order Summary Card */
 .sp-cart-summary-card {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    overflow: hidden !important;
     background: #ffffff;
     border: 1.5px solid #e2e8f0;
     border-radius: 24px;
@@ -336,6 +339,11 @@ body.woocommerce-cart {
 }
 
 .sp-cart-btn-whatsapp-checkout {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -387,6 +395,9 @@ body.woocommerce-cart {
         padding: 16px 0;
     }
     .sp-cart-summary-card {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    overflow: hidden !important;
         position: static;
     }
 }
@@ -401,6 +412,11 @@ body.woocommerce-cart {
         width: 100%;
     }
     .sp-cart-btn-whatsapp-checkout {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
         font-size: 0.92rem !important;
         height: 52px !important;
     }

@@ -763,14 +763,18 @@ function updateCartUI() {
             let cartHtml = '';
             cartState.forEach((item, idx) => {
                 cartHtml += `
-                <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #e2e8f0;">
-                    <img src="${item.image}" width="55" height="55" style="object-fit:cover;border-radius:8px;">
-                    <div style="flex-grow:1;">
-                        <div style="font-weight:700;font-size:14px;color:#0f172a;">${item.title}</div>
-                        <div style="font-size:12px;color:#64748b;">${item.dose} • ${item.tierLabel}</div>
-                        <div style="font-weight:800;font-size:14px;color:#00a8ff;margin-top:2px;">${formatCOP(item.price * item.qty)}</div>
+                <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;box-shadow:0 4px 12px rgba(15,23,42,0.03);margin-bottom:10px;box-sizing:border-box;">
+                    <div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;flex-shrink:0;">
+                      <img src="${item.image}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;">
                     </div>
-                    <button type="button" onclick="removeFromCart(${idx})" style="background:none;border:none;color:#ef4444;font-weight:bold;cursor:pointer;padding:4px;">✕</button>
+                    <div style="flex:1;min-width:0;">
+                      <div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.title}</div>
+                      <div style="font-size:0.78rem;color:#64748b;font-weight:600;margin-top:2px;">Cantidad: ${item.qty}</div>
+                      <div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">${formatCOP(item.price * item.qty)}</div>
+                    </div>
+                    <button type="button" onclick="removeFromCart(${idx})" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
                 </div>
                 `;
             });
