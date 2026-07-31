@@ -500,6 +500,46 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
         font-size: 0.96rem !important;
     }
 }
+
+/* PERFECT DESKTOP FLUID GRID & NO-OVERFLOW RED X BUTTON */
+.sp-cart-table-header,
+.sp-cart-item-row {
+    display: grid !important;
+    grid-template-columns: 64px 1fr 95px 115px 115px 36px !important;
+    gap: 12px !important;
+    align-items: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.sp-cart-items-card {
+    padding: 24px 20px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.sp-cart-item-info {
+    min-width: 0 !important;
+    overflow: hidden !important;
+}
+
+.sp-cart-item-title {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: block !important;
+    max-width: 100% !important;
+}
+
+.sp-cart-btn-remove-perfect {
+    width: 32px !important;
+    height: 32px !important;
+    margin: 0 auto !important;
+    flex-shrink: 0 !important;
+    border-radius: 8px !important;
+}
+
 </style>
 
 <section class="sp-cart-page-wrapper">
@@ -540,7 +580,7 @@ html body .sp-cart-btn-whatsapp-checkout:hover {
             <span>Precio</span>
             <span class="text-center">Cantidad</span>
             <span class="text-right">Subtotal</span>
-            <span></span>
+            <span class="text-center"></span>
           </div>
 
           <?php foreach ($cart_items as $cart_item_key => $cart_item) :
