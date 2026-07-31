@@ -2300,3 +2300,17 @@ function sp_ajax_contact_form() {
 }
 add_action('wp_ajax_sp_contact_form', 'sp_ajax_contact_form');
 add_action('wp_ajax_nopriv_sp_contact_form', 'sp_ajax_contact_form');
+
+
+// FORCE DEDICATED TIENDA TEMPLATE ON /tienda/ AND WOOCOMMERCE SHOP
+add_filter('template_include', 'sp_master_shop_template_override', 99);
+function sp_master_shop_template_override($template) {
+    if (is_admin()) return $template;
+    if (is_shop() || is_page('tienda') || (isset($_SERVER['REQUEST_URI']) && (strpos($_SERVER['REQUEST_URI'], '/tienda') !== false || strpos($_SERVER['REQUEST_URI'], '/shop') !== false))) {
+        $shop_template = get_template_directory() . '/page-tienda.php';
+        if (file_exists($shop_template)) {
+            return $shop_template;
+        }
+    }
+    return $template;
+}

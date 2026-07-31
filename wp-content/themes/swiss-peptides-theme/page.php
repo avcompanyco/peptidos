@@ -1,5 +1,8 @@
 <?php
-if (is_front_page() || is_home() || (isset($post) && $post->ID == 12) || $_SERVER['REQUEST_URI'] == '/' || $_SERVER['REQUEST_URI'] == '/index.php') {
+/**
+ * Standard WordPress Page Template
+ */
+if (is_front_page()) {
     include __DIR__ . '/front-page.php';
     exit;
 }
