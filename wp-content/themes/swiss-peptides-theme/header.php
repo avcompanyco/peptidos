@@ -1975,6 +1975,42 @@
     });
   </script>
 
+
+<style id="sp-navbar-cart-badge-fix">
+/* NAVBAR CART ICON TOP-RIGHT FLOATING BADGE */
+#cartToggle,
+.cart-toggle-btn,
+.nav-action-btn[data-open-cart],
+a[href*="/cart/"] {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+#cartCount,
+.cart-count,
+.sp-cart-count-badge {
+    position: absolute !important;
+    top: -4px !important;
+    right: -8px !important;
+    background: #0284c7 !important;
+    color: #ffffff !important;
+    font-size: 0.7rem !important;
+    font-weight: 900 !important;
+    min-width: 18px !important;
+    height: 18px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 2px solid #0f172a !important;
+    padding: 0 4px !important;
+    box-sizing: border-box !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+}
+</style>
 </head>
 <body <?php body_class(); ?>>
 

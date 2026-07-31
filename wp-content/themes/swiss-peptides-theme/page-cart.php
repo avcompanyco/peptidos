@@ -77,7 +77,7 @@ body.woocommerce-cart {
 /* TABLE HEADERS BAR */
 .sp-cart-table-header {
     display: grid;
-    grid-template-columns: 84px 1.5fr 1fr 120px 1fr 40px;
+    grid-template-columns: 84px 1.4fr 110px 120px 140px 40px;
     gap: 16px;
     align-items: center;
     background: #f8fafc;
@@ -100,7 +100,7 @@ body.woocommerce-cart {
 
 .sp-cart-item-row {
     display: grid;
-    grid-template-columns: 84px 1.5fr 1fr 120px 1fr 40px;
+    grid-template-columns: 84px 1.4fr 110px 120px 140px 40px;
     gap: 16px;
     align-items: center;
     padding: 20px 16px;
@@ -207,6 +207,7 @@ body.woocommerce-cart {
 }
 
 .sp-cart-item-subtotal-price {
+    white-space: nowrap !important;
     font-size: 1.15rem;
     font-weight: 800;
     color: #0284c7;
@@ -255,6 +256,10 @@ body.woocommerce-cart {
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
 }
 .sp-coupon-input-field {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
     border: none;
     background: transparent;
     flex: 1;
