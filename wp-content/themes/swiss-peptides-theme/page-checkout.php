@@ -434,8 +434,8 @@ body.woocommerce-checkout {
               </div>
               <div class="sp-form-group-full">
                 <div class="sp-form-group">
-                  <label>Teléfono / WhatsApp *</label>
-                  <input type="tel" name="billing_phone" required placeholder="Ej: 300 123 4567">
+                  <label>Número Celular / WhatsApp *</label>
+                  <input type="tel" name="billing_phone" required placeholder="Ej: 300 123 4567" required>
                 </div>
               </div>
               <div class="sp-form-group-full">
