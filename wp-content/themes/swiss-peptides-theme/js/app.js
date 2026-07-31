@@ -477,3 +477,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+
+// ALWAYS RE-FETCH FRESH CART DATA WHEN DRAWER OPENS OR PAGE LOADS
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.addEventListener('click', function(e) {
+    if (e.target.closest('.open-cart-btn, #openCartDrawerBtn, .floating-cart-widget, .header-cart-icon, .cart-icon-btn')) {
+      if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+        window.spUpdateCartDrawerFromAJAX();
+      }
+    }
+  });
+  if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+    window.spUpdateCartDrawerFromAJAX();
+  }
+});

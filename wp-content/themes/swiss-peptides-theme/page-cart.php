@@ -706,6 +706,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (grandTotalAmountEl) {
       grandTotalAmountEl.textContent = formatMoney(totalSum);
     }
+    if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+      window.spUpdateCartDrawerFromAJAX();
+    }
   }
 
   function spSubmitCartForm() {
