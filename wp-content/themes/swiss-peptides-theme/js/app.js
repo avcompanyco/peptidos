@@ -355,27 +355,24 @@ window.spUpdateCartDrawerFromAJAX = function() {
   .then(res => res.json())
   .then(data => {
     if (!data) return;
-    const body = document.getElementById('cartSidebarBody');
-    const totalEl = document.getElementById('cartTotalAmount');
-    const countEl = document.getElementById('cartCount');
-    const floatSub = document.getElementById('floatingCartSubtotal');
-    if (floatSub) {
-      floatSub.textContent = '$ ' + parseInt(data.total || 0).toLocaleString('es-CO');
-    }
-    const floatCounts = document.querySelectorAll('.floating-cart-count, #floatingCartCount');
-    floatCounts.forEach(el => {
-      el.textContent = data.count || 0;
-      el.style.display = (data.count > 0) ? 'flex' : 'none';
+    const count = data.count || 0;
+    const totalFormatted = '$ ' + parseInt(data.total || 0).toLocaleString('es-CO');
+
+    // Update all count badges across header, navbar, floating widget
+    const countElems = document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount');
+    countElems.forEach(el => {
+      el.textContent = count;
+      el.style.display = (count > 0) ? 'flex' : 'none';
     });
 
-    if (countEl) {
-      countEl.textContent = data.count || 0;
-      countEl.style.display = (data.count > 0) ? 'flex' : 'none';
-    }
-    if (totalEl) {
-      totalEl.textContent = '$ ' + parseInt(data.total || 0).toLocaleString('es-CO');
-    }
+    // Update all subtotal displays
+    const subtotalElems = document.querySelectorAll('#floatingCartSubtotal, #cartTotalAmount, .cart-total-amount');
+    subtotalElems.forEach(el => {
+      el.textContent = totalFormatted;
+    });
 
+    // Update drawer body
+    const body = document.getElementById('cartSidebarBody');
     if (!body) return;
 
     if (!data.items || data.items.length === 0) {
@@ -394,14 +391,14 @@ window.spUpdateCartDrawerFromAJAX = function() {
       if (item.name.toLowerCase().includes('bacteriost')) hasWater = true;
 
       itemsHtml += `
-        <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px;box-shadow:0 2px 8px rgba(15,23,42,0.02);">
+        <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;box-shadow:0 4px 12px rgba(15,23,42,0.03);margin-bottom:10px;box-sizing:border-box;">
           <div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;flex-shrink:0;">
             <img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;">
           </div>
           <div style="flex:1;min-width:0;">
-            <div style="font-weight:800;font-size:0.92rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.name}</div>
-            <div style="font-size:0.8rem;color:#64748b;margin-top:2px;">Cantidad: ${item.qty}</div>
-            <div style="font-weight:800;font-size:0.92rem;color:#0284c7;margin-top:2px;">$ ${parseInt(item.subtotal).toLocaleString('es-CO')}</div>
+            <div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.name}</div>
+            <div style="font-size:0.78rem;color:#64748b;font-weight:600;margin-top:2px;">Cantidad: ${item.qty}</div>
+            <div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ${parseInt(item.subtotal).toLocaleString('es-CO')}</div>
           </div>
           <button type="button" onclick="spRemoveWCCartItem('${item.key}')" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>

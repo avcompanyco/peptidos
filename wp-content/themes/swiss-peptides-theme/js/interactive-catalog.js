@@ -735,51 +735,8 @@ function addToCartItem(prodId) {
 }
 
 function updateCartUI() {
-    const countElems = document.querySelectorAll('#cartCount, .floating-cart-count');
-    const totalQty = cartState.reduce((sum, item) => sum + item.qty, 0);
-    const totalPrice = cartState.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-    countElems.forEach(el => {
-        el.innerText = totalQty;
-        el.style.display = totalQty > 0 ? 'inline-flex' : 'none';
-    });
-
-    const floatingSubtotal = document.getElementById('floatingCartSubtotal');
-    if (floatingSubtotal) {
-        floatingSubtotal.innerText = formatCOP(totalPrice);
-    }
-
-    const cartBody = document.getElementById('cartSidebarBody');
-    const cartTotal = document.getElementById('cartTotalAmount');
-
-    if (cartTotal) {
-        cartTotal.innerText = formatCOP(totalPrice);
-    }
-
-    if (cartBody) {
-        if (cartState.length === 0) {
-            cartBody.innerHTML = '<div style="text-align:center;padding:40px 20px;color:#64748b;">Tu carrito está vacío</div>';
-        } else {
-            let cartHtml = '';
-            cartState.forEach((item, idx) => {
-                cartHtml += `
-                <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;box-shadow:0 4px 12px rgba(15,23,42,0.03);margin-bottom:10px;box-sizing:border-box;">
-                    <div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;flex-shrink:0;">
-                      <img src="${item.image}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;">
-                    </div>
-                    <div style="flex:1;min-width:0;">
-                      <div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.title}</div>
-                      <div style="font-size:0.78rem;color:#64748b;font-weight:600;margin-top:2px;">Cantidad: ${item.qty}</div>
-                      <div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">${formatCOP(item.price * item.qty)}</div>
-                    </div>
-                    <button type="button" onclick="removeFromCart(${idx})" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                    </button>
-                </div>
-                `;
-            });
-            cartBody.innerHTML = cartHtml;
-        }
+    if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+        window.spUpdateCartDrawerFromAJAX();
     }
 }
 
