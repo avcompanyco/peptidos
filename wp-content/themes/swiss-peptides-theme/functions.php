@@ -2515,3 +2515,10 @@ function sp_add_checkout_research_disclaimer() {
     </div>
     <?php
 }
+
+
+/* DISABLE WC-CART-FRAGMENTS TO PREVENT STALE CACHED NUMBER FLICKER */
+add_action('wp_enqueue_scripts', 'sp_dequeue_wc_cart_fragments', 999);
+function sp_dequeue_wc_cart_fragments() {
+    wp_dequeue_script('wc-cart-fragments');
+}

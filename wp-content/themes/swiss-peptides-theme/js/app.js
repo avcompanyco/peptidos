@@ -1,4 +1,10 @@
 
+try {
+  sessionStorage.removeItem('wc_fragments');
+  sessionStorage.removeItem('wc_cart_hash');
+} catch(e) {}
+
+
 
 
 /* ============================================

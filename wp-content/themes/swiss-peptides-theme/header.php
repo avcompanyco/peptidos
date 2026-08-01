@@ -2013,19 +2013,20 @@ a[href*="/cart/"] {
 </style>
 <style>
 
+
 /* DYNAMIC SPACIOUS LUXURY BADGE FOR HEADER CART ICON */
 .cart-count,
 #cartCount,
 .sp-cart-count-badge {
-    min-width: 22px !important;
-    height: 22px !important;
+    min-width: 28px !important;
+    height: 28px !important;
     width: auto !important;
     max-width: none !important;
-    padding: 0 7px !important;
+    padding: 0 8px !important;
     border-radius: 50px !important;
     background: #00a8ff !important;
     color: #ffffff !important;
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-weight: 800 !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -2034,15 +2035,17 @@ a[href*="/cart/"] {
     line-height: 1 !important;
     box-sizing: border-box !important;
     position: absolute !important;
-    top: -6px !important;
-    right: -10px !important;
-    box-shadow: 0 2px 8px rgba(0, 168, 255, 0.45) !important;
+    top: -8px !important;
+    right: -12px !important;
+    box-shadow: 0 3px 10px rgba(0, 168, 255, 0.45) !important;
     white-space: nowrap !important;
+    z-index: 10 !important;
 }
 
 .nav-action-btn.cart-toggle {
     position: relative !important;
 }
+
 
 </style>
 </head>
@@ -2075,7 +2078,7 @@ a[href*="/cart/"] {
               $sp_header_count = WC()->cart->get_cart_contents_count();
           }
           ?>
-          <span class="cart-count" id="cartCount" style="background:#00a8ff;color:#fff;border-radius:50px;width:20px!important;height:20px!important;min-width:20px!important;max-width:20px!important;border-radius:50%!important;padding:0!important;font-size:10px!important;font-weight:800!important;align-items:center!important;justify-content:center!important;line-height:1!important;<?php echo ($sp_header_count > 0) ? 'display:inline-flex;' : 'display:none;'; ?>"><?php echo $sp_header_count; ?></span>
+          <span class="cart-count" id="cartCount" style="<?php echo ($sp_header_count > 0) ? 'display:inline-flex;' : 'display:none;'; ?>"><?php echo $sp_header_count; ?></span>
         </button>
       </div>
     </div>
