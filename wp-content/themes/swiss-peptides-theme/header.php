@@ -2012,15 +2012,17 @@ a[href*="/cart/"] {
 }
 </style>
 <style>
-/* PERFECT CIRCLE BADGE FOR HEADER CART ICON */
+
+/* DYNAMIC SPACIOUS LUXURY BADGE FOR HEADER CART ICON */
 .cart-count,
 #cartCount,
 .sp-cart-count-badge {
-    width: 26px !important;
-    height: 26px !important;
-    min-width: 26px !important;
-    max-width: 26px !important;
-    border-radius: 50% !important;
+    min-width: 22px !important;
+    height: 22px !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 7px !important;
+    border-radius: 50px !important;
     background: #00a8ff !important;
     color: #ffffff !important;
     font-size: 11px !important;
@@ -2028,19 +2030,20 @@ a[href*="/cart/"] {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0 !important;
     margin: 0 !important;
     line-height: 1 !important;
     box-sizing: border-box !important;
     position: absolute !important;
-    top: -8px !important;
+    top: -6px !important;
     right: -10px !important;
-    box-shadow: 0 2px 6px rgba(0, 168, 255, 0.4) !important;
+    box-shadow: 0 2px 8px rgba(0, 168, 255, 0.45) !important;
+    white-space: nowrap !important;
 }
 
 .nav-action-btn.cart-toggle {
     position: relative !important;
 }
+
 </style>
 </head>
 <body <?php body_class(); ?>>
