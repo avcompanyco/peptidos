@@ -2014,37 +2014,49 @@ a[href*="/cart/"] {
 <style>
 
 
-/* DYNAMIC SPACIOUS LUXURY BADGE FOR HEADER CART ICON */
+
+/* CRISP PERFECT UNCOVERED HEADER CART ICON & BADGE */
+.nav-action-btn.cart-toggle {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 6px !important;
+}
+
+.nav-action-btn.cart-toggle svg {
+    width: 24px !important;
+    height: 24px !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 .cart-count,
 #cartCount,
 .sp-cart-count-badge {
-    min-width: 28px !important;
-    height: 28px !important;
+    min-width: 18px !important;
+    height: 18px !important;
     width: auto !important;
-    max-width: none !important;
-    padding: 0 8px !important;
-    border-radius: 50px !important;
+    padding: 0 5px !important;
+    border-radius: 10px !important;
     background: #00a8ff !important;
     color: #ffffff !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin: 0 !important;
     line-height: 1 !important;
     box-sizing: border-box !important;
     position: absolute !important;
-    top: -8px !important;
-    right: -12px !important;
-    box-shadow: 0 3px 10px rgba(0, 168, 255, 0.45) !important;
+    top: -4px !important;
+    right: -8px !important;
+    box-shadow: 0 2px 6px rgba(0, 168, 255, 0.4) !important;
     white-space: nowrap !important;
-    z-index: 10 !important;
+    z-index: 5 !important;
 }
 
-.nav-action-btn.cart-toggle {
-    position: relative !important;
-}
 
 
 </style>
