@@ -1143,8 +1143,8 @@
         color: #ffffff !important;
         font-size: 11px !important;
         font-weight: 800 !important;
-        min-width: 20px !important;
-        height: 20px !important;
+        min-width: 26px !important;
+        height: 26px !important;
         border-radius: 50% !important;
         display: flex !important;
         align-items: center !important;
@@ -1208,7 +1208,7 @@
     .card-cat-badge {
         background: #070f1e !important;
         color: #00a8ff !important;
-        font-size: 10px !important;
+        font-size: 11px !important;
         font-weight: 800 !important;
         padding: 5px 12px !important;
         border-radius: 50px !important;
@@ -1219,7 +1219,7 @@
     .card-purity-badge {
         background: rgba(16, 185, 129, 0.15) !important;
         color: #059669 !important;
-        font-size: 10px !important;
+        font-size: 11px !important;
         font-weight: 800 !important;
         padding: 5px 10px !important;
         border-radius: 50px !important;
@@ -1514,8 +1514,8 @@
             padding: 0 10px !important;
         }
         .nav-logo img {
-            height: 20px !important;
-            max-height: 20px !important;
+            height: 26px !important;
+            max-height: 26px !important;
         }
     }
 
@@ -2016,14 +2016,14 @@ a[href*="/cart/"] {
 .cart-count,
 #cartCount,
 .sp-cart-count-badge {
-    width: 20px !important;
-    height: 20px !important;
-    min-width: 20px !important;
-    max-width: 20px !important;
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
+    max-width: 26px !important;
     border-radius: 50% !important;
     background: #00a8ff !important;
     color: #ffffff !important;
-    font-size: 10px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -2033,8 +2033,8 @@ a[href*="/cart/"] {
     line-height: 1 !important;
     box-sizing: border-box !important;
     position: absolute !important;
-    top: -5px !important;
-    right: -8px !important;
+    top: -8px !important;
+    right: -10px !important;
     box-shadow: 0 2px 6px rgba(0, 168, 255, 0.4) !important;
 }
 
