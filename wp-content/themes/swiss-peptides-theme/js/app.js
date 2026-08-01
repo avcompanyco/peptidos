@@ -1,34 +1,5 @@
 
-// =====================================================================
-// INSTANT CART RESTORATION FROM LOCALSTORAGE (runs before DOMContentLoaded)
-// Eliminates the "flash of zero" when navigating between pages
-// =====================================================================
-(function() {
-  try {
-    var cachedCount = localStorage.getItem('sp_cart_count');
-    var cachedTotal = localStorage.getItem('sp_cart_total');
-    if (cachedCount !== null && parseInt(cachedCount) > 0) {
-      // Use requestAnimationFrame to run as soon as DOM elements exist
-      function restoreCartUI() {
-        var countElems = document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount');
-        countElems.forEach(function(el) {
-          el.textContent = cachedCount;
-          el.style.display = 'flex';
-        });
-        var totalElems = document.querySelectorAll('#floatingCartSubtotal, #cartTotalAmount, .cart-total-amount');
-        totalElems.forEach(function(el) {
-          el.textContent = cachedTotal || '$ 0';
-        });
-      }
-      // Try immediately (for elements already parsed)
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', restoreCartUI);
-      } else {
-        restoreCartUI();
-      }
-    }
-  } catch(e) {}
-})();
+
 
 /* ============================================
    SWISS PEPTIDES — WordPress App v3.1
