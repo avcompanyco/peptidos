@@ -2687,18 +2687,22 @@ function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
     <body style="background-color:#f1f5f9;margin:0;padding:40px 10px;font-family:sans-serif;">
         <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 10px 35px rgba(15,23,42,0.08);border:1px solid #cbd5e1;">
             
-            <!-- MASTER SWISS DARK NAVY HEADER (HIGH CONTRAST WHITE LOGO + DEEP BLUE BRANDING) -->
-            <div style="background:#050b14 !important;padding:36px 30px;text-align:center;border-bottom:4px solid #00a8ff;">
-                <a href="https://peptidossuizos.com/" target="_blank" style="display:inline-block;text-decoration:none;">
-                    <img src="https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png" alt="Swiss Peptides Labs" width="220" style="display:block;margin:0 auto 10px auto;border:none;">
-                </a>
-                <div style="color:#00a8ff;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-top:6px;">
-                    SWISS PEPTIDES LABS COLOMBIA
-                </div>
-                <div style="color:#94a3b8;font-size:11px;font-weight:600;margin-top:2px;">
-                    BIOTECNOLOGÍA SUIZA &bull; HPLC PUREZA ≥99%
-                </div>
-            </div>
+            <!-- OUTLOOK-COMPATIBLE SOLID DARK NAVY HEADER TABLE (BGCOLOR #050b14) -->
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+                <tr>
+                    <td bgcolor="#050b14" style="background-color:#050b14;padding:36px 30px;text-align:center;border-bottom:4px solid #00a8ff;">
+                        <a href="https://peptidossuizos.com/" target="_blank" style="display:inline-block;text-decoration:none;">
+                            <img src="https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png" alt="Swiss Peptides Labs" width="220" style="display:block;margin:0 auto 10px auto;border:none;max-width:220px;">
+                        </a>
+                        <div style="color:#00a8ff;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-top:6px;">
+                            SWISS PEPTIDES LABS COLOMBIA
+                        </div>
+                        <div style="color:#94a3b8;font-size:11px;font-weight:600;margin-top:2px;">
+                            BIOTECNOLOGÍA SUIZA &bull; HPLC PUREZA &ge;99%
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
             <!-- CONTENT BODY -->
             <div style="padding:32px 30px;background:#ffffff;">
