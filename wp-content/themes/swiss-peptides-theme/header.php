@@ -2084,13 +2084,7 @@ a[href*="/cart/"] {
         
         <button class="nav-action-btn cart-toggle" id="cartToggle" aria-label="Carrito" style="background:transparent;border:none;cursor:pointer;color:#ffffff;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          <?php
-          $sp_header_count = 0;
-          if (function_exists('WC') && WC()->cart) {
-              $sp_header_count = WC()->cart->get_cart_contents_count();
-          }
-          ?>
-          <span class="cart-count" id="cartCount" style="<?php echo ($sp_header_count > 0) ? 'display:inline-flex;' : 'display:none;'; ?>"><?php echo $sp_header_count; ?></span>
+          <span class="cart-count" id="cartCount" style="display:none;"></span>
         </button>
       </div>
     </div>
