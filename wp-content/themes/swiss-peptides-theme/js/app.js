@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div style="flex:1;min-width:0;">
             <div style="font-weight:800;font-size:0.85rem;color:#0f172a;">¿Necesitas Agua Bacteriostática?</div>
-            <div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clínico — $ 75.000</div>
+            <div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clínico — $ 35.000</div>
           </div>
           <button type="button" onclick="spAddAddonWater(this)" style="background:#0284c7;color:#ffffff;padding:8px 14px;border-radius:20px;font-weight:800;font-size:0.75rem;border:none;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 12px rgba(2,132,199,0.25);flex-shrink:0;">
             + AGREGAR
@@ -428,7 +428,7 @@ window.spUpdateCartDrawerFromAJAX = function() {
         + '</div>'
         + '<div style="flex:1;min-width:0;">'
         + '<div style="font-weight:800;font-size:0.85rem;color:#0f172a;">Necesitas Agua Bacteriostatica?</div>'
-        + '<div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clinico - $ 75.000</div>'
+        + '<div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clinico - $ 35.000</div>'
         + '</div>'
         + '<button type="button" onclick="spAddAddonWater(this)" style="background:#0284c7;color:#ffffff;padding:8px 14px;border-radius:20px;font-weight:800;font-size:0.75rem;border:none;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 12px rgba(2,132,199,0.25);flex-shrink:0;">'
         + '+ AGREGAR'
@@ -442,13 +442,26 @@ window.spUpdateCartDrawerFromAJAX = function() {
 };
 
 
-window.spRemoveWCCartItem = function(key) {
+window.spRemoveWCCartItem = function(key, btnElem) {
+  if (btnElem) {
+    var card = btnElem.closest('div[style*="border"]', '.cart-item-card');
+    if (!card) card = btnElem.parentElement.parentElement;
+    if (card) {
+      card.style.transition = 'all 0.15s ease-out';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.92)';
+      setTimeout(function() { if (card && card.parentNode) card.parentNode.removeChild(card); }, 150);
+    }
+  }
+
   fetch('/?wc-ajax=remove_from_cart', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: 'cart_item_key=' + key
   })
-  .then(() => spUpdateCartDrawerFromAJAX());
+  .then(function() {
+    spUpdateCartDrawerFromAJAX();
+  });
 };
 
 window.spAddAddonWater = function(btn) {

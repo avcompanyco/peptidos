@@ -1180,7 +1180,7 @@ body.wp-singular.single-product {
           <div class="sp-l-combo-row">
             <input type="checkbox" id="spComboAddonItem" checked>
             <span style="flex:1;">Agua Bacteriostática Grado Clínico (30ml)</span>
-            <strong style="color:#0284c7;">$ 75.000</strong>
+            <strong style="color:#0284c7;">$ 35.000</strong>
           </div>
         </div>
         <?php endif; ?>
