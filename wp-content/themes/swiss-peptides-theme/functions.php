@@ -2524,6 +2524,8 @@ function sp_dequeue_wc_cart_fragments() {
 }
 
 
+
+
 /* ==========================================================================
    MASTER LUXURY SALES SYSTEM, ORDER TRACKING & HTML EMAIL NOTIFICATIONS
    ========================================================================== */
@@ -2589,8 +2591,8 @@ function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
 
     $items = $order->get_items();
     $carrier = get_post_meta($order_id, '_sp_shipping_carrier', true) ?: 'Servientrega';
-    $tracking_no = get_post_meta($order_id, '_sp_tracking_number', true) ?: '987654321';
-    $tracking_url = get_post_meta($order_id, '_sp_tracking_url', true) ?: 'https://www.servientrega.com/wps/portal/Colombia/transaccional/rastreo?id='.$tracking_no;
+    $tracking_no = get_post_meta($order_id, '_sp_tracking_number', true) ?: 'SERVI-9876543210CO';
+    $tracking_url = get_post_meta($order_id, '_sp_tracking_url', true) ?: 'https://mobile.servientrega.com/WebSitePortal/RastreoEnvioDetalle.aspx?id='.$tracking_no;
 
     $customer_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
     if (empty(trim($customer_name))) $customer_name = 'Antonio Varona';
@@ -2644,7 +2646,7 @@ function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
     <!DOCTYPE html>
     <html>
     <head><meta charset="utf-8"></head>
-    <body style="background-color:#f8fafc;margin:0;padding:40px 10px;font-family:'Inter',system-ui,sans-serif;">
+    <body style="background-color:#f8fafc;margin:0;padding:40px 10px;font-family:sans-serif;">
         <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 10px 35px rgba(15,23,42,0.08);border:1px solid #e2e8f0;">
             
             <!-- HEADER -->
@@ -2700,7 +2702,7 @@ function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
                 <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:24px;">
                     <div style="font-size:13px;font-weight:800;color:#0f172a;text-transform:uppercase;margin-bottom:12px;">Datos de Entrega y Cliente</div>
                     <table style="width:100%;font-size:13px;color:#334155;line-height:1.6;">
-                        <tr><td style="font-weight:700;width:120px;">Cliente:</td><td>' . esc_html($customer_name) . '</td></tr>
+                        <tr><td style="font-weight:700;width:140px;">Cliente:</td><td>' . esc_html($customer_name) . '</td></tr>
                         <tr><td style="font-weight:700;">Teléfono/WhatsApp:</td><td>' . esc_html($customer_phone) . '</td></tr>
                         <tr><td style="font-weight:700;">Dirección:</td><td>' . esc_html($customer_address) . '</td></tr>
                         <tr><td style="font-weight:700;">Ciudad:</td><td>' . esc_html($customer_city) . '</td></tr>
