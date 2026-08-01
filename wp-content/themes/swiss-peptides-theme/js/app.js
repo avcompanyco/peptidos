@@ -1,3 +1,35 @@
+
+// =====================================================================
+// INSTANT CART RESTORATION FROM LOCALSTORAGE (runs before DOMContentLoaded)
+// Eliminates the "flash of zero" when navigating between pages
+// =====================================================================
+(function() {
+  try {
+    var cachedCount = localStorage.getItem('sp_cart_count');
+    var cachedTotal = localStorage.getItem('sp_cart_total');
+    if (cachedCount !== null && parseInt(cachedCount) > 0) {
+      // Use requestAnimationFrame to run as soon as DOM elements exist
+      function restoreCartUI() {
+        var countElems = document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount');
+        countElems.forEach(function(el) {
+          el.textContent = cachedCount;
+          el.style.display = 'flex';
+        });
+        var totalElems = document.querySelectorAll('#floatingCartSubtotal, #cartTotalAmount, .cart-total-amount');
+        totalElems.forEach(function(el) {
+          el.textContent = cachedTotal || '$ 0';
+        });
+      }
+      // Try immediately (for elements already parsed)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', restoreCartUI);
+      } else {
+        restoreCartUI();
+      }
+    }
+  } catch(e) {}
+})();
+
 /* ============================================
    SWISS PEPTIDES — WordPress App v3.1
    Uses WC native wc-ajax endpoints (add_to_cart, 
@@ -365,6 +397,13 @@ window.spUpdateCartDrawerFromAJAX = function() {
   .then(function(data) {
     if (!data || typeof data.count === 'undefined') return;
     var count = data.count || 0;
+    // Cache to localStorage for instant page-load restoration
+    try {
+      localStorage.setItem('sp_cart_count', count);
+      localStorage.setItem('sp_cart_total', data.total_formatted || '$ 0');
+      localStorage.setItem('sp_cart_items', JSON.stringify(data.items || []));
+      localStorage.setItem('sp_cart_ts', Date.now());
+    } catch(e) {}
     var totalFormatted = data.total_formatted || ('$ ' + parseInt(data.total || 0).toLocaleString('es-CO'));
 
     document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount').forEach(function(el) {
@@ -493,6 +532,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.spAddToCart = function(productId, qty) {
     qty = qty || 1;
+    // Optimistic UI: immediately increment count badge
+    try {
+      var currentCount = parseInt(localStorage.getItem('sp_cart_count') || '0');
+      var newCount = currentCount + qty;
+      localStorage.setItem('sp_cart_count', newCount);
+      document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount').forEach(function(el) {
+        el.textContent = newCount;
+        el.style.display = 'flex';
+      });
+    } catch(e) {}
     fetch('/?wc-ajax=add_to_cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

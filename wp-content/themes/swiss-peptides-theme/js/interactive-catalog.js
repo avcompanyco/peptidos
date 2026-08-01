@@ -707,6 +707,28 @@ function addToCartItem(prodId) {
     const selectedQtyObj = prod.qtyTiers[prod.selectedQtyIdx || 0];
     const qty = selectedQtyObj ? (selectedQtyObj.qty || 1) : 1;
 
+    // OPTIMISTIC UI: Immediately update badges before server responds
+    try {
+      var currentCount = parseInt(localStorage.getItem('sp_cart_count') || '0');
+      var newCount = currentCount + qty;
+      localStorage.setItem('sp_cart_count', newCount);
+      document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount').forEach(function(el) {
+        el.textContent = newCount;
+        el.style.display = 'flex';
+      });
+      // Optimistic total
+      var currentTotal = parseInt(localStorage.getItem('sp_cart_total_raw') || '0');
+      var price = prod.price || 0;
+      var discountRate = selectedQtyObj ? (selectedQtyObj.discount || 0) : 0;
+      var addedValue = Math.round(price * qty * (1 - discountRate));
+      var newTotal = currentTotal + addedValue;
+      localStorage.setItem('sp_cart_total_raw', newTotal);
+      var formattedTotal = '$ ' + newTotal.toLocaleString('es-CO');
+      document.querySelectorAll('#floatingCartSubtotal, #cartTotalAmount, .cart-total-amount').forEach(function(el) {
+        el.textContent = formattedTotal;
+      });
+    } catch(e) {}
+
     // Send real AJAX request to WooCommerce
     fetch('/?wc-ajax=add_to_cart', {
         method: 'POST',
