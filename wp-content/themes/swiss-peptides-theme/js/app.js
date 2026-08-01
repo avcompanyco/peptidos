@@ -492,3 +492,30 @@ document.addEventListener('DOMContentLoaded', function() {
     window.spUpdateCartDrawerFromAJAX();
   }
 });
+
+
+window.spAddToCart = function(productId, qty) {
+    qty = qty || 1;
+    fetch('/?wc-ajax=add_to_cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'product_id=' + encodeURIComponent(productId) + '&quantity=' + encodeURIComponent(qty)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+            window.spUpdateCartDrawerFromAJAX();
+        }
+        if (typeof openCartSidebarDrawer === 'function') {
+            openCartSidebarDrawer();
+        } else {
+            document.body.classList.add('cart-drawer-open');
+        }
+    })
+    .catch(err => {
+        if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+            window.spUpdateCartDrawerFromAJAX();
+        }
+        document.body.classList.add('cart-drawer-open');
+    });
+};

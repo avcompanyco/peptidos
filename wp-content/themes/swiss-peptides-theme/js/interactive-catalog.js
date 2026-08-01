@@ -704,34 +704,29 @@ function addToCartItem(prodId) {
     const prod = catalogDataset.find(p => p.id === prodId);
     if (!prod) return;
 
-    const selectedDose = prod.doses[prod.selectedDoseIdx || 0];
     const selectedQtyObj = prod.qtyTiers[prod.selectedQtyIdx || 0];
+    const qty = selectedQtyObj ? (selectedQtyObj.qty || 1) : 1;
 
-    const baseUnitPrice = prod.price;
-    const totalQty = selectedQtyObj.qty;
-    const discountRate = selectedQtyObj.discount;
-    const finalPrice = Math.round((baseUnitPrice * totalQty) * (1 - discountRate));
-
-    const itemKey = `${prodId}-${selectedDose}-${selectedQtyObj.label}`;
-    const existing = cartState.find(item => item.key === itemKey);
-
-    if (existing) {
-        existing.qty += 1;
-    } else {
-        cartState.push({
-            key: itemKey,
-            id: prodId,
-            title: prod.title,
-            dose: selectedDose,
-            tierLabel: selectedQtyObj.label,
-            price: finalPrice,
-            image: prod.image,
-            qty: 1
-        });
-    }
-
-    updateCartUI();
-    openCartSidebarDrawer();
+    // Send real AJAX request to WooCommerce
+    fetch('/?wc-ajax=add_to_cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'product_id=' + encodeURIComponent(prodId) + '&quantity=' + encodeURIComponent(qty)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+            window.spUpdateCartDrawerFromAJAX();
+        }
+        openCartSidebarDrawer();
+    })
+    .catch(err => {
+        console.error('Add to cart AJAX error', err);
+        if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+            window.spUpdateCartDrawerFromAJAX();
+        }
+        openCartSidebarDrawer();
+    });
 }
 
 function updateCartUI() {
