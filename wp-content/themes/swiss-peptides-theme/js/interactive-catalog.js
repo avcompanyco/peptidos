@@ -8,7 +8,7 @@ const rawDbProducts = [
     "id": "25",
     "title": "Agua Bacteriostática",
     "slug": "bacteriostatic-water",
-    "price": 740000,
+    "price": 35000,
     "image": "https://peptidossuizos.com/wp-content/uploads/2026/05/bacteriostatic_water_perfect_ai_v1_1785075353.jpg",
     "excerpt": "El Agua Bacteriostática es una preparación estéril y no pirogénica de agua para inyección que contiene 0.9% (9 mg/mL) de alcohol bencílico como conservante bacteriostático. Se utiliza como diluyente para la reconstitución de péptidos liofilizados."
   },
@@ -511,6 +511,23 @@ function renderCatalogGrid() {
     const gridContainer = document.getElementById('mainCatalogGrid');
     if (!gridContainer) return;
 
+    if (currentFilteredProducts.length === 0) {
+        const input = document.getElementById('shopSearchInput');
+        const q = input ? input.value.trim() : '';
+        gridContainer.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; margin: 20px 0;">
+                <div style="font-size: 44px; margin-bottom: 12px;">🔍</div>
+                <h3 style="font-size: 20px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">No se encontraron péptidos</h3>
+                <p style="font-size: 14px; color: #64748b; margin-bottom: 20px;">No encontramos ningún resultado para "<strong>${q}</strong>". Intenta con otra palabra clave como <em>Semaglutide, Tirzepatide, BPC-157 o Agua</em>.</p>
+                <button type="button" onclick="document.getElementById('shopSearchInput').value=''; handleShopSearch();" style="background: #00a8ff; color: #ffffff; border: none; padding: 12px 24px; border-radius: 50px; font-weight: 800; cursor: pointer; font-size: 13px;">
+                    Ver Todos los Péptidos
+                </button>
+            </div>
+        `;
+        const loadMoreBtn = document.getElementById('loadMoreContainer');
+        if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+        return;
+    }
     const visibleItems = currentFilteredProducts.slice(0, displayedCount);
 
     let html = '';
@@ -796,3 +813,54 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeBtn) closeBtn.addEventListener('click', closeCartSidebarDrawer);
     if (overlay) overlay.addEventListener('click', closeCartSidebarDrawer);
 });
+
+
+/* GLOBAL ROBUST CATALOG SEARCH AND SORT ENGINE */
+function handleShopSearch() {
+    const input = document.getElementById('shopSearchInput');
+    if (!input) return;
+    const query = input.value.toLowerCase().trim();
+
+    if (!query) {
+        if (activeCategory === 'all') {
+            currentFilteredProducts = [...catalogDataset];
+        } else {
+            currentFilteredProducts = catalogDataset.filter(item => item.category === activeCategory);
+        }
+        displayedCount = 12;
+        renderCatalogGrid();
+        return;
+    }
+
+    currentFilteredProducts = catalogDataset.filter(item => {
+        const matchesCategory = (activeCategory === 'all' || item.category === activeCategory);
+        const matchesTitle = item.title.toLowerCase().includes(query);
+        const matchesExcerpt = (item.excerpt || '').toLowerCase().includes(query);
+        const matchesSlug = (item.slug || '').toLowerCase().includes(query);
+        const matchesCategoryName = (item.category || '').toLowerCase().includes(query);
+        const matchesBenefits = item.benefits ? item.benefits.some(b => b.toLowerCase().includes(query)) : false;
+
+        return matchesCategory && (matchesTitle || matchesExcerpt || matchesSlug || matchesCategoryName || matchesBenefits);
+    });
+
+    displayedCount = currentFilteredProducts.length;
+    renderCatalogGrid();
+}
+
+function handleShopSort() {
+    const select = document.getElementById('shopSortSelect');
+    if (!select) return;
+    const val = select.value;
+
+    if (val === 'price-low') {
+        currentFilteredProducts.sort((a, b) => a.basePrice - b.basePrice);
+    } else if (val === 'price-high') {
+        currentFilteredProducts.sort((a, b) => b.basePrice - a.basePrice);
+    } else if (val === 'name-az') {
+        currentFilteredProducts.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+        currentFilteredProducts.sort((a, b) => a.priority - b.priority);
+    }
+
+    renderCatalogGrid();
+}
