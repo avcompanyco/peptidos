@@ -451,25 +451,7 @@ get_header();
 </section>
 
 <!-- FLOATING CART WIDGET -->
-<a href="#" class="floating-cart-widget" id="floatingCartWidget">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
-    </svg>
-    <span>Carrito</span>
-    <?php 
-    $sp_c = 0; $sp_s = 0;
-    if (WC()->cart) {
-        $sp_c = WC()->cart->get_cart_contents_count();
-        foreach (WC()->cart->get_cart() as $ci) {
-            if (!empty($ci['data']) && $ci['data']->exists()) {
-                $sp_s += ((float) $ci['data']->get_price()) * ((int) $ci['quantity']);
-            }
-        }
-    }
-    ?>
-    <span class="floating-cart-badge floating-cart-count" style="<?php echo ($sp_c > 0) ? 'display:inline-flex;' : 'display:none;'; ?>"><?php echo $sp_c; ?></span>
-    <span id="floatingCartSubtotal" style="color:#00a8ff;font-weight:800;margin-left:4px;">$ <?php echo number_format($sp_s, 0, ',', '.'); ?></span>
-</a>
+
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/interactive-catalog.js?v=1785444306_<?php echo time(); ?>"></script>
 
