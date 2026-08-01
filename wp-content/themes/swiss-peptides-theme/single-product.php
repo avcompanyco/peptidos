@@ -1411,10 +1411,22 @@ document.addEventListener('DOMContentLoaded', function() {
       Promise.all(promises)
         .then(function(responses) { return Promise.all(responses.map(function(r) { return r.json(); })); })
         .then(function(dataArray) {
-          window.location.href = '/cart/';
+          if (addBtn) addBtn.disabled = false;
+          if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+            window.spUpdateCartDrawerFromAJAX();
+          }
+          if (typeof openCartSidebarDrawer === 'function') {
+            openCartSidebarDrawer();
+          } else {
+            document.body.classList.add('cart-drawer-open');
+          }
         })
-        .catch(function() {
-          window.location.href = '/cart/';
+        .catch(function(err) {
+          if (addBtn) addBtn.disabled = false;
+          if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+            window.spUpdateCartDrawerFromAJAX();
+          }
+          document.body.classList.add('cart-drawer-open');
         });
     });
   }
