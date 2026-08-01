@@ -350,83 +350,80 @@ window.spFetchWCCart = function() {
 };
 
 window.spUpdateCartDrawerFromAJAX = function() {
-  fetch('/?sp_ajax_cart=1')
-  .then(res => res.json())
-  .then(data => {
-    if (!data) return;
-    const count = data.count || 0;
-    const totalFormatted = data.total_formatted || ('$ ' + parseInt(data.total || 0).toLocaleString('es-CO'));
+  fetch('/?sp_ajax_cart=1', {
+    credentials: 'same-origin',
+    cache: 'no-store',
+    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+  })
+  .then(function(res) {
+    var ct = res.headers.get('content-type') || '';
+    if (!ct.includes('application/json')) {
+      throw new Error('Not JSON');
+    }
+    return res.json();
+  })
+  .then(function(data) {
+    if (!data || typeof data.count === 'undefined') return;
+    var count = data.count || 0;
+    var totalFormatted = data.total_formatted || ('$ ' + parseInt(data.total || 0).toLocaleString('es-CO'));
 
-    // Update all count badges across header, navbar, floating widget
-    const countElems = document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount');
-    countElems.forEach(el => {
+    document.querySelectorAll('#cartCount, .cart-count, .floating-cart-count, #floatingCartCount').forEach(function(el) {
       el.textContent = count;
       el.style.display = (count > 0) ? 'flex' : 'none';
     });
 
-    // Update all subtotal displays
-    const subtotalElems = document.querySelectorAll('#floatingCartSubtotal, #cartTotalAmount, .cart-total-amount');
-    subtotalElems.forEach(el => {
+    document.querySelectorAll('#floatingCartSubtotal, #cartTotalAmount, .cart-total-amount').forEach(function(el) {
       el.textContent = totalFormatted;
     });
 
-    // Update drawer body
-    const body = document.getElementById('cartSidebarBody');
+    var body = document.getElementById('cartSidebarBody');
     if (!body) return;
 
     if (!data.items || data.items.length === 0) {
-      body.innerHTML = `
-        <div style="text-align:center;padding:60px 20px;color:#64748b;">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:.5;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          <div style="font-size:1rem;font-weight:700;color:#0f172a;">Tu carrito está vacío</div>
-        </div>`;
+      body.innerHTML = '<div style="text-align:center;padding:60px 20px;color:#64748b;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom:12px;opacity:.5;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><div style="font-size:1rem;font-weight:700;color:#0f172a;">Tu carrito esta vacio</div></div>';
       return;
     }
 
-    let itemsHtml = '';
-    let hasWater = false;
+    var itemsHtml = '';
+    var hasWater = false;
 
-    data.items.forEach(item => {
-      if (item.name.toLowerCase().includes('bacteriost')) hasWater = true;
-
-      itemsHtml += `
-        <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;box-shadow:0 4px 12px rgba(15,23,42,0.03);margin-bottom:10px;box-sizing:border-box;">
-          <div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;flex-shrink:0;">
-            <img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;">
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.name}</div>
-            <div style="font-size:0.78rem;color:#64748b;font-weight:600;margin-top:2px;">Cantidad: ${item.qty}</div>
-            <div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ${parseInt(item.subtotal).toLocaleString('es-CO')}</div>
-          </div>
-          <button type="button" onclick="spRemoveWCCartItem('${item.key}')" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-      `;
+    data.items.forEach(function(item) {
+      if (item.name.toLowerCase().indexOf('bacteriost') !== -1) hasWater = true;
+      itemsHtml += '<div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;box-shadow:0 4px 12px rgba(15,23,42,0.03);margin-bottom:10px;box-sizing:border-box;">'
+        + '<div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;flex-shrink:0;">'
+        + '<img src="' + item.image + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover;">'
+        + '</div>'
+        + '<div style="flex:1;min-width:0;">'
+        + '<div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.name + '</div>'
+        + '<div style="font-size:0.78rem;color:#64748b;font-weight:600;margin-top:2px;">Cantidad: ' + item.qty + '</div>'
+        + '<div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ' + parseInt(item.subtotal).toLocaleString('es-CO') + '</div>'
+        + '</div>'
+        + '<button type="button" onclick="spRemoveWCCartItem(\'' + item.key + '\')" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+        + '</button>'
+        + '</div>';
     });
 
     if (!hasWater) {
-      itemsHtml += `
-        <div style="background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">
-          <div style="width:40px;height:40px;border-radius:12px;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2q0-.41-.293-.707T13 1h-2q-.41 0-.707.293T10 2z"/></svg>
-          </div>
-          <div style="flex:1;min-width:0;">
-            <div style="font-weight:800;font-size:0.85rem;color:#0f172a;">¿Necesitas Agua Bacteriostática?</div>
-            <div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clínico — $ 75.000</div>
-          </div>
-          <button type="button" onclick="spAddAddonWater(this)" style="background:#0284c7;color:#ffffff;padding:8px 14px;border-radius:20px;font-weight:800;font-size:0.75rem;border:none;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 12px rgba(2,132,199,0.25);flex-shrink:0;">
-            + AGREGAR
-          </button>
-        </div>
-      `;
+      itemsHtml += '<div style="background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">'
+        + '<div style="width:40px;height:40px;border-radius:12px;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
+        + '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2q0-.41-.293-.707T13 1h-2q-.41 0-.707.293T10 2z"/></svg>'
+        + '</div>'
+        + '<div style="flex:1;min-width:0;">'
+        + '<div style="font-weight:800;font-size:0.85rem;color:#0f172a;">Necesitas Agua Bacteriostatica?</div>'
+        + '<div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clinico - $ 75.000</div>'
+        + '</div>'
+        + '<button type="button" onclick="spAddAddonWater(this)" style="background:#0284c7;color:#ffffff;padding:8px 14px;border-radius:20px;font-weight:800;font-size:0.75rem;border:none;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 12px rgba(2,132,199,0.25);flex-shrink:0;">'
+        + '+ AGREGAR'
+        + '</button>'
+        + '</div>';
     }
 
     body.innerHTML = itemsHtml;
   })
-  .catch(err => console.log('Cart drawer update error', err));
+  .catch(function(err) { console.log('Cart drawer update error', err); });
 };
+
 
 window.spRemoveWCCartItem = function(key) {
   fetch('/?wc-ajax=remove_from_cart', {

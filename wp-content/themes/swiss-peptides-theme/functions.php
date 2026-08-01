@@ -2445,50 +2445,57 @@ function sp_resolve_single_product_page() {
 
 
 /* ==========================================================================
-   MASTER INSTANT AJAX CART JSON ENDPOINT
+   MASTER INSTANT AJAX CART JSON ENDPOINT (template_redirect - AFTER WC session)
    ========================================================================== */
-add_action('init', 'sp_output_ajax_cart_json', 1);
-function sp_output_ajax_cart_json() {
-    if (isset($_GET['sp_ajax_cart']) && $_GET['sp_ajax_cart'] == '1') {
-        if (!headers_sent()) {
-            header('Content-Type: application/json; charset=utf-8');
-            header('Cache-Control: no-cache, must-revalidate');
-        }
-        $items = array();
-        $total = 0;
-        $count = 0;
-        if (function_exists('WC') && WC()->cart) {
-            $cart = WC()->cart->get_cart();
-            foreach ($cart as $key => $item) {
-                $_product = isset($item['data']) ? $item['data'] : null;
-                if ($_product && $_product->exists()) {
-                    $qty = (int) $item['quantity'];
-                    $price = (float) $_product->get_price();
-                    $line_subtotal = $price * $qty;
-                    $total += $line_subtotal;
-                    $count += $qty;
-                    
-                    $thumb_id = $_product->get_image_id();
-                    $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'thumbnail') : wc_placeholder_img_src();
-                    
-                    $items[] = array(
-                        'key' => $key,
-                        'id' => $_product->get_id(),
-                        'name' => $_product->get_name(),
-                        'qty' => $qty,
-                        'price' => $price,
-                        'subtotal' => $line_subtotal,
-                        'image' => $thumb_url
-                    );
-                }
+add_action('template_redirect', 'sp_output_ajax_cart_json_v2');
+function sp_output_ajax_cart_json_v2() {
+    if (!isset($_GET['sp_ajax_cart']) || $_GET['sp_ajax_cart'] != '1') {
+        return;
+    }
+    
+    if (!headers_sent()) {
+        header('Content-Type: application/json; charset=utf-8');
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+    }
+    
+    $items = array();
+    $total = 0;
+    $count = 0;
+    
+    if (function_exists('WC') && WC()->cart) {
+        $cart = WC()->cart->get_cart();
+        foreach ($cart as $key => $item) {
+            $_product = isset($item['data']) ? $item['data'] : null;
+            if ($_product && $_product->exists()) {
+                $qty = (int) $item['quantity'];
+                $price = (float) $_product->get_price();
+                $line_subtotal = $price * $qty;
+                $total += $line_subtotal;
+                $count += $qty;
+                
+                $thumb_id = $_product->get_image_id();
+                $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'thumbnail') : wc_placeholder_img_src();
+                
+                $items[] = array(
+                    'key'      => $key,
+                    'id'       => $_product->get_id(),
+                    'name'     => $_product->get_name(),
+                    'qty'      => $qty,
+                    'price'    => $price,
+                    'subtotal' => $line_subtotal,
+                    'image'    => $thumb_url
+                );
             }
         }
-        echo json_encode(array(
-            'count' => $count,
-            'total' => $total,
-            'total_formatted' => '$ ' . number_format($total, 0, ',', '.'),
-            'items' => $items
-        ));
-        exit;
     }
+    
+    echo json_encode(array(
+        'count'           => $count,
+        'total'           => $total,
+        'total_formatted' => '$ ' . number_format($total, 0, ',', '.'),
+        'items'           => $items
+    ));
+    exit;
 }
