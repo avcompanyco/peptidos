@@ -402,6 +402,7 @@ window.spUpdateCartDrawerFromAJAX = function() {
       localStorage.setItem('sp_cart_count', count);
       localStorage.setItem('sp_cart_total', data.total_formatted || '$ 0');
       localStorage.setItem('sp_cart_items', JSON.stringify(data.items || []));
+      localStorage.setItem('sp_cart_total_raw', data.total || 0);
       localStorage.setItem('sp_cart_ts', Date.now());
     } catch(e) {}
     var totalFormatted = data.total_formatted || ('$ ' + parseInt(data.total || 0).toLocaleString('es-CO'));
