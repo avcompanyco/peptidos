@@ -2526,11 +2526,49 @@ function sp_dequeue_wc_cart_fragments() {
 
 
 
+
+
 /* ==========================================================================
-   MASTER LUXURY SALES SYSTEM, ORDER TRACKING & HTML EMAIL NOTIFICATIONS
+   MASTER LUXURY SALES SYSTEM, ORDER TRACKING & HTML EMAIL NOTIFICATIONS (V2)
    ========================================================================== */
 
-// 1. ADD TRACKING META BOX TO WOOCOMMERCE ORDER ADMIN PAGE
+// 1. OVERRIDE WP_MAIL SENDER NAME AND EMAIL ADDRESS (Swiss Peptides Colombia <pedidos@peptidossuizos.com>)
+add_filter('wp_mail_from_name', 'sp_custom_wp_mail_from_name', 999);
+function sp_custom_wp_mail_from_name($original_email_from_name) {
+    return 'Swiss Peptides Colombia';
+}
+
+add_filter('wp_mail_from', 'sp_custom_wp_mail_from', 999);
+function sp_custom_wp_mail_from($original_email_address) {
+    return 'pedidos@peptidossuizos.com';
+}
+
+// 2. DISABLE OLD NATIVE WOOCOMMERCE DEFAULT EMAILS TO ELIMINATE DUPLICATE/OLD DESIGNS
+add_action('woocommerce_email', 'sp_disable_old_wc_default_emails');
+function sp_disable_old_wc_default_emails($email_class) {
+    if (!isset($email_class->emails)) return;
+    
+    // Disable native customer processing, completed, new order and on-hold emails
+    $unhook_actions = array(
+        'woocommerce_order_status_pending_to_processing_notification',
+        'woocommerce_order_status_pending_to_completed_notification',
+        'woocommerce_order_status_processing_to_completed_notification',
+        'woocommerce_order_status_pending_to_on-hold_notification',
+        'woocommerce_order_status_failed_to_processing_notification',
+        'woocommerce_order_status_failed_to_completed_notification',
+        'woocommerce_order_status_completed_notification'
+    );
+    
+    foreach ($unhook_actions as $action) {
+        remove_all_actions($action);
+    }
+    
+    // Re-hook ONLY our single master luxury HTML email function
+    add_action('woocommerce_order_status_processing_notification', 'sp_send_luxury_processing_email', 10, 1);
+    add_action('woocommerce_order_status_completed_notification', 'sp_send_luxury_completed_email', 10, 1);
+}
+
+// 3. ADD TRACKING META BOX TO WOOCOMMERCE ORDER ADMIN PAGE
 add_action('add_meta_boxes', 'sp_add_order_tracking_meta_box');
 function sp_add_order_tracking_meta_box() {
     add_meta_box(
@@ -2584,7 +2622,7 @@ function sp_save_order_tracking_meta($post_id, $post) {
     }
 }
 
-// 2. MASTER LUXURY HTML EMAIL BUILDER FUNCTION
+// 4. MASTER LUXURY HTML EMAIL BUILDER FUNCTION WITH HIGH-CONTRAST HEADER LOGO
 function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
     $order = wc_get_order($order_id);
     if (!$order) return '';
@@ -2646,17 +2684,24 @@ function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
     <!DOCTYPE html>
     <html>
     <head><meta charset="utf-8"></head>
-    <body style="background-color:#f8fafc;margin:0;padding:40px 10px;font-family:sans-serif;">
-        <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 10px 35px rgba(15,23,42,0.08);border:1px solid #e2e8f0;">
+    <body style="background-color:#f1f5f9;margin:0;padding:40px 10px;font-family:sans-serif;">
+        <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 10px 35px rgba(15,23,42,0.08);border:1px solid #cbd5e1;">
             
-            <!-- HEADER -->
-            <div style="background:linear-gradient(135deg, #050b14 0%, #0a192f 100%);padding:36px 30px;text-align:center;border-bottom:3px solid #00a8ff;">
-                <img src="https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png" alt="Swiss Peptides Labs" width="210" style="display:block;margin:0 auto 14px auto;">
-                <div style="color:#00a8ff;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">BIOTECNOLOGÍA SUIZA &bull; HPLC PUREZA 99%</div>
+            <!-- MASTER SWISS DARK NAVY HEADER (HIGH CONTRAST WHITE LOGO + DEEP BLUE BRANDING) -->
+            <div style="background:#050b14 !important;padding:36px 30px;text-align:center;border-bottom:4px solid #00a8ff;">
+                <a href="https://peptidossuizos.com/" target="_blank" style="display:inline-block;text-decoration:none;">
+                    <img src="https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png" alt="Swiss Peptides Labs" width="220" style="display:block;margin:0 auto 10px auto;border:none;">
+                </a>
+                <div style="color:#00a8ff;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-top:6px;">
+                    SWISS PEPTIDES LABS COLOMBIA
+                </div>
+                <div style="color:#94a3b8;font-size:11px;font-weight:600;margin-top:2px;">
+                    BIOTECNOLOGÍA SUIZA &bull; HPLC PUREZA ≥99%
+                </div>
             </div>
 
-            <!-- CONTENT -->
-            <div style="padding:32px 30px;">
+            <!-- CONTENT BODY -->
+            <div style="padding:32px 30px;background:#ffffff;">
                 <div style="display:inline-block;background:' . $badge_color . ';color:#ffffff;padding:6px 16px;border-radius:50px;font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:12px;">
                     ' . esc_html($title) . '
                 </div>
@@ -2735,8 +2780,6 @@ function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
     return $html;
 }
 
-// 3. HOOK INTO WOOCOMMERCE ORDER STATUS CHANGES TO SEND LUXURY EMAILS
-add_action('woocommerce_order_status_processing', 'sp_send_luxury_processing_email', 10, 1);
 function sp_send_luxury_processing_email($order_id) {
     $order = wc_get_order($order_id);
     if (!$order) return;
@@ -2747,7 +2790,6 @@ function sp_send_luxury_processing_email($order_id) {
     wp_mail($to, $subject, $body, $headers);
 }
 
-add_action('woocommerce_order_status_completed', 'sp_send_luxury_completed_email', 10, 1);
 function sp_send_luxury_completed_email($order_id) {
     $order = wc_get_order($order_id);
     if (!$order) return;
