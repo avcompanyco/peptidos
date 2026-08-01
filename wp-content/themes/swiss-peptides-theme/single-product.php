@@ -1120,6 +1120,15 @@ body.wp-singular.single-product {
         </div>
 
         <!-- PERFECTLY ALIGNED 3-BUTTON ACTION STACK -->
+        
+        <!-- RESEARCH & TECHNICAL USE DISCLAIMER BOX -->
+        <div class="sp-research-disclaimer-box" style="background:#ffffff;border:1.5px solid #cbd5e1;border-radius:14px;padding:16px 20px;margin:20px 0;box-shadow:0 2px 10px rgba(15,23,42,0.02);display:flex;align-items:flex-start;gap:14px;box-sizing:border-box;width:100%;">
+          <input type="checkbox" id="spResearchDisclaimerCheckProduct" class="sp-disclaimer-checkbox" style="width:20px;height:20px;accent-color:#0284c7;cursor:pointer;margin-top:2px;flex-shrink:0;" checked>
+          <label for="spResearchDisclaimerCheckProduct" style="font-size:0.86rem;color:#334155;line-height:1.55;font-weight:500;cursor:pointer;user-select:none;">
+            Declaro que esta solicitud corresponde a fines técnicos, investigativos, institucionales o de laboratorio, y que no busco adquirir productos para uso humano, diagnóstico, tratamiento, prescripción o automedicación.
+          </label>
+        </div>
+
         <div class="sp-p-unified-actions-stack">
           <!-- Button 1: Primary Cart -->
           <button type="button" class="sp-p-btn-action-base sp-p-btn-add-primary sp-add-to-cart" data-product-id="<?php echo $product->get_id(); ?>" id="spAddToCartMainBtn">

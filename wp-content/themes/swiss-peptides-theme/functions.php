@@ -2499,3 +2499,19 @@ function sp_output_ajax_cart_json_v2() {
     ));
     exit;
 }
+
+
+/* ==========================================================================
+   RESEARCH DISCLAIMER BOX ON CHECKOUT PAGE
+   ========================================================================== */
+add_action('woocommerce_review_order_before_submit', 'sp_add_checkout_research_disclaimer', 10);
+function sp_add_checkout_research_disclaimer() {
+    ?>
+    <div class="sp-research-disclaimer-box" style="background:#ffffff;border:1.5px solid #cbd5e1;border-radius:14px;padding:16px 20px;margin:20px 0;display:flex;align-items:flex-start;gap:12px;box-sizing:border-box;width:100%;">
+      <input type="checkbox" id="spResearchDisclaimerCheckCheckout" name="sp_research_disclaimer" class="sp-disclaimer-checkbox" style="width:20px;height:20px;accent-color:#0284c7;cursor:pointer;margin-top:2px;flex-shrink:0;" checked required>
+      <label for="spResearchDisclaimerCheckCheckout" style="font-size:0.85rem;color:#334155;line-height:1.55;font-weight:500;cursor:pointer;user-select:none;">
+        Declaro que esta solicitud corresponde a fines técnicos, investigativos, institucionales o de laboratorio, y que no busco adquirir productos para uso humano, diagnóstico, tratamiento, prescripción o automedicación.
+      </label>
+    </div>
+    <?php
+}
