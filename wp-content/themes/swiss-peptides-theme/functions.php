@@ -2522,3 +2522,236 @@ add_action('wp_enqueue_scripts', 'sp_dequeue_wc_cart_fragments', 999);
 function sp_dequeue_wc_cart_fragments() {
     wp_dequeue_script('wc-cart-fragments');
 }
+
+
+/* ==========================================================================
+   MASTER LUXURY SALES SYSTEM, ORDER TRACKING & HTML EMAIL NOTIFICATIONS
+   ========================================================================== */
+
+// 1. ADD TRACKING META BOX TO WOOCOMMERCE ORDER ADMIN PAGE
+add_action('add_meta_boxes', 'sp_add_order_tracking_meta_box');
+function sp_add_order_tracking_meta_box() {
+    add_meta_box(
+        'sp_order_tracking_box',
+        '🚚 Información de Despacho y Guía de Rastreo',
+        'sp_render_order_tracking_meta_box',
+        'shop_order',
+        'side',
+        'high'
+    );
+}
+
+function sp_render_order_tracking_meta_box($post) {
+    $carrier = get_post_meta($post->ID, '_sp_shipping_carrier', true) ?: 'Servientrega';
+    $tracking_no = get_post_meta($post->ID, '_sp_tracking_number', true) ?: '';
+    $tracking_url = get_post_meta($post->ID, '_sp_tracking_url', true) ?: '';
+    wp_nonce_field('sp_save_tracking_nonce', 'sp_tracking_nonce');
+    ?>
+    <div style="padding:10px 0;font-family:sans-serif;">
+        <p><label style="font-weight:700;">Empresa de Envío:</label><br>
+        <select name="sp_shipping_carrier" style="width:100%;margin-top:4px;">
+            <option value="Servientrega" <?php selected($carrier, 'Servientrega'); ?>>Servientrega</option>
+            <option value="Interrapidisimo" <?php selected($carrier, 'Interrapidisimo'); ?>>Interrapidísimo</option>
+            <option value="Envía" <?php selected($carrier, 'Envía'); ?>>Envía Colvanes</option>
+            <option value="Coordinadora" <?php selected($carrier, 'Coordinadora'); ?>>Coordinadora</option>
+            <option value="DHL Express" <?php selected($carrier, 'DHL Express'); ?>>DHL Express</option>
+        </select></p>
+
+        <p><label style="font-weight:700;">Número de Guía:</label><br>
+        <input type="text" name="sp_tracking_number" value="<?php echo esc_attr($tracking_no); ?>" placeholder="Ej: 987654321" style="width:100%;margin-top:4px;"></p>
+
+        <p><label style="font-weight:700;">URL Directa de Rastreo (Opcional):</label><br>
+        <input type="url" name="sp_tracking_url" value="<?php echo esc_url($tracking_url); ?>" placeholder="https://..." style="width:100%;margin-top:4px;"></p>
+    </div>
+    <?php
+}
+
+add_action('save_post_shop_order', 'sp_save_order_tracking_meta', 10, 2);
+function sp_save_order_tracking_meta($post_id, $post) {
+    if (!isset($_POST['sp_tracking_nonce']) || !wp_verify_nonce($_POST['sp_tracking_nonce'], 'sp_save_tracking_nonce')) {
+        return;
+    }
+    if (isset($_POST['sp_shipping_carrier'])) {
+        update_post_meta($post_id, '_sp_shipping_carrier', sanitize_text_field($_POST['sp_shipping_carrier']));
+    }
+    if (isset($_POST['sp_tracking_number'])) {
+        update_post_meta($post_id, '_sp_tracking_number', sanitize_text_field($_POST['sp_tracking_number']));
+    }
+    if (isset($_POST['sp_tracking_url'])) {
+        update_post_meta($post_id, '_sp_tracking_url', esc_url_raw($_POST['sp_tracking_url']));
+    }
+}
+
+// 2. MASTER LUXURY HTML EMAIL BUILDER FUNCTION
+function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
+    $order = wc_get_order($order_id);
+    if (!$order) return '';
+
+    $items = $order->get_items();
+    $carrier = get_post_meta($order_id, '_sp_shipping_carrier', true) ?: 'Servientrega';
+    $tracking_no = get_post_meta($order_id, '_sp_tracking_number', true) ?: '987654321';
+    $tracking_url = get_post_meta($order_id, '_sp_tracking_url', true) ?: 'https://www.servientrega.com/wps/portal/Colombia/transaccional/rastreo?id='.$tracking_no;
+
+    $customer_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+    if (empty(trim($customer_name))) $customer_name = 'Antonio Varona';
+    $customer_email = $order->get_billing_email() ?: 'antoniovarona@avcompany.co';
+    $customer_phone = $order->get_billing_phone() ?: '+57 318 916 3091';
+    $customer_city = $order->get_billing_city() ?: 'Bogotá, D.C.';
+    $customer_address = $order->get_billing_address_1() ?: 'Calle 100 # 15-20, Edificio Clinical';
+
+    $is_dispatched = ($email_type === 'dispatched' || $email_type === 'completed');
+    $title = $is_dispatched ? '¡Tu Pedido ha sido Despachado!' : 'Confirmación de Pedido y Cotización VIP';
+    $subtitle = $is_dispatched ? 'Guía de rastreo adjunta — Envío Express Colombia' : 'Tu orden ha sido registrada exitosamente en nuestro sistema de ventas';
+    $badge_color = $is_dispatched ? '#059669' : '#0284c7';
+
+    $items_html = '';
+    foreach ($items as $item) {
+        $product = $item->get_product();
+        $name = $item->get_name();
+        $qty = $item->get_quantity();
+        $total = $item->get_total();
+        $img_url = $product ? wp_get_attachment_image_url($product->get_image_id(), 'thumbnail') : '';
+        if (empty($img_url)) $img_url = 'https://peptidossuizos.com/wp-content/uploads/2026/05/r3elite_perfect_ai_v2_1784993894-150x150.jpg';
+
+        $items_html .= '
+        <tr style="border-bottom:1px solid #e2e8f0;">
+            <td style="padding:14px 10px;width:60px;">
+                <img src="' . esc_url($img_url) . '" width="54" height="54" style="border-radius:10px;border:1px solid #e2e8f0;object-fit:cover;display:block;">
+            </td>
+            <td style="padding:14px 10px;font-weight:700;color:#0f172a;font-size:14px;">
+                ' . esc_html($name) . '
+                <div style="font-size:12px;color:#64748b;font-weight:500;margin-top:2px;">Grado Clínico Pureza ≥99% HPLC</div>
+            </td>
+            <td style="padding:14px 10px;text-align:center;font-weight:700;color:#334155;font-size:14px;">' . $qty . '</td>
+            <td style="padding:14px 10px;text-align:right;font-weight:800;color:#0284c7;font-size:14px;">$ ' . number_format($total, 0, ',', '.') . '</td>
+        </tr>';
+    }
+
+    $tracking_section = '';
+    if ($is_dispatched) {
+        $tracking_section = '
+        <div style="background:#f0f9ff;border:2px solid #bae6fd;border-radius:16px;padding:20px;margin:24px 0;text-align:center;">
+            <div style="font-size:12px;font-weight:800;color:#0284c7;text-transform:uppercase;letter-spacing:1px;">INFORMACIÓN DE DESPACHO Y GUÍA DE RASTREO</div>
+            <div style="font-size:22px;font-weight:900;color:#0f172a;margin:8px 0;">' . esc_html($carrier) . ' &mdash; Guía #' . esc_html($tracking_no) . '</div>
+            <p style="font-size:13px;color:#475569;margin-bottom:16px;">Tu paquete ya se encuentra en camino. Puedes consultar el estado en tiempo real haciendo clic abajo:</p>
+            <a href="' . esc_url($tracking_url) . '" target="_blank" style="display:inline-block;background:#0284c7;color:#ffffff;padding:14px 28px;border-radius:50px;font-weight:800;font-size:14px;text-decoration:none;box-shadow:0 6px 20px rgba(2,132,199,0.35);">
+                🚚 RASTREAR MI PEDIDO EN TIEMPO REAL
+            </a>
+        </div>';
+    }
+
+    $html = '
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"></head>
+    <body style="background-color:#f8fafc;margin:0;padding:40px 10px;font-family:'Inter',system-ui,sans-serif;">
+        <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:20px;overflow:hidden;box-shadow:0 10px 35px rgba(15,23,42,0.08);border:1px solid #e2e8f0;">
+            
+            <!-- HEADER -->
+            <div style="background:linear-gradient(135deg, #050b14 0%, #0a192f 100%);padding:36px 30px;text-align:center;border-bottom:3px solid #00a8ff;">
+                <img src="https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png" alt="Swiss Peptides Labs" width="210" style="display:block;margin:0 auto 14px auto;">
+                <div style="color:#00a8ff;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;">BIOTECNOLOGÍA SUIZA &bull; HPLC PUREZA 99%</div>
+            </div>
+
+            <!-- CONTENT -->
+            <div style="padding:32px 30px;">
+                <div style="display:inline-block;background:' . $badge_color . ';color:#ffffff;padding:6px 16px;border-radius:50px;font-size:12px;font-weight:800;text-transform:uppercase;margin-bottom:12px;">
+                    ' . esc_html($title) . '
+                </div>
+                <h2 style="font-size:22px;font-weight:900;color:#0f172a;margin:0 0 6px 0;">Orden #' . $order_id . '</h2>
+                <p style="font-size:14px;color:#64748b;margin:0 0 24px 0;">' . esc_html($subtitle) . '</p>
+
+                ' . $tracking_section . '
+
+                <!-- ORDER ITEMS TABLE -->
+                <div style="margin:24px 0;">
+                    <div style="font-size:13px;font-weight:800;color:#0f172a;text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;">Resumen de la Orden</div>
+                    <table style="width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr style="border-bottom:2px solid #e2e8f0;background:#f8fafc;color:#475569;font-size:12px;text-transform:uppercase;">
+                                <th style="padding:10px;text-align:left;" colspan="2">Producto</th>
+                                <th style="padding:10px;text-align:center;">Cant.</th>
+                                <th style="padding:10px;text-align:right;">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ' . $items_html . '
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- TOTAL SUMMARY BOX -->
+                <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:18px 20px;margin-bottom:24px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:14px;color:#475569;">
+                        <span>Subtotal Productos:</span>
+                        <span style="font-weight:700;color:#0f172a;">$ ' . number_format($order->get_subtotal(), 0, ',', '.') . '</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:14px;color:#475569;">
+                        <span>Envío Express Colombia:</span>
+                        <span style="font-weight:700;color:#059669;">GRATIS</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;border-top:2px solid #e2e8f0;padding-top:10px;font-size:18px;font-weight:900;color:#0f172a;">
+                        <span>TOTAL OFICIAL:</span>
+                        <span style="color:#0284c7;">$ ' . number_format($order->get_total(), 0, ',', '.') . '</span>
+                    </div>
+                </div>
+
+                <!-- CUSTOMER INFO GRID -->
+                <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:24px;">
+                    <div style="font-size:13px;font-weight:800;color:#0f172a;text-transform:uppercase;margin-bottom:12px;">Datos de Entrega y Cliente</div>
+                    <table style="width:100%;font-size:13px;color:#334155;line-height:1.6;">
+                        <tr><td style="font-weight:700;width:120px;">Cliente:</td><td>' . esc_html($customer_name) . '</td></tr>
+                        <tr><td style="font-weight:700;">Teléfono/WhatsApp:</td><td>' . esc_html($customer_phone) . '</td></tr>
+                        <tr><td style="font-weight:700;">Dirección:</td><td>' . esc_html($customer_address) . '</td></tr>
+                        <tr><td style="font-weight:700;">Ciudad:</td><td>' . esc_html($customer_city) . '</td></tr>
+                    </table>
+                </div>
+
+                <!-- LEGAL DISCLAIMER -->
+                <div style="background:#fff3cd;border:1px solid #ffe69c;border-radius:12px;padding:14px 16px;margin-bottom:24px;font-size:12px;color:#856404;line-height:1.5;">
+                    <strong>Declaración Técnica:</strong> Esta solicitud corresponde a fines técnicos, investigativos, institucionales o de laboratorio, no aptos para automedicación ni uso humano directo.
+                </div>
+
+                <!-- FOOTER WHATSAPP VIP ASSISTANCE -->
+                <div style="text-align:center;padding-top:12px;border-top:1px solid #e2e8f0;">
+                    <p style="font-size:13px;color:#64748b;margin-bottom:14px;">¿Tienes preguntas o deseas modificar tu pedido?</p>
+                    <a href="https://wa.me/573189163091?text=' . urlencode('Hola Swiss Peptides, deseo consultar sobre mi orden #' . $order_id) . '" target="_blank" style="display:inline-block;background:#25D366;color:#ffffff;padding:12px 24px;border-radius:50px;font-weight:800;font-size:13px;text-decoration:none;box-shadow:0 4px 14px rgba(37,211,102,0.35);">
+                        💬 Contactar Asesor VIP por WhatsApp
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- FOOTER BAR -->
+            <div style="background:#050b14;color:#94a3b8;padding:20px;text-align:center;font-size:12px;border-top:1px solid rgba(255,255,255,0.08);">
+                &copy; 2026 Swiss Peptides Labs Colombia. Todos los derechos reservados.
+            </div>
+        </div>
+    </body>
+    </html>';
+
+    return $html;
+}
+
+// 3. HOOK INTO WOOCOMMERCE ORDER STATUS CHANGES TO SEND LUXURY EMAILS
+add_action('woocommerce_order_status_processing', 'sp_send_luxury_processing_email', 10, 1);
+function sp_send_luxury_processing_email($order_id) {
+    $order = wc_get_order($order_id);
+    if (!$order) return;
+    $to = 'antoniovarona@avcompany.co';
+    $subject = '[Swiss Peptides] Nueva Cotización y Orden Recibida #' . $order_id;
+    $body = sp_build_luxury_html_email($order_id, 'new_order');
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    wp_mail($to, $subject, $body, $headers);
+}
+
+add_action('woocommerce_order_status_completed', 'sp_send_luxury_completed_email', 10, 1);
+function sp_send_luxury_completed_email($order_id) {
+    $order = wc_get_order($order_id);
+    if (!$order) return;
+    $to = 'antoniovarona@avcompany.co';
+    $subject = '🚚 ¡Tu Pedido ha sido Despachado! Orden #' . $order_id . ' — Swiss Peptides';
+    $body = sp_build_luxury_html_email($order_id, 'dispatched');
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    wp_mail($to, $subject, $body, $headers);
+}
