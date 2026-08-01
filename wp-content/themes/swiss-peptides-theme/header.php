@@ -2011,6 +2011,37 @@ a[href*="/cart/"] {
     margin: 0 !important;
 }
 </style>
+<style>
+/* PERFECT CIRCLE BADGE FOR HEADER CART ICON */
+.cart-count,
+#cartCount,
+.sp-cart-count-badge {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    max-width: 20px !important;
+    border-radius: 50% !important;
+    background: #00a8ff !important;
+    color: #ffffff !important;
+    font-size: 10px !important;
+    font-weight: 800 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    position: absolute !important;
+    top: -5px !important;
+    right: -8px !important;
+    box-shadow: 0 2px 6px rgba(0, 168, 255, 0.4) !important;
+}
+
+.nav-action-btn.cart-toggle {
+    position: relative !important;
+}
+</style>
 </head>
 <body <?php body_class(); ?>>
 
@@ -2041,7 +2072,7 @@ a[href*="/cart/"] {
               $sp_header_count = WC()->cart->get_cart_contents_count();
           }
           ?>
-          <span class="cart-count" id="cartCount" style="background:#00a8ff;color:#fff;border-radius:50px;padding:2px 8px;font-size:11px;font-weight:700;<?php echo ($sp_header_count > 0) ? 'display:inline-flex;' : 'display:none;'; ?>"><?php echo $sp_header_count; ?></span>
+          <span class="cart-count" id="cartCount" style="background:#00a8ff;color:#fff;border-radius:50px;width:20px!important;height:20px!important;min-width:20px!important;max-width:20px!important;border-radius:50%!important;padding:0!important;font-size:10px!important;font-weight:800!important;align-items:center!important;justify-content:center!important;line-height:1!important;<?php echo ($sp_header_count > 0) ? 'display:inline-flex;' : 'display:none;'; ?>"><?php echo $sp_header_count; ?></span>
         </button>
       </div>
     </div>
