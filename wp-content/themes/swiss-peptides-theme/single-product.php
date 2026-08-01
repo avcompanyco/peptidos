@@ -1124,7 +1124,7 @@ body.wp-singular.single-product {
           <!-- Button 1: Primary Cart -->
           <button type="button" class="sp-p-btn-action-base sp-p-btn-add-primary sp-add-to-cart" data-product-id="<?php echo $product->get_id(); ?>" id="spAddToCartMainBtn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            <span id="spBtnAddText">Añadir y Pagar por WhatsApp — $ <?php echo number_format($price * 3 * 0.8, 0, ',', '.'); ?></span>
+            <span id="spBtnAddText">Añadir al Carrito — $ <?php echo number_format($price * 3 * 0.8, 0, ',', '.'); ?></span>
           </button>
           
           <!-- Button 2: Outlined Checkout -->
