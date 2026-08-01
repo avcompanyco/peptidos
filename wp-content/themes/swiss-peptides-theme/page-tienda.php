@@ -223,38 +223,4 @@ get_header();
 
 <script src="<?php echo get_template_directory_uri(); ?>/js/interactive-catalog.js?v=<?php echo time(); ?>"></script>
 
-<script>
-// SEARCH AND SORT INTEGRATED WITH INTERACTIVE-CATALOG.JS ENGINE
-function handleShopSearch() {
-    var query = document.getElementById('shopSearchInput').value.toLowerCase().trim();
-    if (!query) {
-        currentFilteredProducts = ALL_PRODUCTS_DATA.filter(p => activeCategory === 'all' || p.category === activeCategory);
-        displayedCount = 6;
-        renderCatalogGrid();
-        return;
-    }
-    currentFilteredProducts = ALL_PRODUCTS_DATA.filter(p => 
-        (activeCategory === 'all' || p.category === activeCategory) &&
-        (p.title.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) || p.benefits.some(b => b.toLowerCase().includes(query)))
-    );
-    displayedCount = currentFilteredProducts.length;
-    renderCatalogGrid();
-}
-
-function handleShopSort() {
-    var sortVal = document.getElementById('shopSortSelect').value;
-    if (sortVal === 'price-low') {
-        currentFilteredProducts.sort((a, b) => a.price - b.price);
-    } else if (sortVal === 'price-high') {
-        currentFilteredProducts.sort((a, b) => b.price - a.price);
-    } else if (sortVal === 'name-az') {
-        currentFilteredProducts.sort((a, b) => a.title.localeCompare(b.title));
-    } else {
-        filterCatalog(activeCategory);
-        return;
-    }
-    renderCatalogGrid();
-}
-</script>
-
 <?php get_footer(); ?>

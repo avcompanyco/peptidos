@@ -816,6 +816,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* GLOBAL ROBUST CATALOG SEARCH AND SORT ENGINE */
+
+
 function handleShopSearch() {
     const input = document.getElementById('shopSearchInput');
     if (!input) return;
@@ -837,10 +839,10 @@ function handleShopSearch() {
         const matchesTitle = item.title.toLowerCase().includes(query);
         const matchesExcerpt = (item.excerpt || '').toLowerCase().includes(query);
         const matchesSlug = (item.slug || '').toLowerCase().includes(query);
-        const matchesCategoryName = (item.category || '').toLowerCase().includes(query);
+        const matchesCatName = (item.category || '').toLowerCase().includes(query);
         const matchesBenefits = item.benefits ? item.benefits.some(b => b.toLowerCase().includes(query)) : false;
 
-        return matchesCategory && (matchesTitle || matchesExcerpt || matchesSlug || matchesCategoryName || matchesBenefits);
+        return matchesCategory && (matchesTitle || matchesExcerpt || matchesSlug || matchesCatName || matchesBenefits);
     });
 
     displayedCount = currentFilteredProducts.length;
@@ -859,7 +861,11 @@ function handleShopSort() {
     } else if (val === 'name-az') {
         currentFilteredProducts.sort((a, b) => a.title.localeCompare(b.title));
     } else {
-        currentFilteredProducts.sort((a, b) => a.priority - b.priority);
+        if (activeCategory === 'all') {
+            currentFilteredProducts = [...catalogDataset];
+        } else {
+            currentFilteredProducts = catalogDataset.filter(item => item.category === activeCategory);
+        }
     }
 
     renderCatalogGrid();
