@@ -1,49 +1,6 @@
   </main>
 
-  <style>
-  /* MOBILE FOOTER PERFECT CENTER ALIGNMENT */
-  @media (max-width: 768px) {
-      .master-luxury-footer {
-          text-align: center !important;
-          padding: 60px 20px 30px 20px !important;
-      }
-      .footer-grid-container {
-          grid-template-columns: 1fr !important;
-          text-align: center !important;
-          gap: 36px !important;
-      }
-      .footer-brand-col {
-          grid-column: span 1 !important;
-          display: flex !important;
-          flex-direction: column !important;
-          align-items: center !important;
-          text-align: center !important;
-      }
-      .footer-brand-col p {
-          margin-left: auto !important;
-          margin-right: auto !important;
-      }
-      .footer-badges-flex {
-          justify-content: center !important;
-      }
-      .footer-col-item {
-          display: flex !important;
-          flex-direction: column !important;
-          align-items: center !important;
-          text-align: center !important;
-      }
-      .footer-col-item ul {
-          align-items: center !important;
-          text-align: center !important;
-      }
-      .footer-bottom-flex {
-          flex-direction: column !important;
-          text-align: center !important;
-          justify-content: center !important;
-          gap: 12px !important;
-      }
-  }
-  </style>
+  
 
   <!-- MASTER 2026 LUXURY FOOTER -->
   <footer class="master-luxury-footer" style="background:#050b14;color:#cbd5e1;padding:80px 24px 30px 24px;border-top:1px solid rgba(255,255,255,0.08);position:relative;">
