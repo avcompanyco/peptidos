@@ -443,17 +443,18 @@ window.spUpdateCartDrawerFromAJAX = function() {
 
 
 window.spRemoveWCCartItem = function(key, btnElem) {
+  // 1. INSTANT 0MS VISUAL REMOVAL FROM SCREEN
   if (btnElem) {
-    var card = btnElem.closest('div[style*="border"]', '.cart-item-card');
-    if (!card) card = btnElem.parentElement.parentElement;
+    var card = btnElem.closest('div[style*="border"]');
+    if (!card) card = btnElem.parentElement;
+    if (!card) card = btnElem.parentNode;
     if (card) {
-      card.style.transition = 'all 0.15s ease-out';
-      card.style.opacity = '0';
-      card.style.transform = 'scale(0.92)';
-      setTimeout(function() { if (card && card.parentNode) card.parentNode.removeChild(card); }, 150);
+      card.style.display = 'none';
+      if (card.parentNode) card.parentNode.removeChild(card);
     }
   }
 
+  // 2. BACKGROUND AJAX REMOVE & DRAWER REFRESH
   fetch('/?wc-ajax=remove_from_cart', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
