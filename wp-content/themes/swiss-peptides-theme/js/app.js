@@ -598,10 +598,10 @@ window.spChangeDrawerItemQty = function(key, delta, btnElem) {
 
   var formattedTotal = '$ ' + grandTotal.toLocaleString('es-CO');
   
-  var drawerSubtotalElem = document.getElementById('cartDrawerSubtotal');
+  var drawerSubtotalElem = document.getElementById('cartTotalAmount');
   if (drawerSubtotalElem) drawerSubtotalElem.textContent = formattedTotal;
   
-  var floatCartTotalElem = document.getElementById('floatingCartTotal');
+  var floatCartTotalElem = document.getElementById('floatingCartSubtotal');
   if (floatCartTotalElem) floatCartTotalElem.textContent = formattedTotal;
 
   var cartCountElem = document.getElementById('cartCount');
