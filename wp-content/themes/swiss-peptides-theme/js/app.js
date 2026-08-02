@@ -412,7 +412,11 @@ window.spUpdateCartDrawerFromAJAX = function() {
         + '</div>'
         + '<div style="flex:1;min-width:0;">'
         + '<div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.name + '</div>'
-        + '<div style="font-size:0.78rem;color:#64748b;font-weight:600;margin-top:2px;">Cantidad: ' + item.qty + '</div>'
+        + '<div style="display:flex;align-items:center;gap:6px;margin-top:4px;">'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty - 1) + ', this)" style="width:22px;height:22px;border-radius:50px;border:1px solid #cbd5e1;background:#f8fafc;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
+        + '<span style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:18px;text-align:center;">' + item.qty + '</span>'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty + 1) + ', this)" style="width:22px;height:22px;border-radius:50px;border:1px solid #cbd5e1;background:#f8fafc;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
+        + '</div>'
         + '<div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ' + parseInt(item.subtotal).toLocaleString('es-CO') + '</div>'
         + '</div>'
         + '<button type="button" onclick="spRemoveWCCartItem(\'' + item.key + '\', this)" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
@@ -556,4 +560,29 @@ window.spAddToCart = function(productId, qty) {
         }
         document.body.classList.add('cart-drawer-open');
     });
+};
+
+window.spChangeDrawerItemQty = function(key, newQty, btnElem) {
+  if (newQty <= 0) {
+    spRemoveWCCartItem(key, btnElem);
+    return;
+  }
+
+  // 1. Optimistic instant visual update of quantity on screen
+  if (btnElem) {
+    var parent = btnElem.parentElement;
+    if (parent) {
+      var numSpan = parent.querySelector('span');
+      if (numSpan) numSpan.textContent = newQty;
+    }
+  }
+
+  // 2. Background AJAX update
+  fetch('/?sp_ajax_cart=1&sp_update_qty=' + newQty + '&cart_key=' + key, {
+    credentials: 'same-origin',
+    cache: 'no-store'
+  })
+  .then(function() {
+    spUpdateCartDrawerFromAJAX();
+  });
 };

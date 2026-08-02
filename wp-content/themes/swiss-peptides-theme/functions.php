@@ -2449,6 +2449,19 @@ function sp_resolve_single_product_page() {
    ========================================================================== */
 add_action('template_redirect', 'sp_output_ajax_cart_json_v2');
 function sp_output_ajax_cart_json_v2() {
+
+    if (isset($_GET['sp_update_qty']) && isset($_GET['cart_key'])) {
+        $key = sanitize_text_field($_GET['cart_key']);
+        $new_qty = intval($_GET['sp_update_qty']);
+        if (function_exists('WC') && WC()->cart) {
+            if ($new_qty <= 0) {
+                WC()->cart->remove_cart_item($key);
+            } else {
+                WC()->cart->set_quantity($key, $new_qty);
+            }
+        }
+    }
+
     if (!isset($_GET['sp_ajax_cart']) || $_GET['sp_ajax_cart'] != '1') {
         return;
     }
