@@ -1044,7 +1044,7 @@ body.wp-singular.single-product {
           </div>
 
           <!-- 1 Unit -->
-          <div class="sp-p-protocol-card" data-qty="1" data-discount="0">
+          <div class="sp-p-protocol-card active" data-qty="1" data-discount="0">
             <div class="sp-p-protocol-left">
               <div class="sp-p-radio-dot"></div>
               <div class="sp-p-protocol-info-text">
@@ -1072,7 +1072,7 @@ body.wp-singular.single-product {
           </div>
 
           <!-- 3 Units (DEFAULT SELECTED) -->
-          <div class="sp-p-protocol-card active" data-qty="3" data-discount="0.20">
+          <div class="sp-p-protocol-card" data-qty="3" data-discount="0.20">
             <div class="sp-p-protocol-left">
               <div class="sp-p-radio-dot"></div>
               <div class="sp-p-protocol-info-text">
@@ -1299,7 +1299,7 @@ body.wp-singular.single-product {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var selectedQty = 3;
+  var selectedQty = 1;
   var baseUnitCalculatedPrice = <?php echo $price; ?>;
   var currentMultiplier = 1.0;
 
