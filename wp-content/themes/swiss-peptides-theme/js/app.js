@@ -412,10 +412,10 @@ window.spUpdateCartDrawerFromAJAX = function() {
         + '</div>'
         + '<div style="flex:1;min-width:0;">'
         + '<div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.name + '</div>'
-        + '<div style="display:flex;align-items:center;gap:6px;margin-top:4px;">'
-        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty - 1) + ', this)" style="width:22px;height:22px;border-radius:50px;border:1px solid #cbd5e1;background:#f8fafc;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
-        + '<span style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:18px;text-align:center;">' + item.qty + '</span>'
-        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty + 1) + ', this)" style="width:22px;height:22px;border-radius:50px;border:1px solid #cbd5e1;background:#f8fafc;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
+        + '<div style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:50px;padding:2px 6px;box-sizing:border-box;">'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty - 1) + ', this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
+        + '<span style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:24px;text-align:center;display:inline-block;line-height:1;margin:0 2px;">' + item.qty + '</span>'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty + 1) + ', this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
         + '</div>'
         + '<div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ' + parseInt(item.subtotal).toLocaleString('es-CO') + '</div>'
         + '</div>'
@@ -568,26 +568,28 @@ window.spChangeDrawerItemQty = function(key, newQty, btnElem) {
     return;
   }
 
-  // 1. INSTANT 0MS VISUAL UPDATE OF QUANTITY & SUBTOTAL ON SCREEN
+  // 1. INSTANT 0MS VISUAL UPDATE OF QUANTITY SPAN & PRICE ON SCREEN
   if (btnElem) {
-    var parent = btnElem.parentElement;
-    if (parent) {
-      var numSpan = parent.querySelector('span');
+    var pillContainer = btnElem.parentElement;
+    if (pillContainer) {
+      var numSpan = pillContainer.querySelector('span');
       if (numSpan) {
         var oldQty = parseInt(numSpan.textContent) || 1;
         numSpan.textContent = newQty;
 
-        // Find subtotal element for this item
+        // Recalculate subtotal for this item
         var itemContainer = btnElem.closest('div[style*="border"]');
         if (itemContainer) {
           var priceDivs = itemContainer.querySelectorAll('div');
           priceDivs.forEach(function(d) {
             if (d.textContent.indexOf('$') !== -1) {
-              var currentText = d.textContent.replace(/[^0-9]/g, '');
-              var unitPrice = Math.round(parseInt(currentText) / oldQty);
-              if (unitPrice > 0) {
-                var newSubtotal = unitPrice * newQty;
-                d.textContent = '$ ' + newSubtotal.toLocaleString('es-CO');
+              var numOnly = d.textContent.replace(/[^0-9]/g, '');
+              if (numOnly) {
+                var unitPrice = Math.round(parseInt(numOnly) / oldQty);
+                if (unitPrice > 0) {
+                  var newSubtotal = unitPrice * newQty;
+                  d.textContent = '$ ' + newSubtotal.toLocaleString('es-CO');
+                }
               }
             }
           });
@@ -595,22 +597,17 @@ window.spChangeDrawerItemQty = function(key, newQty, btnElem) {
       }
 
       // Update onClick handlers for - and + buttons with new values
-      var minusBtn = parent.children[0];
-      var plusBtn = parent.children[2];
-      if (minusBtn) minusBtn.setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty - 1) + ", this)");
-      if (plusBtn) plusBtn.setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty + 1) + ", this)");
+      var buttons = pillContainer.querySelectorAll('button');
+      if (buttons.length >= 2) {
+        buttons[0].setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty - 1) + ", this)");
+        buttons[1].setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty + 1) + ", this)");
+      }
     }
   }
 
-  // 2. DEBOUNCED BACKGROUND AJAX UPDATE (WITHOUT BLINKING THE UI)
-  if (window.spQtyUpdateTimeout) clearTimeout(window.spQtyUpdateTimeout);
-  window.spQtyUpdateTimeout = setTimeout(function() {
-    fetch('/?sp_ajax_cart=1&sp_update_qty=' + newQty + '&cart_key=' + key, {
-      credentials: 'same-origin',
-      cache: 'no-store'
-    })
-    .then(function() {
-      spUpdateCartDrawerFromAJAX();
-    });
-  }, 250);
+  // 2. SILENT BACKGROUND AJAX UPDATE (NO RE-RENDERING HTML OVER CURSOR)
+  fetch('/?sp_ajax_cart=1&sp_update_qty=' + newQty + '&cart_key=' + key, {
+    credentials: 'same-origin',
+    cache: 'no-store'
+  });
 };

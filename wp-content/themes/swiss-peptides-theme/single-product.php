@@ -1387,56 +1387,45 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Add to Cart Click Handler
+    // Add to Cart Click Handler
   var addBtn = document.getElementById('spAddToCartMainBtn');
   if (addBtn) {
-    addBtn.addEventListener('click', function() {
+    addBtn.addEventListener('click', function(e) {
+      e.preventDefault();
       var productId = this.getAttribute('data-product-id');
       var comboAddon = document.getElementById('spComboAddonItem');
       var includeCombo = comboAddon && comboAddon.checked;
-      
-      addBtn.disabled = true;
       var btnText = document.getElementById('spBtnAddText');
-      if (btnText) btnText.textContent = 'Añadiendo...';
 
-      var promises = [];
-      promises.push(
-        fetch('/?wc-ajax=add_to_cart', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: 'product_id=' + productId + '&quantity=' + selectedQty
-        })
-      );
+      // 1. INSTANT 0MS VISUAL FEEDBACK & DRAWER OPENING
+      addBtn.disabled = true;
+      if (btnText) btnText.textContent = '¡Añadido al Carrito!';
+      if (typeof openCartSidebarDrawer === 'function') openCartSidebarDrawer();
+      else document.body.classList.add('cart-drawer-open');
 
-      if (includeCombo) {
-        promises.push(
+      // 2. BACKGROUND FIRE-AND-FORGET FETCH
+      fetch('/?wc-ajax=add_to_cart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'product_id=' + productId + '&quantity=' + selectedQty
+      })
+      .then(function() {
+        if (includeCombo) {
           fetch('/?wc-ajax=add_to_cart', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: 'product_id=25&quantity=1'
-          })
-        );
-      }
+          }).then(function() { if (typeof spUpdateCartDrawerFromAJAX === 'function') spUpdateCartDrawerFromAJAX(); });
+        } else {
+          if (typeof spUpdateCartDrawerFromAJAX === 'function') spUpdateCartDrawerFromAJAX();
+        }
+      });
 
-      Promise.all(promises)
-        .then(function(responses) { return Promise.all(responses.map(function(r) { return r.json(); })); })
-        .then(function(dataArray) {
-          if (addBtn) addBtn.disabled = false;
-          if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
-            window.spUpdateCartDrawerFromAJAX();
-          }
-          if (typeof openCartSidebarDrawer === 'function') {
-            openCartSidebarDrawer();
-          } else {
-            document.body.classList.add('cart-drawer-open');
-          }
-        })
-        .catch(function(err) {
-          if (addBtn) addBtn.disabled = false;
-          if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
-            window.spUpdateCartDrawerFromAJAX();
-          }
-          document.body.classList.add('cart-drawer-open');
-        });
+      // 3. RESTORE BUTTON STATE IN 1.2 SECONDS
+      setTimeout(function() {
+        addBtn.disabled = false;
+        updateAllPrices();
+      }, 1200);
     });
   }
 });
