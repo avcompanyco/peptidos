@@ -405,21 +405,20 @@ window.spUpdateCartDrawerFromAJAX = function() {
     var hasWater = false;
 
     data.items.forEach(function(item) {
-      if (item.name.toLowerCase().indexOf('bacteriost') !== -1) hasWater = true;
-      itemsHtml += '<div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;box-shadow:0 4px 12px rgba(15,23,42,0.03);margin-bottom:10px;box-sizing:border-box;">'
-        + '<div style="width:60px;height:60px;border-radius:12px;overflow:hidden;background:#ffffff;border:1px solid #e2e8f0;flex-shrink:0;">'
+      itemsHtml += '<div class="cart-item-card" data-key="' + item.key + '" data-price="' + item.price + '" data-qty="' + item.qty + '" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(15,23,42,0.03);margin-bottom:8px;">'
+        + '<div style="width:48px;height:48px;border-radius:12px;overflow:hidden;background:#f8fafc;border:1px solid #f1f5f9;flex-shrink:0;">'
         + '<img src="' + item.image + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover;">'
         + '</div>'
         + '<div style="flex:1;min-width:0;">'
         + '<div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.name + '</div>'
         + '<div style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:50px;padding:2px 6px;box-sizing:border-box;">'
-        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty - 1) + ', this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
-        + '<span style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:24px;text-align:center;display:inline-block;line-height:1;margin:0 2px;">' + item.qty + '</span>'
-        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', ' + (item.qty + 1) + ', this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
+        + '<button type="button" onclick="spChangeDrawerItemQty('' + item.key + '', -1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
+        + '<span class="sp-drawer-qty-num" style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:24px;text-align:center;display:inline-block;line-height:1;margin:0 2px;">' + item.qty + '</span>'
+        + '<button type="button" onclick="spChangeDrawerItemQty('' + item.key + '', 1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
         + '</div>'
-        + '<div style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ' + parseInt(item.subtotal).toLocaleString('es-CO') + '</div>'
+        + '<div class="sp-drawer-item-subtotal" style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ' + parseInt(item.subtotal).toLocaleString('es-CO') + '</div>'
         + '</div>'
-        + '<button type="button" onclick="spRemoveWCCartItem(\'' + item.key + '\', this)" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
+        + '<button type="button" onclick="spRemoveWCCartItem('' + item.key + '', this)" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
         + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
         + '</button>'
         + '</div>';
@@ -562,52 +561,60 @@ window.spAddToCart = function(productId, qty) {
     });
 };
 
-window.spChangeDrawerItemQty = function(key, newQty, btnElem) {
+window.spChangeDrawerItemQty = function(key, delta, btnElem) {
+  var card = btnElem ? btnElem.closest('.cart-item-card') : null;
+  if (!card) return;
+
+  var currentQty = parseInt(card.getAttribute('data-qty')) || 1;
+  var newQty = currentQty + delta;
+
   if (newQty <= 0) {
     spRemoveWCCartItem(key, btnElem);
     return;
   }
 
-  // 1. INSTANT 0MS VISUAL UPDATE OF QUANTITY SPAN & PRICE ON SCREEN
-  if (btnElem) {
-    var pillContainer = btnElem.parentElement;
-    if (pillContainer) {
-      var numSpan = pillContainer.querySelector('span');
-      if (numSpan) {
-        var oldQty = parseInt(numSpan.textContent) || 1;
-        numSpan.textContent = newQty;
+  // 1. INSTANT 0MS VISUAL UPDATE
+  card.setAttribute('data-qty', newQty);
+  
+  var qtySpan = card.querySelector('.sp-drawer-qty-num');
+  if (qtySpan) qtySpan.textContent = newQty;
 
-        // Recalculate subtotal for this item
-        var itemContainer = btnElem.closest('div[style*="border"]');
-        if (itemContainer) {
-          var priceDivs = itemContainer.querySelectorAll('div');
-          priceDivs.forEach(function(d) {
-            if (d.textContent.indexOf('$') !== -1) {
-              var numOnly = d.textContent.replace(/[^0-9]/g, '');
-              if (numOnly) {
-                var unitPrice = Math.round(parseInt(numOnly) / oldQty);
-                if (unitPrice > 0) {
-                  var newSubtotal = unitPrice * newQty;
-                  d.textContent = '$ ' + newSubtotal.toLocaleString('es-CO');
-                }
-              }
-            }
-          });
-        }
-      }
+  var basePrice = parseFloat(card.getAttribute('data-price')) || 35000;
+  var newItemSubtotal = basePrice * newQty;
+  
+  var subtotalDiv = card.querySelector('.sp-drawer-item-subtotal');
+  if (subtotalDiv) subtotalDiv.textContent = '$ ' + newItemSubtotal.toLocaleString('es-CO');
 
-      // Update onClick handlers for - and + buttons with new values
-      var buttons = pillContainer.querySelectorAll('button');
-      if (buttons.length >= 2) {
-        buttons[0].setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty - 1) + ", this)");
-        buttons[1].setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty + 1) + ", this)");
-      }
-    }
-  }
-
-  // 2. SILENT BACKGROUND AJAX UPDATE (NO RE-RENDERING HTML OVER CURSOR)
-  fetch('/?sp_ajax_cart=1&sp_update_qty=' + newQty + '&cart_key=' + key, {
-    credentials: 'same-origin',
-    cache: 'no-store'
+  // Recalculate Grand Total across all cards in drawer
+  var grandTotal = 0;
+  var totalCount = 0;
+  document.querySelectorAll('.cart-item-card').forEach(function(c) {
+    var p = parseFloat(c.getAttribute('data-price')) || 0;
+    var q = parseInt(c.getAttribute('data-qty')) || 0;
+    grandTotal += (p * q);
+    totalCount += q;
   });
+
+  var formattedTotal = '$ ' + grandTotal.toLocaleString('es-CO');
+  
+  var drawerSubtotalElem = document.getElementById('cartDrawerSubtotal');
+  if (drawerSubtotalElem) drawerSubtotalElem.textContent = formattedTotal;
+  
+  var floatCartTotalElem = document.getElementById('floatingCartTotal');
+  if (floatCartTotalElem) floatCartTotalElem.textContent = formattedTotal;
+
+  var cartCountElem = document.getElementById('cartCount');
+  if (cartCountElem) { cartCountElem.textContent = totalCount; cartCountElem.style.display = totalCount > 0 ? 'inline-block' : 'none'; }
+  
+  var floatCartCountElem = document.getElementById('floatingCartCount');
+  if (floatCartCountElem) { floatCartCountElem.textContent = totalCount; floatCartCountElem.style.display = totalCount > 0 ? 'inline-block' : 'none'; }
+
+  // 2. SILENT BACKGROUND SYNC WITH WOOCOMMERCE
+  if (window.spQtySyncTimer) clearTimeout(window.spQtySyncTimer);
+  window.spQtySyncTimer = setTimeout(function() {
+    fetch('/?sp_ajax_cart=1&sp_update_qty=' + newQty + '&cart_key=' + key, {
+      credentials: 'same-origin',
+      cache: 'no-store'
+    });
+  }, 200);
 };
