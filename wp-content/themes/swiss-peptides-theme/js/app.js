@@ -405,6 +405,7 @@ window.spUpdateCartDrawerFromAJAX = function() {
     var hasWater = false;
 
     data.items.forEach(function(item) {
+      if (item.name.toLowerCase().indexOf('bacteriost') !== -1) hasWater = true;
       itemsHtml += '<div class="cart-item-card" data-key="' + item.key + '" data-price="' + item.price + '" data-qty="' + item.qty + '" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(15,23,42,0.03);margin-bottom:8px;">'
         + '<div style="width:48px;height:48px;border-radius:12px;overflow:hidden;background:#f8fafc;border:1px solid #f1f5f9;flex-shrink:0;">'
         + '<img src="' + item.image + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover;">'
@@ -412,13 +413,13 @@ window.spUpdateCartDrawerFromAJAX = function() {
         + '<div style="flex:1;min-width:0;">'
         + '<div style="font-weight:800;font-size:0.94rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.name + '</div>'
         + '<div style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:50px;padding:2px 6px;box-sizing:border-box;">'
-        + '<button type="button" onclick="spChangeDrawerItemQty('' + item.key + '', -1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', -1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
         + '<span class="sp-drawer-qty-num" style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:24px;text-align:center;display:inline-block;line-height:1;margin:0 2px;">' + item.qty + '</span>'
-        + '<button type="button" onclick="spChangeDrawerItemQty('' + item.key + '', 1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', 1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
         + '</div>'
         + '<div class="sp-drawer-item-subtotal" style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:2px;">$ ' + parseInt(item.subtotal).toLocaleString('es-CO') + '</div>'
         + '</div>'
-        + '<button type="button" onclick="spRemoveWCCartItem('' + item.key + '', this)" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
+        + '<button type="button" onclick="spRemoveWCCartItem(\'' + item.key + '\', this)" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
         + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
         + '</button>'
         + '</div>';
