@@ -130,6 +130,18 @@
       <span class="floating-cart-badge floating-cart-count" id="floatingCartCount" style="display:none;min-width:28px!important;height:28px!important;padding:0 8px!important;border-radius:50px!important;font-size:12px!important;background:#00a8ff!important;color:#ffffff!important;font-size:11px!important;font-weight:800!important;align-items:center!important;justify-content:center!important;padding:0!important;margin:0!important;box-sizing:border-box!important;line-height:1!important;flex-shrink:0!important;"></span>
   </a>
 
+  <script>
+  (function(){
+    try {
+      var c = localStorage.getItem('sp_cart_count');
+      var t = localStorage.getItem('sp_cart_total');
+      var subEl = document.getElementById('floatingCartSubtotal');
+      var cntEl = document.getElementById('floatingCartCount');
+      if (t && subEl) subEl.textContent = t;
+      if (c && parseInt(c) > 0 && cntEl) { cntEl.textContent = c; cntEl.style.display = 'flex'; }
+    } catch(e){}
+  })();
+  </script>
   <?php wp_footer(); ?>
 </body>
 </html>
