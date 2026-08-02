@@ -1249,50 +1249,14 @@ function sp_sticky_mobile_bar() {
     if (!(function_exists('is_product') && is_product())) return;
     global $product;
     if (!$product) return;
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <div class="sp-sticky-bar" id="spStickyBar">
       <div class="sp-sticky-inner">
         <div class="sp-sticky-info">
-          <span class="sp-sticky-name"><?php echo esc_html(mb_substr($product->get_name(), 0, 30)); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?></span>
-          <span class="sp-sticky-price">$ <?php echo number_format($product->get_price(), 0, ',', '.'); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?></span>
+          <span class="sp-sticky-name"><?php echo esc_html(mb_substr($product->get_name(), 0, 30)); ?></span>
+          <span class="sp-sticky-price">$ <?php echo number_format($product->get_price(), 0, ',', '.'); ?></span>
         </div>
-        <button type="button" class="sp-sticky-btn open-cart-btn" onclick="if(window.spAddToCart){ window.spAddToCart(<?php echo $product->get_id(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>, 1); }">
+        <button type="button" class="sp-sticky-btn open-cart-btn" onclick="if(window.spAddToCart){ window.spAddToCart(<?php echo $product->get_id(); ?>, 1); }">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
           Agregar
         </button>
@@ -1394,16 +1358,7 @@ add_action('wp_footer', 'sp_sticky_mobile_bar');
 function sp_shop_discount_banner() {
     
     if (!(function_exists('is_shop') && (function_exists('is_shop') && is_shop())) && !is_product_category()) return;
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <div style="background:linear-gradient(135deg,var(--navy) 0%,#1a365d 100%);color:var(--white);padding:16px 0;text-align:center;margin-bottom:var(--space-lg);border-radius:var(--radius-xl);">
       <div class="container" style="display:flex;align-items:center;justify-content:center;gap:var(--space-xl);flex-wrap:wrap;">
         <div style="display:flex;align-items:center;gap:8px;">
@@ -1443,16 +1398,7 @@ add_action('woocommerce_before_shop_loop_item_title', 'sp_archive_discount_badge
 // ─── Dynamic XML Sitemap ────────────────────────────────────
 function sp_generate_sitemap() {
     
-    $sitemap = '<?xml version="1.0" encoding="UTF-8"
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>' . "\n";
+    $sitemap = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
     
     // Homepage
@@ -1496,16 +1442,7 @@ add_action('after_switch_theme', 'sp_generate_sitemap');
 function sp_checkout_trust_bar() {
     
     if (!function_exists('is_checkout') || !function_exists('is_checkout') && is_checkout()) return;
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <div style="background:var(--gray-50);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:var(--space-md);margin-bottom:var(--space-lg);display:flex;align-items:center;justify-content:center;gap:var(--space-xl);flex-wrap:wrap;">
       <div style="display:flex;align-items:center;gap:6px;font-size:var(--fs-xs);color:var(--text-muted);">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -1691,16 +1628,7 @@ function sp_geo_sitemap_entries() {
 // ─── GA4 Tracking Code ──────────────────────────────────────
 function sp_ga4_tracking() {
     
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRT0F7LF6F"></script>
     <script>
@@ -1725,59 +1653,14 @@ function sp_ga4_purchase_tracking($order_id) {
         $cat = !empty($cats) ? $cats[0]->name : '';
         $items_js[] = '{item_id:"' . $product->get_id() . '",item_name:"' . esc_js($product->get_name()) . '",item_category:"' . esc_js($cat) . '",price:' . $item->get_total() / $item->get_quantity() . ',quantity:' . $item->get_quantity() . '}';
     }
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <script>
     gtag('event', 'purchase', {
-      transaction_id: '<?php echo $order_id; 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>',
-      value: <?php echo $order->get_total(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>,
+      transaction_id: '<?php echo $order_id; ?>',
+      value: <?php echo $order->get_total(); ?>,
       currency: 'COP',
-      shipping: <?php echo $order->get_shipping_total(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>,
-      items: [<?php echo implode(',', $items_js); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>]
+      shipping: <?php echo $order->get_shipping_total(); ?>,
+      items: [<?php echo implode(',', $items_js); ?>]
     });
     </script>
     <?php
@@ -1792,73 +1675,19 @@ function sp_ga4_add_to_cart_tracking() {
     if (!$product) return;
     $cats = wp_get_post_terms($product->get_id(), 'product_cat');
     $cat = !empty($cats) ? $cats[0]->name : '';
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.sp-add-to-cart').forEach(function(btn) {
         btn.addEventListener('click', function() {
           gtag('event', 'add_to_cart', {
             currency: 'COP',
-            value: <?php echo $product->get_price(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>,
+            value: <?php echo $product->get_price(); ?>,
             items: [{
-              item_id: '<?php echo $product->get_id(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>',
-              item_name: '<?php echo esc_js($product->get_name()); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>',
-              item_category: '<?php echo esc_js($cat); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>',
-              price: <?php echo $product->get_price(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>,
+              item_id: '<?php echo $product->get_id(); ?>',
+              item_name: '<?php echo esc_js($product->get_name()); ?>',
+              item_category: '<?php echo esc_js($cat); ?>',
+              price: <?php echo $product->get_price(); ?>,
               quantity: 1
             }]
           });
@@ -1878,70 +1707,16 @@ function sp_ga4_view_item() {
     if (!$product) return;
     $cats = wp_get_post_terms($product->get_id(), 'product_cat');
     $cat = !empty($cats) ? $cats[0]->name : '';
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <script>
     gtag('event', 'view_item', {
       currency: 'COP',
-      value: <?php echo $product->get_price(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>,
+      value: <?php echo $product->get_price(); ?>,
       items: [{
-        item_id: '<?php echo $product->get_id(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>',
-        item_name: '<?php echo esc_js($product->get_name()); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>',
-        item_category: '<?php echo esc_js($cat); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>',
-        price: <?php echo $product->get_price(); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+        item_id: '<?php echo $product->get_id(); ?>',
+        item_name: '<?php echo esc_js($product->get_name()); ?>',
+        item_category: '<?php echo esc_js($cat); ?>',
+        price: <?php echo $product->get_price(); ?>
       }]
     });
     </script>
@@ -2171,16 +1946,7 @@ add_filter('woocommerce_payment_gateways', 'sp_add_bold_gateway');
 function sp_bold_payment_icons() {
     
     if (!function_exists('is_checkout') || !function_exists('is_checkout') && is_checkout()) return;
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <style>
     .wc_payment_method label img { max-height: 28px; margin-right: 8px; }
     .payment_method_bold_co label { display: flex !important; align-items: center; gap: 8px; }
@@ -2196,16 +1962,7 @@ add_action('wp_enqueue_scripts', function() {
 // Exit intent popup removed
 
 function sp_exit_intent_popup() {
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <!-- LUXURY 2026 DISCOUNT EXIT POPUP -->
     <div class="sp-exit-modal-overlay" id="spExitModalOverlay">
       <div class="sp-exit-modal-card">
@@ -2227,16 +1984,7 @@ add_action('wp_enqueue_scripts', function() {
         </div>
 
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <a href="<?php echo home_url('/tienda/'); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>" class="btn-exact-cyan" style="width:100%;padding:14px;border-radius:10px;font-size:14.5px;font-weight:800;text-decoration:none;display:block;box-sizing:border-box;background:#00a8ff;color:#ffffff;text-align:center;" onclick="spCloseExitPopup()">
+          <a href="<?php echo home_url('/tienda/'); ?>" class="btn-exact-cyan" style="width:100%;padding:14px;border-radius:10px;font-size:14.5px;font-weight:800;text-decoration:none;display:block;box-sizing:border-box;background:#00a8ff;color:#ffffff;text-align:center;" onclick="spCloseExitPopup()">
             Aprovechar Descuento VIP
           </a>
           <button type="button" onclick="spCloseExitPopup()" style="background:transparent;border:none;color:#94a3b8;font-size:13px;font-weight:600;cursor:pointer;padding:6px;">
@@ -2290,16 +2038,7 @@ add_action("wp_footer", "sp_exit_intent_popup", 99);
 function sp_checkout_urgency_timer() {
     
     if (!function_exists('is_checkout') && is_checkout() || is_order_received_page()) return;
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <div class="sp-checkout-timer-banner" style="background:#0b1a30; border:1px solid #1e3a8a; border-radius:12px; padding:16px; margin-bottom:24px; display:flex; align-items:center; gap:16px; box-shadow:0 4px 20px rgba(11,26,48,0.15); color:#ffffff; font-family:'Inter', sans-serif;">
         <div class="sp-timer-icon" style="color:#3b82f6; flex-shrink:0; display:flex; align-items:center;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2780,16 +2519,7 @@ function sp_output_ajax_cart_json_v2() {
    ========================================================================== */
 add_action('woocommerce_review_order_before_submit', 'sp_add_checkout_research_disclaimer', 10);
 function sp_add_checkout_research_disclaimer() {
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <div class="sp-research-disclaimer-box" style="background:#ffffff;border:1.5px solid #cbd5e1;border-radius:14px;padding:16px 20px;margin:20px 0;display:flex;align-items:flex-start;gap:12px;box-sizing:border-box;width:100%;">
       <input type="checkbox" id="spResearchDisclaimerCheckCheckout" name="sp_research_disclaimer" class="sp-disclaimer-checkbox" style="width:20px;height:20px;accent-color:#0284c7;cursor:pointer;margin-top:2px;flex-shrink:0;" checked required>
       <label for="spResearchDisclaimerCheckCheckout" style="font-size:0.85rem;color:#334155;line-height:1.55;font-weight:500;cursor:pointer;user-select:none;">
@@ -2869,94 +2599,22 @@ function sp_render_order_tracking_meta_box($post) {
     $tracking_no = get_post_meta($post->ID, '_sp_tracking_number', true) ?: '';
     $tracking_url = get_post_meta($post->ID, '_sp_tracking_url', true) ?: '';
     wp_nonce_field('sp_save_tracking_nonce', 'sp_tracking_nonce');
-    
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>
+    ?>
     <div style="padding:10px 0;font-family:sans-serif;">
         <p><label style="font-weight:700;">Empresa de Envío:</label><br>
         <select name="sp_shipping_carrier" style="width:100%;margin-top:4px;">
-            <option value="Servientrega" <?php selected($carrier, 'Servientrega'); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>>Servientrega</option>
-            <option value="Interrapidisimo" <?php selected($carrier, 'Interrapidisimo'); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>>Interrapidísimo</option>
-            <option value="Envía" <?php selected($carrier, 'Envía'); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>>Envía Colvanes</option>
-            <option value="Coordinadora" <?php selected($carrier, 'Coordinadora'); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>>Coordinadora</option>
-            <option value="DHL Express" <?php selected($carrier, 'DHL Express'); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>>DHL Express</option>
+            <option value="Servientrega" <?php selected($carrier, 'Servientrega'); ?>>Servientrega</option>
+            <option value="Interrapidisimo" <?php selected($carrier, 'Interrapidisimo'); ?>>Interrapidísimo</option>
+            <option value="Envía" <?php selected($carrier, 'Envía'); ?>>Envía Colvanes</option>
+            <option value="Coordinadora" <?php selected($carrier, 'Coordinadora'); ?>>Coordinadora</option>
+            <option value="DHL Express" <?php selected($carrier, 'DHL Express'); ?>>DHL Express</option>
         </select></p>
 
         <p><label style="font-weight:700;">Número de Guía:</label><br>
-        <input type="text" name="sp_tracking_number" value="<?php echo esc_attr($tracking_no); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>" placeholder="Ej: 987654321" style="width:100%;margin-top:4px;"></p>
+        <input type="text" name="sp_tracking_number" value="<?php echo esc_attr($tracking_no); ?>" placeholder="Ej: 987654321" style="width:100%;margin-top:4px;"></p>
 
         <p><label style="font-weight:700;">URL Directa de Rastreo (Opcional):</label><br>
-        <input type="url" name="sp_tracking_url" value="<?php echo esc_url($tracking_url); 
-// === SEO: Remove unnecessary scripts ===
-add_action('wp_enqueue_scripts', function() {
-    wp_dequeue_script('jquery-migrate');
-    wp_deregister_script('jquery-migrate');
-    wp_dequeue_script('sourcebuster-js');
-    wp_dequeue_script('wc-order-attribution');
-}, 99);
-
-?>" placeholder="https://..." style="width:100%;margin-top:4px;"></p>
+        <input type="url" name="sp_tracking_url" value="<?php echo esc_url($tracking_url); ?>" placeholder="https://..." style="width:100%;margin-top:4px;"></p>
     </div>
     <?php
 }
@@ -3158,3 +2816,19 @@ function sp_send_luxury_completed_email($order_id) {
     $headers = array('Content-Type: text/html; charset=UTF-8');
     wp_mail($to, $subject, $body, $headers);
 }
+
+// === SEO: Remove unnecessary scripts ===
+add_action('wp_enqueue_scripts', function() {
+    wp_dequeue_script('jquery-migrate');
+    wp_deregister_script('jquery-migrate');
+    wp_dequeue_script('sourcebuster-js');
+    wp_dequeue_script('wc-order-attribution');
+}, 99);
+
+// === SEO: Add defer to non-critical scripts ===
+add_filter('script_loader_tag', function($tag, $handle) {
+    $no_defer = array('jquery-core', 'jquery');
+    if (in_array($handle, $no_defer) || is_admin()) return $tag;
+    if (strpos($tag, 'defer') !== false) return $tag;
+    return str_replace(' src=', ' defer src=', $tag);
+}, 10, 2);
