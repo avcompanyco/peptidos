@@ -568,21 +568,49 @@ window.spChangeDrawerItemQty = function(key, newQty, btnElem) {
     return;
   }
 
-  // 1. Optimistic instant visual update of quantity on screen
+  // 1. INSTANT 0MS VISUAL UPDATE OF QUANTITY & SUBTOTAL ON SCREEN
   if (btnElem) {
     var parent = btnElem.parentElement;
     if (parent) {
       var numSpan = parent.querySelector('span');
-      if (numSpan) numSpan.textContent = newQty;
+      if (numSpan) {
+        var oldQty = parseInt(numSpan.textContent) || 1;
+        numSpan.textContent = newQty;
+
+        // Find subtotal element for this item
+        var itemContainer = btnElem.closest('div[style*="border"]');
+        if (itemContainer) {
+          var priceDivs = itemContainer.querySelectorAll('div');
+          priceDivs.forEach(function(d) {
+            if (d.textContent.indexOf('$') !== -1) {
+              var currentText = d.textContent.replace(/[^0-9]/g, '');
+              var unitPrice = Math.round(parseInt(currentText) / oldQty);
+              if (unitPrice > 0) {
+                var newSubtotal = unitPrice * newQty;
+                d.textContent = '$ ' + newSubtotal.toLocaleString('es-CO');
+              }
+            }
+          });
+        }
+      }
+
+      // Update onClick handlers for - and + buttons with new values
+      var minusBtn = parent.children[0];
+      var plusBtn = parent.children[2];
+      if (minusBtn) minusBtn.setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty - 1) + ", this)");
+      if (plusBtn) plusBtn.setAttribute('onclick', "spChangeDrawerItemQty('" + key + "', " + (newQty + 1) + ", this)");
     }
   }
 
-  // 2. Background AJAX update
-  fetch('/?sp_ajax_cart=1&sp_update_qty=' + newQty + '&cart_key=' + key, {
-    credentials: 'same-origin',
-    cache: 'no-store'
-  })
-  .then(function() {
-    spUpdateCartDrawerFromAJAX();
-  });
+  // 2. DEBOUNCED BACKGROUND AJAX UPDATE (WITHOUT BLINKING THE UI)
+  if (window.spQtyUpdateTimeout) clearTimeout(window.spQtyUpdateTimeout);
+  window.spQtyUpdateTimeout = setTimeout(function() {
+    fetch('/?sp_ajax_cart=1&sp_update_qty=' + newQty + '&cart_key=' + key, {
+      credentials: 'same-origin',
+      cache: 'no-store'
+    })
+    .then(function() {
+      spUpdateCartDrawerFromAJAX();
+    });
+  }, 250);
 };
