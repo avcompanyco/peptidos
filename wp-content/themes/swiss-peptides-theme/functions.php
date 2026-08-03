@@ -264,49 +264,6 @@ function sp_email_from_address() {
 }
 add_filter('woocommerce_email_from_address', 'sp_email_from_address');
 
-// ─── Contact Form AJAX Handler ──────────────────────────────────
-function sp_contact_form() {
-    
-    check_ajax_referer('sp-nonce', 'nonce');
-
-    $name    = sanitize_text_field($_POST['name'] ?? '');
-    $email   = sanitize_email($_POST['email'] ?? '');
-    $phone   = sanitize_text_field($_POST['phone'] ?? '');
-    $city    = sanitize_text_field($_POST['city'] ?? '');
-    $subject = sanitize_text_field($_POST['subject'] ?? 'Contacto Web');
-    $message = sanitize_textarea_field($_POST['message'] ?? '');
-
-    if (!$name || !$email || !$message) {
-        wp_send_json_error('Campos requeridos incompletos');
-    }
-
-    $to = 'pedidos@peptidossuizos.com';
-    $email_subject = '[Swiss Peptides Colombia] ' . $subject;
-    $body = "Nuevo mensaje de contacto desde peptidossuizos.com\n\n";
-    $body .= "Nombre: $name\n";
-    $body .= "Email: $email\n";
-    $body .= "Teléfono: $phone\n";
-    $body .= "Ciudad: $city\n";
-    $body .= "Asunto: $subject\n\n";
-    $body .= "Mensaje:\n$message\n";
-
-    $headers = [
-        'From: Swiss Peptides Colombia <pedidos@peptidossuizos.com>',
-        'Reply-To: ' . $name . ' <' . $email . '>',
-        'Content-Type: text/plain; charset=UTF-8',
-    ];
-
-    $sent = wp_mail($to, $email_subject, $body, $headers);
-
-    if ($sent) {
-        wp_send_json_success('Mensaje enviado correctamente');
-    } else {
-        wp_send_json_error('Error al enviar. Intenta por WhatsApp.');
-    }
-}
-add_action('wp_ajax_sp_contact_form', 'sp_contact_form');
-add_action('wp_ajax_nopriv_sp_contact_form', 'sp_contact_form');
-
 // ─── Spanish Translation Filters ───────────────────────────────
 function sp_translate_wc_strings($translated, $text, $domain) {
     if ($domain !== 'woocommerce') return $translated;
@@ -2321,45 +2278,56 @@ function sp_process_abandoned_carts() {
 
 
 function sp_ajax_contact_form() {
-    $name = sanitize_text_field($_POST['name'] ?? '');
-    $email = sanitize_email($_POST['email'] ?? '');
-    $phone = sanitize_text_field($_POST['phone'] ?? '');
-    $city = sanitize_text_field($_POST['city'] ?? '');
+    $name    = sanitize_text_field($_POST['name'] ?? '');
+    $email   = sanitize_email($_POST['email'] ?? '');
+    $phone   = sanitize_text_field($_POST['phone'] ?? '');
+    $city    = sanitize_text_field($_POST['city'] ?? '');
     $subject = sanitize_text_field($_POST['subject'] ?? 'Consulta desde el Sitio Web');
     $message = sanitize_textarea_field($_POST['message'] ?? '');
 
-    $to = 'pedidos@peptidossuizos.com';
-    $email_subject = 'Nueva Consulta de Contacto: ' . $subject;
+    if (empty($name) || empty($email) || empty($message)) {
+        wp_send_json_error('Por favor completa todos los campos requeridos (Nombre, Email, Mensaje).');
+        return;
+    }
+
+    $to = array('pedidos@peptidossuizos.com', 'antoniovarona@avcompany.co');
+    $email_subject = '[Swiss Peptides] Nueva Consulta: ' . $subject;
     
-    $body = "Has recibido un nuevo mensaje desde el formulario de contacto de Swiss Peptides Labs:
+    $body  = "Has recibido un nuevo mensaje desde el formulario de contacto de Swiss Peptides Colombia:
 
 ";
-    $body .= "Nombre: " . $name . "
+    $body .= "• Nombre: " . $name . "
 ";
-    $body .= "Email: " . $email . "
+    $body .= "• Email: " . $email . "
 ";
-    $body .= "Teléfono/WhatsApp: " . $phone . "
+    $body .= "• Teléfono / WhatsApp: " . ($phone ?: 'No especificado') . "
 ";
-    $body .= "Ciudad: " . $city . "
+    $body .= "• Ciudad: " . ($city ?: 'No especificada') . "
 ";
-    $body .= "Asunto: " . $subject . "
+    $body .= "• Asunto: " . $subject . "
 
 ";
     $body .= "Mensaje:
 " . $message . "
 
 ";
-    $body .= "--- Enviado desde peptidossuizos.com ---";
+    $body .= "--------------------------------------------------
+";
+    $body .= "Enviado desde https://peptidossuizos.com/contacto/";
 
-    $headers = [
+    $headers = array(
         'Content-Type: text/plain; charset=UTF-8',
-        'From: Swiss Peptides <pedidos@peptidossuizos.com>',
-        'Reply-To: ' . $email
-    ];
+        'From: Swiss Peptides Labs <pedidos@peptidossuizos.com>',
+        'Reply-To: ' . $name . ' <' . $email . '>'
+    );
 
-    @wp_mail($to, $email_subject, $body, $headers);
+    $sent = wp_mail($to, $email_subject, $body, $headers);
 
-    wp_send_json_success('¡Mensaje enviado con éxito! Nos comunicaremos contigo a la brevedad.');
+    if ($sent) {
+        wp_send_json_success('¡Mensaje enviado con éxito! Nos comunicaremos contigo a la brevedad.');
+    } else {
+        wp_send_json_error('No se pudo enviar el correo por el servidor. Intenta de nuevo o contáctanos por WhatsApp.');
+    }
 }
 add_action('wp_ajax_sp_contact_form', 'sp_ajax_contact_form');
 add_action('wp_ajax_nopriv_sp_contact_form', 'sp_ajax_contact_form');
