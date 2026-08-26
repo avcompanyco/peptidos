@@ -57,6 +57,14 @@
       </div>
 
       <!-- FOOTER BOTTOM BAR -->
+            <!-- GEO COVERAGE BADGES FOR ALL COLOMBIA DEPARTMENTS & CITIES -->
+      <div style="border-top:1px solid rgba(255,255,255,0.08);padding:24px 0 16px;margin-top:20px;font-size:12px;color:#94a3b8;line-height:1.8;">
+        <div style="font-weight:800;color:#00a8ff;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;font-size:11px;">
+          🇨🇴 Cobertura de Despacho Express en 24-48h a Todas las Ciudades de Colombia:
+        </div>
+        <span style="color:#cbd5e1;">Bogotá D.C.</span> • <span style="color:#cbd5e1;">Medellín</span> • <span style="color:#cbd5e1;">Cali</span> • <span style="color:#cbd5e1;">Barranquilla</span> • <span style="color:#cbd5e1;">Bucaramanga</span> • <span style="color:#cbd5e1;">Cartagena</span> • <span style="color:#cbd5e1;">Pereira</span> • <span style="color:#cbd5e1;">Manizales</span> • <span style="color:#cbd5e1;">Cúcuta</span> • <span style="color:#cbd5e1;">Ibagué</span> • <span style="color:#cbd5e1;">Santa Marta</span> • <span style="color:#cbd5e1;">Villavicencio</span> • <span style="color:#cbd5e1;">Pasto</span> • <span style="color:#cbd5e1;">Neiva</span> • <span style="color:#cbd5e1;">Armenia</span> • <span style="color:#cbd5e1;">Valledupar</span> • <span style="color:#cbd5e1;">Montería</span> • <span style="color:#cbd5e1;">Sincelejo</span> • <span style="color:#cbd5e1;">Popayán</span> • <span style="color:#cbd5e1;">Tunja</span> • <span style="color:#cbd5e1;">Riohacha</span> • <span style="color:#cbd5e1;">Florencia</span> • <span style="color:#cbd5e1;">Yopal</span> • <span style="color:#cbd5e1;">Quibdó</span> • <span style="color:#cbd5e1;">San Andrés Isla</span>.
+      </div>
+
       <div class="footer-bottom-flex" style="border-top:1px solid rgba(255,255,255,0.08);padding-top:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13px;color:#64748b;">
         <div>
           © 2026 Swiss Peptides Labs Colombia. Todos los derechos reservados.
