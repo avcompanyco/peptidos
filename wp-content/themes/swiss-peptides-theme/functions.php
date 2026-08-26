@@ -33,7 +33,7 @@ function sp_enqueue() {
     wp_enqueue_style('sp-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap', [], null);
 
     // Main CSS
-    $v = '2.1.' . time();
+    $v = '5.0.' . time();
     wp_enqueue_style('sp-main', get_template_directory_uri() . '/css/main.css', [], $v);
     wp_enqueue_style('sp-animations', get_template_directory_uri() . '/css/animations.css', ['sp-main'], $v);
     wp_enqueue_style('sp-responsive', get_template_directory_uri() . '/css/responsive.css', ['sp-main'], $v);
@@ -1043,53 +1043,59 @@ function sp_breadcrumb_schema() {
      return; }
 // add_action('wp_head', 'sp_breadcrumb_schema', 5);
 
-// ─── Volume Discount System (Combos) ───────────────────────────
-function sp_volume_discounts($cart) {
+// ─── Volume Discount System: 10% (2 units), 20% (3 units), 25% (4+ units) ──────
+add_action('woocommerce_before_calculate_totals', 'sp_apply_dynamic_tiered_discounts', 99, 1);
+function sp_apply_dynamic_tiered_discounts($cart) {
     if (is_admin() && !defined('DOING_AJAX')) return;
-    if (did_action('woocommerce_cart_calculate_fees') >= 2) return;
-    
-    // Count quantities per product
-    $product_counts = [];
-    foreach ($cart->get_cart() as $item) {
-        $pid = $item['product_id'];
-        if (!isset($product_counts[$pid])) {
-            $product_counts[$pid] = [
-                'qty' => 0,
-                'price' => (float) $item['data']->get_price(),
-                'name' => $item['data']->get_name(),
-            ];
+    if (did_action('woocommerce_before_calculate_totals') >= 2) return;
+
+    // Calculate total quantity per product across cart
+    $product_qtys = array();
+    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+        $pid = $cart_item['product_id'];
+        if (!isset($product_qtys[$pid])) {
+            $product_qtys[$pid] = 0;
         }
-        $product_counts[$pid]['qty'] += $item['quantity'];
+        $product_qtys[$pid] += (int)$cart_item['quantity'];
     }
-    
-    // Apply tiered discounts per product (skip Agua Bacteriostatica ID 25)
-    foreach ($product_counts as $pid => $data) {
-        if ($pid == 25) continue; // Skip agua bacteriostatica
+
+    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+        $product = $cart_item['data'];
+        $pid = $cart_item['product_id'];
         
-        $qty = $data['qty'];
-        $discount_pct = 0;
-        $tier_name = '';
+        // Skip accessory products like Agua Bacteriostática (ID 25 or name match)
+        if ($pid == 25 || stripos($product->get_name(), 'bacteriost') !== false) {
+            continue;
+        }
         
-        if ($qty >= 4) {
-            $discount_pct = 0.25;
-            $tier_name = 'Protocolo Premium 25%';
-        } elseif ($qty >= 3) {
-            $discount_pct = 0.20;
-            $tier_name = 'Protocolo Profesional 20%';
-        } elseif ($qty >= 2) {
-            $discount_pct = 0.10;
-            $tier_name = 'Protocolo Avanzado 10%';
+        $total_qty = $product_qtys[$pid];
+        
+        // Get true regular base price
+        $regular_price = (float) get_post_meta($pid, '_regular_price', true);
+        if ($regular_price <= 0) {
+            $regular_price = (float) get_post_meta($pid, '_price', true);
+        }
+        if ($regular_price <= 0) {
+            $regular_price = (float) $product->get_regular_price();
+        }
+        
+        $discount_pct = 0.0;
+        if ($total_qty >= 4) {
+            $discount_pct = 0.25; // 25% OFF
+        } elseif ($total_qty == 3) {
+            $discount_pct = 0.20; // 20% OFF
+        } elseif ($total_qty == 2) {
+            $discount_pct = 0.10; // 10% OFF
         }
         
         if ($discount_pct > 0) {
-            $total_for_product = $data['price'] * $qty;
-            $discount_amount = $total_for_product * $discount_pct;
-            $short_name = mb_substr($data['name'], 0, 20);
-            $cart->add_fee("Descuento {$tier_name} — {$short_name}", -$discount_amount);
+            $discounted_unit_price = round($regular_price * (1.0 - $discount_pct));
+            $product->set_price($discounted_unit_price);
+        } else {
+            $product->set_price($regular_price);
         }
     }
 }
-add_action('woocommerce_cart_calculate_fees', 'sp_volume_discounts');
 
 // ─── Disable SiteSEO default schema to avoid conflicts ─────────
 // (We generate our own enhanced schema above)
@@ -2413,68 +2419,123 @@ function sp_resolve_single_product_page() {
 
 
 /* ==========================================================================
-   MASTER INSTANT AJAX CART JSON ENDPOINT (template_redirect - AFTER WC session)
+   MASTER INSTANT AJAX CART JSON ENDPOINT (template_redirect - 100% WC Session Active)
    ========================================================================== */
 add_action('template_redirect', 'sp_output_ajax_cart_json_v2');
 function sp_output_ajax_cart_json_v2() {
-
-    if (isset($_GET['sp_update_qty']) && isset($_GET['cart_key'])) {
-        $key = sanitize_text_field($_GET['cart_key']);
-        $new_qty = intval($_GET['sp_update_qty']);
-        if (function_exists('WC') && WC()->cart) {
-            if ($new_qty <= 0) {
-                WC()->cart->remove_cart_item($key);
-            } else {
-                WC()->cart->set_quantity($key, $new_qty);
-            }
-        }
-    }
-
     if (!isset($_GET['sp_ajax_cart']) || $_GET['sp_ajax_cart'] != '1') {
         return;
     }
-    
+
+    if (!function_exists('WC') || !WC()->cart) {
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8');
+            header('Cache-Control: no-cache, no-store, must-revalidate');
+        }
+        echo json_encode(array('count' => 0, 'total' => '$ 0', 'total_raw' => 0, 'total_formatted' => '$ 0', 'items' => array()));
+        exit;
+    }
+
+    // 1. ATOMIC ADD TO CART (Product + Combo)
+    if (isset($_REQUEST['add_product_id']) && !empty($_REQUEST['add_product_id'])) {
+        $pid = intval($_REQUEST['add_product_id']);
+        $qty = isset($_REQUEST['qty']) ? max(1, intval($_REQUEST['qty'])) : 1;
+        $include_combo = isset($_REQUEST['include_combo']) && ($_REQUEST['include_combo'] == '1' || $_REQUEST['include_combo'] === 'true');
+
+        if ($pid > 0) {
+            WC()->cart->add_to_cart($pid, $qty);
+        }
+
+        if ($include_combo) {
+            $water_pid = 25;
+            $has_water = false;
+            foreach (WC()->cart->get_cart() as $cart_item) {
+                if ($cart_item['product_id'] == $water_pid || stripos($cart_item['data']->get_name(), 'bacteriost') !== false) {
+                    $has_water = true;
+                    break;
+                }
+            }
+            if (!$has_water) {
+                WC()->cart->add_to_cart($water_pid, 1);
+            }
+        }
+        WC()->cart->calculate_totals();
+    }
+
+    // 2. QUANTITY UPDATE
+    if (isset($_GET['sp_update_qty']) && isset($_GET['cart_key'])) {
+        $key = sanitize_text_field($_GET['cart_key']);
+        $new_qty = intval($_GET['sp_update_qty']);
+        if ($key && isset(WC()->cart->get_cart()[$key])) {
+            if ($new_qty <= 0) {
+                WC()->cart->remove_cart_item($key);
+            } else {
+                WC()->cart->set_quantity($key, $new_qty, true);
+            }
+            WC()->cart->calculate_totals();
+        }
+    }
+
+    // 3. REMOVE ITEM
+    if (isset($_GET['sp_remove_key'])) {
+        $key = sanitize_text_field($_GET['sp_remove_key']);
+        if ($key && isset(WC()->cart->get_cart()[$key])) {
+            WC()->cart->remove_cart_item($key);
+            WC()->cart->calculate_totals();
+        }
+    }
+
     if (!headers_sent()) {
         header('Content-Type: application/json; charset=utf-8');
         header('Cache-Control: no-cache, no-store, must-revalidate');
         header('Pragma: no-cache');
         header('Expires: 0');
     }
-    
+
+    WC()->cart->calculate_totals();
+    $cart = WC()->cart->get_cart();
     $items = array();
     $total = 0;
     $count = 0;
-    
-    if (function_exists('WC') && WC()->cart) {
-        $cart = WC()->cart->get_cart();
-        foreach ($cart as $key => $item) {
-            $_product = isset($item['data']) ? $item['data'] : null;
-            if ($_product && $_product->exists()) {
-                $qty = (int) $item['quantity'];
-                $price = (float) $_product->get_price();
-                $line_subtotal = $price * $qty;
-                $total += $line_subtotal;
-                $count += $qty;
-                
-                $thumb_id = $_product->get_image_id();
-                $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'thumbnail') : wc_placeholder_img_src();
-                
-                $items[] = array(
-                    'key'      => $key,
-                    'id'       => $_product->get_id(),
-                    'name'     => $_product->get_name(),
-                    'qty'      => $qty,
-                    'price'    => $price,
-                    'subtotal' => $line_subtotal,
-                    'image'    => $thumb_url
-                );
-            }
+
+    foreach ($cart as $key => $item) {
+        $_product = isset($item['data']) ? $item['data'] : null;
+        if ($_product && $_product->exists()) {
+            $qty = (int) $item['quantity'];
+            $pid = $_product->get_id();
+
+            // Regular base price
+            $base_price = (float) get_post_meta($pid, '_regular_price', true);
+            if ($base_price <= 0) $base_price = (float) get_post_meta($pid, '_price', true);
+            if ($base_price <= 0) $base_price = (float) $_product->get_regular_price();
+
+            // Effective unit price (discounted by sp_apply_dynamic_tiered_discounts)
+            $unit_price = (float) $_product->get_price();
+            $line_subtotal = round($unit_price * $qty);
+            $total += $line_subtotal;
+            $count += $qty;
+
+            $thumb_id = $_product->get_image_id();
+            $thumb_url = $thumb_id ? wp_get_attachment_image_url($thumb_id, 'thumbnail') : wc_placeholder_img_src();
+
+            $items[] = array(
+                'key'            => $key,
+                'id'             => $pid,
+                'name'           => $_product->get_name(),
+                'qty'            => $qty,
+                'price'          => $base_price,
+                'unit_price'     => $unit_price,
+                'subtotal'       => $line_subtotal,
+                'subtotal_fmt'   => '$ ' . number_format($line_subtotal, 0, ',', '.'),
+                'image'          => $thumb_url
+            );
         }
     }
-    
+
     echo json_encode(array(
         'count'           => $count,
-        'total'           => $total,
+        'total'           => '$ ' . number_format($total, 0, ',', '.'),
+        'total_raw'       => $total,
         'total_formatted' => '$ ' . number_format($total, 0, ',', '.'),
         'items'           => $items
     ));
@@ -2765,24 +2826,88 @@ function sp_build_luxury_html_email($order_id, $email_type = 'new_order') {
     return $html;
 }
 
+// ══════════════════════════════════════════════════════════════════════════════
+// MASTER HIGH-RELIABILITY ORDER NOTIFICATION SYSTEM (ADMIN & CUSTOMER)
+// ══════════════════════════════════════════════════════════════════════════════
+add_action('woocommerce_checkout_order_processed', 'sp_trigger_order_notifications', 20, 3);
+add_action('woocommerce_order_status_processing', 'sp_trigger_order_notifications', 20, 1);
+add_action('woocommerce_payment_complete', 'sp_trigger_order_notifications', 20, 1);
+add_action('woocommerce_thankyou', 'sp_trigger_order_notifications', 20, 1);
+
+function sp_trigger_order_notifications($order_id, $posted_data = null, $order = null) {
+    if (!$order_id) return;
+    sp_dispatch_sales_alert($order_id);
+}
+
+function sp_dispatch_sales_alert($order_id, $force = false) {
+    if (!$order_id) return;
+    
+    $order = wc_get_order($order_id);
+    if (!$order) return;
+    
+    // Ensure line items are present before sending
+    $items = $order->get_items();
+    if (empty($items)) return;
+
+    // Prevent duplicate emails
+    if (!$force && get_post_meta($order_id, '_sp_order_notifications_sent', true)) {
+        return;
+    }
+
+    $customer_name = trim($order->get_billing_first_name() . ' ' . $order->get_billing_last_name());
+    $customer_email = $order->get_billing_email();
+    $total_formatted = '$ ' . number_format($order->get_total(), 0, ',', '.');
+    $order_number = $order->get_order_number();
+
+    // 1. ADMIN NOTIFICATION EMAIL
+    $admin_recipients = array('antoniovarona@avcompany.co', 'pedidos@peptidossuizos.com');
+    $admin_subject = '🔥 [NUEVA VENTA PEPTIDOS SUIZOS] Orden #' . $order_number . ' — ' . $total_formatted . ' COP';
+    $admin_body = sp_build_luxury_html_email($order_id, 'new_order');
+    $headers = array(
+        'Content-Type: text/html; charset=UTF-8',
+        'From: Swiss Peptides Colombia <pedidos@peptidossuizos.com>'
+    );
+    wp_mail($admin_recipients, $admin_subject, $admin_body, $headers);
+
+    // 2. CUSTOMER CONFIRMATION EMAIL
+    if (!empty($customer_email) && is_email($customer_email)) {
+        $customer_subject = '✅ Confirmación de tu Solicitud #' . $order_number . ' — Swiss Peptides Colombia';
+        $customer_body = sp_build_luxury_html_email($order_id, 'new_order');
+        wp_mail($customer_email, $customer_subject, $customer_body, $headers);
+    }
+
+    update_post_meta($order_id, '_sp_order_notifications_sent', current_time('mysql'));
+}
+
 function sp_send_luxury_processing_email($order_id) {
     $order = wc_get_order($order_id);
     if (!$order) return;
-    $to = 'antoniovarona@avcompany.co';
-    $subject = '[Swiss Peptides] Nueva Cotización y Orden Recibida #' . $order_id;
+    $recipients = array('antoniovarona@avcompany.co', 'pedidos@peptidossuizos.com');
+    $subject = '[Swiss Peptides] Pedido en Proceso de Preparación — Orden #' . $order_id;
     $body = sp_build_luxury_html_email($order_id, 'new_order');
-    $headers = array('Content-Type: text/html; charset=UTF-8');
-    wp_mail($to, $subject, $body, $headers);
+    $headers = array('Content-Type: text/html; charset=UTF-8', 'From: Swiss Peptides Colombia <pedidos@peptidossuizos.com>');
+    wp_mail($recipients, $subject, $body, $headers);
+    
+    // Also notify customer if email provided
+    $customer_email = $order->get_billing_email();
+    if ($customer_email && is_email($customer_email) && !in_array($customer_email, $recipients)) {
+        wp_mail($customer_email, 'Confirmación de Pedido #' . $order_id . ' — Swiss Peptides Labs', $body, $headers);
+    }
 }
 
 function sp_send_luxury_completed_email($order_id) {
     $order = wc_get_order($order_id);
     if (!$order) return;
-    $to = 'antoniovarona@avcompany.co';
+    $recipients = array('antoniovarona@avcompany.co', 'pedidos@peptidossuizos.com');
     $subject = '🚚 ¡Tu Pedido ha sido Despachado! Orden #' . $order_id . ' — Swiss Peptides';
     $body = sp_build_luxury_html_email($order_id, 'dispatched');
-    $headers = array('Content-Type: text/html; charset=UTF-8');
-    wp_mail($to, $subject, $body, $headers);
+    $headers = array('Content-Type: text/html; charset=UTF-8', 'From: Swiss Peptides Colombia <pedidos@peptidossuizos.com>');
+    wp_mail($recipients, $subject, $body, $headers);
+    
+    $customer_email = $order->get_billing_email();
+    if ($customer_email && is_email($customer_email) && !in_array($customer_email, $recipients)) {
+        wp_mail($customer_email, $subject, $body, $headers);
+    }
 }
 
 // === SEO: Remove unnecessary scripts ===
@@ -2800,3 +2925,19 @@ add_filter('script_loader_tag', function($tag, $handle) {
     if (strpos($tag, 'defer') !== false) return $tag;
     return str_replace(' src=', ' defer src=', $tag);
 }, 10, 2);
+
+// Make postcode optional for Colombia checkouts
+add_filter('woocommerce_billing_fields', 'sp_make_postcode_optional', 20);
+function sp_make_postcode_optional($fields) {
+    if (isset($fields['billing_postcode'])) {
+        $fields['billing_postcode']['required'] = false;
+    }
+    return $fields;
+}
+add_filter('woocommerce_default_address_fields', 'sp_make_default_postcode_optional', 20);
+function sp_make_default_postcode_optional($fields) {
+    if (isset($fields['postcode'])) {
+        $fields['postcode']['required'] = false;
+    }
+    return $fields;
+}

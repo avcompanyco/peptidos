@@ -3,7 +3,25 @@
  * Master 100% Responsive No-Overflow Checkout Page 2026
  * Swiss Peptides - Strict Box-Sizing, No Horizontal Scroll, Mandatory WhatsApp Phone
  */
+
+// ─── IF ORDER RECEIVED / THANK YOU ENDPOINT: RENDER THANK YOU TEMPLATE DIRECTLY ───
+if ( (function_exists('is_wc_endpoint_url') && is_wc_endpoint_url('order-received')) || (function_exists('is_order_received_page') && is_order_received_page()) || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'order-received') !== false) ) {
+    get_header();
+    $order_id = absint( get_query_var( 'order-received' ) );
+    if (!$order_id && isset($GLOBALS['wp']->query_vars['order-received'])) {
+        $order_id = absint($GLOBALS['wp']->query_vars['order-received']);
+    }
+    if (!$order_id && isset($_SERVER['REQUEST_URI']) && preg_match('#/order-received/(\d+)#', $_SERVER['REQUEST_URI'], $m)) {
+        $order_id = absint($m[1]);
+    }
+    $order = $order_id > 0 ? wc_get_order( $order_id ) : false;
+    include locate_template( 'woocommerce/checkout/thankyou.php' );
+    get_footer();
+    return;
+}
+
 get_header();
+
 
 $cart_items = WC()->cart ? WC()->cart->get_cart() : array();
 $subtotal = 0;
@@ -526,6 +544,8 @@ html body .sp-checkout-btn-whatsapp-submit:hover {
     <?php wc_print_notices(); ?>
 
     <form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data">
+      <?php wp_nonce_field('woocommerce-process_checkout', 'woocommerce-process-checkout-nonce'); ?>
+      <?php wp_nonce_field('woocommerce-process_checkout'); ?>
       <div class="sp-checkout-grid">
         
         <!-- LEFT: Billing & Shipping Form -->
@@ -582,39 +602,16 @@ html body .sp-checkout-btn-whatsapp-submit:hover {
               <div class="sp-form-group">
                 <label for="billing_state">Departamento *</label>
                 <select name="billing_state" id="billing_state" required class="input-text">
-                  <option value="">Selecciona tu Departamento...</option>
-<option value="Bogotá D.C.">Bogotá D.C.</option>
-<option value="Antioquia">Antioquia</option>
-<option value="Atlantico">Atlántico</option>
-<option value="Bolivar">Bolívar</option>
-<option value="Boyaca">Boyacá</option>
-<option value="Caldas">Caldas</option>
-<option value="Caqueta">Caquetá</option>
-<option value="Cauca">Cauca</option>
-<option value="Cesar">Cesar</option>
-<option value="Cordoba">Córdoba</option>
-<option value="Cundinamarca">Cundinamarca</option>
-<option value="Huila">Huila</option>
-<option value="La Guajira">La Guajira</option>
-<option value="Magdalena">Magdalena</option>
-<option value="Meta">Meta</option>
-<option value="Nariño">Nariño</option>
-<option value="Norte de Santander">Norte de Santander</option>
-<option value="Quindio">Quindío</option>
-<option value="Risaralda">Risaralda</option>
-<option value="Santander">Santander</option>
-<option value="Sucre">Sucre</option>
-<option value="Tolima">Tolima</option>
-<option value="Valle del Cauca">Valle del Cauca</option>
-<option value="Arauca">Arauca</option>
-<option value="Casanare">Casanare</option>
-<option value="Putumayo">Putumayo</option>
-<option value="San Andres y Providencia">San Andrés y Providencia</option>
-<option value="Amazonas">Amazonas</option>
-<option value="Guania">Guainía</option>
-<option value="Guaviare">Guaviare</option>
-<option value="Vaupes">Vaupés</option>
-<option value="Vichada">Vichada</option>
+                  <option value="">Selecciona tu Departamento / Región...</option>
+                  <?php
+                  $co_states = (function_exists('WC') && WC()->countries) ? WC()->countries->get_states('CO') : array();
+                  $current_state = (function_exists('WC') && WC()->checkout()) ? WC()->checkout()->get_value('billing_state') : 'CO-DC';
+                  if (!$current_state) $current_state = 'CO-DC';
+                  foreach ($co_states as $code => $name) {
+                      $selected = ($current_state == $code || $current_state == $name) ? 'selected' : '';
+                      echo '<option value="' . esc_attr($code) . '" ' . $selected . '>' . esc_html($name) . '</option>';
+                  }
+                  ?>
                 </select>
               </div>
             </div>
@@ -669,8 +666,18 @@ html body .sp-checkout-btn-whatsapp-submit:hover {
             <span>$ <?php echo number_format($subtotal, 0, ',', '.'); ?></span>
           </div>
 
+          <!-- Research Disclaimer -->
+          <div class="sp-research-disclaimer-box" style="background:#ffffff;border:1.5px solid #cbd5e1;border-radius:14px;padding:16px 20px;margin:20px 0;display:flex;align-items:flex-start;gap:12px;box-sizing:border-box;width:100%;">
+            <input type="checkbox" id="spResearchDisclaimerCheckCheckout" name="sp_research_disclaimer" value="1" style="width:20px;height:20px;accent-color:#0284c7;cursor:pointer;margin-top:2px;flex-shrink:0;" checked required>
+            <label for="spResearchDisclaimerCheckCheckout" style="font-size:0.85rem;color:#334155;line-height:1.55;font-weight:500;cursor:pointer;user-select:none;">
+              Declaro que esta solicitud corresponde a fines técnicos, investigativos, institucionales o de laboratorio, y que no busco adquirir productos para uso humano, diagnóstico, tratamiento, prescripción o automedicación.
+            </label>
+          </div>
+
           <!-- Hidden payment method selection (Forces COD / WhatsApp Order) -->
           <input type="hidden" name="payment_method" value="cod">
+          <input type="hidden" name="billing_country" value="CO">
+          <input type="hidden" name="shipping_country" value="CO">
 
           <!-- Submit Button (Rounded Pill WhatsApp Green) -->
           <button type="submit" class="sp-checkout-btn-whatsapp-submit" name="woocommerce_checkout_place_order" id="place_order" value="Confirmar y Pagar por WhatsApp" data-value="Confirmar y Pagar por WhatsApp">

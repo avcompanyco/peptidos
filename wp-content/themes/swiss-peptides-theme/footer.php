@@ -81,24 +81,11 @@
       $sp_f_subtotal = (float) WC()->cart->get_cart_contents_total();
   }
   ?>
-  <a href="#" class="floating-cart-widget open-cart-btn" id="floatingCartWidget" style="position:fixed;bottom:24px;right:24px;z-index:999999;background:#050b14!important;border:1.5px solid #00a8ff!important;border-radius:50px!important;padding:8px 16px!important;display:flex!important;align-items:center!important;gap:10px!important;text-decoration:none!important;box-shadow:0 10px 30px rgba(0,168,255,0.3)!important;transition:all 0.3s ease!important;">
+  <a href="#" class="floating-cart-widget open-cart-btn" id="floatingCartWidget" onclick="window.openCartSidebarDrawer(); return false;" style="position:fixed;bottom:24px;right:24px;z-index:999999;background:#050b14!important;border:1.5px solid #00a8ff!important;border-radius:50px!important;padding:8px 16px!important;display:flex!important;align-items:center!important;gap:10px!important;text-decoration:none!important;box-shadow:0 10px 30px rgba(0,168,255,0.3)!important;transition:all 0.3s ease!important;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00a8ff" stroke-width="2.2" style="flex-shrink:0;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       <span id="floatingCartSubtotal" style="color:#00a8ff!important;font-weight:800!important;font-size:0.95rem!important;white-space:nowrap!important;">$ <?php echo number_format($sp_f_subtotal, 0, ',', '.'); ?></span>
-      <span class="floating-cart-badge floating-cart-count" id="floatingCartCount" style="display:none;min-width:28px!important;height:28px!important;padding:0 8px!important;border-radius:50px!important;font-size:12px!important;background:#00a8ff!important;color:#ffffff!important;font-size:11px!important;font-weight:800!important;align-items:center!important;justify-content:center!important;padding:0!important;margin:0!important;box-sizing:border-box!important;line-height:1!important;flex-shrink:0!important;"></span>
+      <span class="floating-cart-badge floating-cart-count <?php echo $sp_f_count > 0 ? 'has-items' : ''; ?>" id="floatingCartCount" style="<?php echo $sp_f_count > 0 ? 'display:inline-flex!important;' : 'display:none;'; ?>min-width:22px!important;height:22px!important;padding:0 6px!important;border-radius:50px!important;background:#00a8ff!important;color:#ffffff!important;font-size:11px!important;font-weight:900!important;align-items:center!important;justify-content:center!important;line-height:1!important;flex-shrink:0!important;position:absolute!important;top:-6px!important;right:-6px!important;border:2px solid #050b14!important;"><?php echo $sp_f_count > 0 ? $sp_f_count : ''; ?></span>
   </a>
-
-  <script>
-  (function(){
-    try {
-      var c = localStorage.getItem('sp_cart_count');
-      var t = localStorage.getItem('sp_cart_total');
-      var subEl = document.getElementById('floatingCartSubtotal');
-      var cntEl = document.getElementById('floatingCartCount');
-      if (t && subEl) subEl.textContent = t;
-      if (c && parseInt(c) > 0 && cntEl) { cntEl.textContent = c; cntEl.style.display = 'flex'; }
-    } catch(e){}
-  })();
-  </script>
   <?php wp_footer(); ?>
 </body>
 </html>

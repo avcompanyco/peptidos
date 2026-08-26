@@ -345,99 +345,6 @@ window.spFetchWCCart = function() {
   .catch(err => console.log('Cart fetch error', err));
 };
 
-// ─── MASTER CART RENDER & DATA CONTROLLER ───
-window.spRenderCartData = function(data) {
-  if (!data) return;
-  var totalCount = parseInt(data.count) || 0;
-  var formattedTotal = data.total || '$ 0';
-
-  // 1. UPDATE ALL BADGES (Header & Floating)
-  var badges = document.querySelectorAll('#cartCount, .cart-count, #floatingCartCount, .floating-cart-count, .floating-cart-badge');
-  badges.forEach(function(b) {
-    if (totalCount > 0) {
-      b.textContent = totalCount;
-      b.classList.add('has-items');
-      b.style.setProperty('display', 'inline-flex', 'important');
-    } else {
-      b.textContent = '';
-      b.classList.remove('has-items');
-      b.style.setProperty('display', 'none', 'important');
-    }
-  });
-
-  // 2. UPDATE TOTAL DISPLAYS
-  var floatCartTotalElem = document.getElementById('floatingCartSubtotal');
-  if (floatCartTotalElem) floatCartTotalElem.textContent = formattedTotal;
-
-  var drawerSub = document.getElementById('cartTotalAmount');
-  if (drawerSub) drawerSub.textContent = formattedTotal;
-
-  try {
-    localStorage.setItem('sp_cart_count', totalCount);
-    localStorage.setItem('sp_cart_total', formattedTotal);
-  } catch(e) {}
-
-  // 3. RENDER ITEMS IN DRAWER BODY
-  var body = document.getElementById('cartSidebarBody') || document.getElementById('spDrawerCartItems');
-  if (!body) return;
-
-  if (!data.items || data.items.length === 0) {
-    body.innerHTML = '<div style="text-align:center;padding:40px 20px;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" style="margin:0 auto 16px;display:block;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><div style="font-weight:700;color:#94a3b8;font-size:0.95rem;">Tu carrito está vacío</div><div style="color:#cbd5e1;font-size:0.82rem;margin-top:4px;">Agrega productos para comenzar</div></div>';
-    return;
-  }
-
-  var itemsHtml = '';
-  var hasWater = false;
-
-  data.items.forEach(function(item) {
-    if (item.name && item.name.toLowerCase().indexOf('bacteri') >= 0) hasWater = true;
-
-    var discPct = 0;
-    if (item.price > 0 && item.unit_price > 0 && item.unit_price < item.price) {
-      discPct = Math.round((1 - item.unit_price / item.price) * 100);
-    }
-    var discBadge = discPct > 0 ? '<span style="background:rgba(2,132,199,0.12);color:#0284c7;font-size:11px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:6px;border:1px solid rgba(2,132,199,0.25);">' + discPct + '% OFF</span>' : '';
-
-    itemsHtml += '<div class="cart-item-card" data-key="' + item.key + '" data-name="' + encodeURIComponent(item.name) + '" data-price="' + item.price + '" data-qty="' + item.qty + '" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(15,23,42,0.03);margin-bottom:8px;">'
-      + '<div style="width:48px;height:48px;border-radius:12px;overflow:hidden;background:#f8fafc;border:1px solid #f1f5f9;flex-shrink:0;">'
-      + '<img src="' + item.image + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover;">'
-      + '</div>'
-      + '<div style="flex:1;min-width:0;">'
-      + '<div style="font-weight:800;font-size:0.92rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.name + '</div>'
-      + '<div style="display:flex;align-items:center;gap:6px;margin-top:4px;flex-wrap:wrap;">'
-      + '<div style="display:inline-flex;align-items:center;gap:4px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:50px;padding:2px 6px;box-sizing:border-box;">'
-      + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', -1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
-      + '<span class="sp-drawer-qty-num" style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:24px;text-align:center;display:inline-block;line-height:1;margin:0 2px;">' + item.qty + '</span>'
-      + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', 1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
-      + '</div>'
-      + discBadge
-      + '</div>'
-      + '<div class="sp-drawer-item-subtotal" style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:4px;">' + item.subtotal_fmt + '</div>'
-      + '</div>'
-      + '<button type="button" onclick="spRemoveWCCartItem(\'' + item.key + '\', this)" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
-      + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
-      + '</button>'
-      + '</div>';
-  });
-
-  if (!hasWater) {
-    itemsHtml += '<div style="background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">'
-      + '<div style="width:40px;height:40px;border-radius:12px;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
-      + '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2q0-.41-.293-.707T13 1h-2q-.41 0-.707.293T10 2z"/></svg>'
-      + '</div>'
-      + '<div style="flex:1;min-width:0;">'
-      + '<div style="font-weight:800;font-size:0.85rem;color:#0f172a;">¿Necesitas Agua Bacteriostática?</div>'
-      + '<div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clínico — $ 35.000</div>'
-      + '</div>'
-      + '<button type="button" onclick="spAddAddonWater(this)" style="background:#0284c7;color:#ffffff;padding:8px 14px;border-radius:20px;font-weight:800;font-size:0.75rem;border:none;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 12px rgba(2,132,199,0.25);flex-shrink:0;">'
-      + '+ AGREGAR'
-      + '</button>'
-      + '</div>';
-  }
-
-  body.innerHTML = itemsHtml;
-};
-
 window.spUpdateCartDrawerFromAJAX = function() {
   fetch('/?sp_ajax_cart=1', {
     method: 'GET',
@@ -446,10 +353,93 @@ window.spUpdateCartDrawerFromAJAX = function() {
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {
-    window.spRenderCartData(data);
+    var totalCount = parseInt(data.count) || 0;
+    var formattedTotal = data.total || '$ 0';
+    
+    // UPDATE ALL BADGES (header + floating)
+    if (typeof window.spUpdateCartBadges === 'function') {
+      window.spUpdateCartBadges(totalCount, formattedTotal);
+    }
+    
+    // UPDATE FLOATING CART SUBTOTAL
+    var floatCartTotalElem = document.getElementById('floatingCartSubtotal');
+    if (floatCartTotalElem) floatCartTotalElem.textContent = formattedTotal;
+    
+    // UPDATE DRAWER SUBTOTAL
+    var drawerSub = document.getElementById('cartTotalAmount');
+    if (drawerSub) drawerSub.textContent = formattedTotal;
+    
+    // PERSIST TO LOCALSTORAGE
+    try {
+      localStorage.setItem('sp_cart_count', totalCount);
+      localStorage.setItem('sp_cart_total', formattedTotal);
+    } catch(e) {}
+    
+    // RENDER CART ITEMS IN DRAWER
+    var body = document.getElementById('cartSidebarBody') || document.getElementById('spDrawerCartItems');
+    if (!body) return;
+    
+    if (!data.items || data.items.length === 0) {
+      body.innerHTML = '<div style="text-align:center;padding:40px 20px;"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" style="margin:0 auto 16px;display:block;"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><div style="font-weight:700;color:#94a3b8;font-size:0.95rem;">Tu carrito está vacío</div><div style="color:#cbd5e1;font-size:0.82rem;margin-top:4px;">Agrega productos para comenzar</div></div>';
+      return;
+    }
+    
+    var itemsHtml = '';
+    var hasWater = false;
+    
+    data.items.forEach(function(item) {
+      if (item.name && item.name.toLowerCase().indexOf('bacteri') >= 0) hasWater = true;
+      
+      // Calculate discount badge
+      var discPct = 0;
+      if (item.price > 0 && item.unit_price > 0 && item.unit_price < item.price) {
+        discPct = Math.round((1 - item.unit_price / item.price) * 100);
+      }
+      var discBadge = discPct > 0 ? '<span style="background:rgba(2,132,199,0.12);color:#0284c7;font-size:11px;font-weight:800;padding:2px 6px;border-radius:6px;margin-left:6px;border:1px solid rgba(2,132,199,0.25);">' + discPct + '% OFF</span>' : '';
+      
+      itemsHtml += '<div class="cart-item-card" data-key="' + item.key + '" data-name="' + encodeURIComponent(item.name) + '" data-price="' + item.price + '" data-qty="' + item.qty + '" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 8px rgba(15,23,42,0.03);margin-bottom:8px;">'
+        + '<div style="width:48px;height:48px;border-radius:12px;overflow:hidden;background:#f8fafc;border:1px solid #f1f5f9;flex-shrink:0;">'
+        + '<img src="' + item.image + '" alt="' + item.name + '" style="width:100%;height:100%;object-fit:cover;">'
+        + '</div>'
+        + '<div style="flex:1;min-width:0;">'
+        + '<div style="font-weight:800;font-size:0.92rem;color:#0f172a;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.name + '</div>'
+        + '<div style="display:flex;align-items:center;gap:6px;margin-top:4px;flex-wrap:wrap;">'
+        + '<div style="display:inline-flex;align-items:center;gap:4px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:50px;padding:2px 6px;box-sizing:border-box;">'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', -1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">-</button>'
+        + '<span class="sp-drawer-qty-num" style="font-weight:800;font-size:0.85rem;color:#0f172a;min-width:24px;text-align:center;display:inline-block;line-height:1;margin:0 2px;">' + item.qty + '</span>'
+        + '<button type="button" onclick="spChangeDrawerItemQty(\'' + item.key + '\', 1, this)" style="width:20px;height:20px;border-radius:50px;border:none;background:#e2e8f0;color:#0f172a;font-weight:800;font-size:12px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;user-select:none;">+</button>'
+        + '</div>'
+        + discBadge
+        + '</div>'
+        + '<div class="sp-drawer-item-subtotal" style="font-weight:800;font-size:0.94rem;color:#0284c7;margin-top:4px;">' + item.subtotal_fmt + '</div>'
+        + '</div>'
+        + '<button type="button" onclick="spRemoveWCCartItem(\'' + item.key + '\', this)" style="width:32px;height:32px;border-radius:10px;background:#fef2f2;border:1px solid #fecaca;color:#ef4444;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;" title="Eliminar">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'
+        + '</button>'
+        + '</div>';
+    });
+    
+    // Add agua bacteriostatica suggestion if not in cart
+    if (!hasWater) {
+      itemsHtml += '<div style="background:#f0f9ff;border:1.5px solid #bae6fd;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;">'
+        + '<div style="width:40px;height:40px;border-radius:12px;background:#e0f2fe;color:#0284c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">'
+        + '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2q0-.41-.293-.707T13 1h-2q-.41 0-.707.293T10 2z"/></svg>'
+        + '</div>'
+        + '<div style="flex:1;min-width:0;">'
+        + '<div style="font-weight:800;font-size:0.85rem;color:#0f172a;">¿Necesitas Agua Bacteriostática?</div>'
+        + '<div style="font-size:0.78rem;font-weight:700;color:#0284c7;margin-top:2px;">30ml Grado Clínico — $ 35.000</div>'
+        + '</div>'
+        + '<button type="button" onclick="spAddAddonWater(this)" style="background:#0284c7;color:#ffffff;padding:8px 14px;border-radius:20px;font-weight:800;font-size:0.75rem;border:none;cursor:pointer;text-transform:uppercase;box-shadow:0 4px 12px rgba(2,132,199,0.25);flex-shrink:0;">'
+        + '+ AGREGAR'
+        + '</button>'
+        + '</div>';
+    }
+    
+    body.innerHTML = itemsHtml;
   })
   .catch(function(err) { console.log('Cart drawer update error', err); });
 };
+
 
 window.spRemoveWCCartItem = function(key, btnElem) {
   // 1. INSTANT 0MS VISUAL REMOVAL FROM SCREEN
@@ -616,11 +606,3 @@ window.spChangeDrawerItemQty = function(key, delta, btnElem) {
   }, 150);
 };
 
-
-
-// ─── INITIAL SYNC ON PAGE LOAD ───
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
-    window.spUpdateCartDrawerFromAJAX();
-  }
-});

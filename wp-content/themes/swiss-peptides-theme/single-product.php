@@ -1297,11 +1297,18 @@ body.wp-singular.single-product {
   </div>
 </div>
 
+<?php
+$image_url = wp_get_attachment_image_url($product->get_image_id(), 'medium');
+if (!$image_url) $image_url = wc_placeholder_img_src();
+?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var selectedQty = 1;
   var baseUnitCalculatedPrice = <?php echo $price; ?>;
   var currentMultiplier = 1.0;
+  var productName = "<?php echo esc_js($product->get_name()); ?>";
+  var productImage = "<?php echo esc_url($image_url); ?>";
+  var productId = "<?php echo $product->get_id(); ?>";
 
   // Dosis / Size Pills Click Handler
   var sizePills = document.querySelectorAll('.sp-p-size-pill');
@@ -1314,7 +1321,6 @@ document.addEventListener('DOMContentLoaded', function() {
       currentMultiplier = parseFloat(this.getAttribute('data-multiplier')) || 1.0;
       baseUnitCalculatedPrice = Math.round(<?php echo $price; ?> * currentMultiplier);
 
-      // Update Spec Concentration
       var specConc = document.getElementById('spSpecConcentration');
       if (specConc) specConc.textContent = sizeLabel + ' / presentación estéril';
       
@@ -1326,7 +1332,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function updateAllPrices() {
-    // 1. Update Main Price Row
     var mainPriceDisplay = document.getElementById('spMainPriceDisplay');
     if (mainPriceDisplay) {
       mainPriceDisplay.textContent = '$ ' + parseInt(baseUnitCalculatedPrice).toLocaleString('es-CO');
@@ -1347,7 +1352,6 @@ document.addEventListener('DOMContentLoaded', function() {
       comboMain.textContent = '$ ' + parseInt(baseUnitCalculatedPrice).toLocaleString('es-CO');
     }
 
-    // 2. Update Protocol Cards Prices
     var protoPrices = document.querySelectorAll('.sp-calc-proto-price');
     protoPrices.forEach(function(el) {
       var qty = parseInt(el.getAttribute('data-qty')) || 1;
@@ -1364,7 +1368,6 @@ document.addEventListener('DOMContentLoaded', function() {
       el.textContent = 'Ahorras $ ' + s.toLocaleString('es-CO');
     });
 
-    // 3. Update Add to Cart Button Text
     var activeCard = document.querySelector('.sp-p-protocol-card.active');
     var activeDisc = activeCard ? (parseFloat(activeCard.getAttribute('data-discount')) || 0) : 0;
     var finalTotalPrice = Math.round(baseUnitCalculatedPrice * selectedQty * (1 - activeDisc));
@@ -1375,7 +1378,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Protocol Selector Cards Click
   var protocolCards = document.querySelectorAll('.sp-p-protocol-card');
   protocolCards.forEach(function(card) {
     card.addEventListener('click', function() {
@@ -1386,46 +1388,52 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Add to Cart Click Handler
-    // Add to Cart Click Handler
+        // ═══ INSTANT ATOMIC ADD-TO-CART (0ms UI + Single Atomic Fast Request) ═══
   var addBtn = document.getElementById('spAddToCartMainBtn');
   if (addBtn) {
     addBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      var productId = this.getAttribute('data-product-id');
+      
       var comboAddon = document.getElementById('spComboAddonItem');
-      var includeCombo = comboAddon && comboAddon.checked;
+      var includeCombo = (comboAddon && comboAddon.checked) ? '1' : '0';
       var btnText = document.getElementById('spBtnAddText');
-
-      // 1. INSTANT 0MS VISUAL FEEDBACK & DRAWER OPENING
+      var originalBtnText = btnText ? btnText.textContent : '';
+      
+      // 1. OPEN DRAWER INSTANTLY (0MS)
+      if (typeof window.openCartSidebarDrawer === 'function') {
+        window.openCartSidebarDrawer(true);
+      }
+      
       addBtn.disabled = true;
-      if (btnText) btnText.textContent = '¡Añadido al Carrito!';
-      if (typeof openCartSidebarDrawer === 'function') openCartSidebarDrawer();
-      else document.body.classList.add('cart-drawer-open');
+      if (btnText) btnText.textContent = '¡AÑADIENDO...!';
 
-      // 2. BACKGROUND FIRE-AND-FORGET FETCH
-      fetch('/?wc-ajax=add_to_cart', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'product_id=' + productId + '&quantity=' + selectedQty
+      // 2. ATOMIC SINGLE CALL (<50ms) ADDS PRODUCT + COMBO AND GETS FULL CART DATA
+      var url = '/?sp_ajax_cart=1&add_product_id=' + encodeURIComponent(productId) + '&qty=' + encodeURIComponent(selectedQty) + '&include_combo=' + includeCombo;
+      
+      fetch(url, {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
       })
-      .then(function() {
-        if (includeCombo) {
-          fetch('/?wc-ajax=add_to_cart', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'product_id=25&quantity=1'
-          }).then(function() { if (typeof spUpdateCartDrawerFromAJAX === 'function') spUpdateCartDrawerFromAJAX(); });
-        } else {
-          if (typeof spUpdateCartDrawerFromAJAX === 'function') spUpdateCartDrawerFromAJAX();
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (typeof window.spRenderCartData === 'function') {
+          window.spRenderCartData(data);
         }
+        if (btnText) btnText.textContent = '¡AÑADIDO AL CARRITO!';
+      })
+      .catch(function(err) {
+        console.error('Fast add to cart error:', err);
+        if (typeof window.spUpdateCartDrawerFromAJAX === 'function') {
+          window.spUpdateCartDrawerFromAJAX();
+        }
+      })
+      .finally(function() {
+        setTimeout(function() {
+          addBtn.disabled = false;
+          updateAllPrices();
+        }, 1200);
       });
-
-      // 3. RESTORE BUTTON STATE IN 1.2 SECONDS
-      setTimeout(function() {
-        addBtn.disabled = false;
-        updateAllPrices();
-      }, 1200);
     });
   }
 });

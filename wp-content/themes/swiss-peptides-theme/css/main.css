@@ -2197,18 +2197,18 @@ a[href*="/cart/"] {
     position: absolute !important;
     top: -4px !important;
     right: -8px !important;
-    background: #0284c7 !important;
+    background: #00a8ff !important;
     color: #ffffff !important;
-    font-size: 0.7rem !important;
+    font-size: 11px !important;
     font-weight: 900 !important;
-    min-width: 18px !important;
-    height: 18px !important;
-    border-radius: 50% !important;
-    display: flex !important;
+    min-width: 19px !important;
+    height: 19px !important;
+    border-radius: 50px !important;
+    display: none !important;
     align-items: center !important;
     justify-content: center !important;
-    border: 2px solid #0f172a !important;
-    padding: 0 4px !important;
+    border: 2px solid #070f1e !important;
+    padding: 0 5px !important;
     box-sizing: border-box !important;
     line-height: 1 !important;
     margin: 0 !important;
@@ -2235,16 +2235,16 @@ a[href*="/cart/"] {
 .cart-count,
 #cartCount,
 .sp-cart-count-badge {
-    min-width: 18px !important;
-    height: 18px !important;
+    min-width: 19px !important;
+    height: 19px !important;
     width: auto !important;
     padding: 0 5px !important;
-    border-radius: 10px !important;
+    border-radius: 50px !important;
     background: #00a8ff !important;
     color: #ffffff !important;
     font-size: 11px !important;
-    font-weight: 800 !important;
-    display: inline-flex !important;
+    font-weight: 900 !important;
+    display: none !important;
     align-items: center !important;
     justify-content: center !important;
     line-height: 1 !important;
@@ -2447,3 +2447,134 @@ a[href*="/cart/"] {
           gap: 12px !important;
       }
   }
+
+
+/* LUXURY EXIT INTENT POPUP 2026 - 100% RESPONSIVE & CENTERED */
+    .sp-exit-modal-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        background: rgba(7, 15, 30, 0.82) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        z-index: 9999999 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 16px !important;
+        box-sizing: border-box !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        transition: opacity 0.25s ease, visibility 0.25s ease !important;
+        overflow-y: auto !important;
+    }
+    .sp-exit-modal-overlay.active {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    .sp-exit-modal-card {
+        background: #070f1e !important;
+        border: 1.5px solid #00a8ff !important;
+        border-radius: 20px !important;
+        max-width: 440px !important;
+        width: calc(100% - 24px) !important;
+        max-height: calc(100dvh - 40px) !important;
+        overflow-y: auto !important;
+        padding: 24px 20px !important;
+        text-align: center !important;
+        position: relative !important;
+        box-shadow: 0 20px 60px rgba(0, 168, 255, 0.3) !important;
+        color: #ffffff !important;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+        box-sizing: border-box !important;
+        margin: auto !important;
+        transform: scale(0.95);
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .sp-exit-modal-overlay.active .sp-exit-modal-card {
+        transform: scale(1);
+    }
+    .sp-exit-close-btn {
+        position: absolute !important;
+        top: 12px !important;
+        right: 12px !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 50% !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        color: #cbd5e1 !important;
+        font-size: 22px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        line-height: 1 !important;
+        padding: 0 !important;
+        transition: all 0.2s ease !important;
+        z-index: 10 !important;
+    }
+    .sp-exit-close-btn:hover {
+        background: rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
+    }
+    @media (max-width: 480px) {
+        .sp-exit-modal-card {
+            padding: 20px 16px !important;
+            border-radius: 18px !important;
+        }
+        .sp-exit-modal-card h3 {
+            font-size: 19px !important;
+            margin-bottom: 6px !important;
+        }
+        .sp-exit-modal-card p {
+            font-size: 13px !important;
+            margin-bottom: 14px !important;
+        }
+    }
+
+
+/* ─── MASTER CRISP CART BADGES 2026 ─── */
+.cart-count,
+#cartCount,
+.sp-cart-count-badge,
+.floating-cart-badge,
+.floating-cart-count,
+#floatingCartCount {
+    min-width: 19px !important;
+    height: 19px !important;
+    padding: 0 5px !important;
+    border-radius: 50px !important;
+    background: #00a8ff !important;
+    color: #ffffff !important;
+    font-size: 11px !important;
+    font-weight: 900 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    position: absolute !important;
+    top: -5px !important;
+    right: -7px !important;
+    box-shadow: 0 2px 8px rgba(0, 168, 255, 0.5) !important;
+    border: 2px solid #070f1e !important;
+    z-index: 99 !important;
+    text-align: center !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+}
+
+.cart-count.has-items,
+#cartCount.has-items,
+.floating-cart-badge.has-items,
+.floating-cart-count.has-items,
+#floatingCartCount.has-items {
+    display: inline-flex !important;
+}
