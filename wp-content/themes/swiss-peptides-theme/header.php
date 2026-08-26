@@ -336,6 +336,170 @@
     window.spUpdateCartDrawerFromAJAX();
   });
   </script>
+  <!-- MASTER ADVANCED SEO, GEO & SCHEMA.ORG GRAPH 2026 -->
+  <link rel="canonical" href="<?php echo esc_url(is_front_page() ? home_url('/') : (is_singular() ? get_permalink() : home_url($_SERVER['REQUEST_URI']))); ?>">
+  <meta name="geo.region" content="CO">
+  <meta name="geo.placename" content="Colombia">
+  <meta name="geo.position" content="4.570868;-74.297333">
+  <meta name="ICBM" content="4.570868, -74.297333">
+  
+  <meta property="og:locale" content="es_CO">
+  <meta property="og:site_name" content="Swiss Peptides Labs Colombia">
+  <meta property="og:type" content="<?php echo is_singular('product') ? 'product' : 'website'; ?>">
+  <meta property="og:title" content="<?php echo esc_attr(wp_get_document_title()); ?>">
+  <meta property="og:description" content="Laboratorio y distribuidor oficial de Swiss Peptides Labs en Colombia. Péptidos liofilizados grado de investigación clínica HPLC ≥99%. Envíos express a todo el país.">
+  <meta property="og:url" content="<?php echo esc_url(is_front_page() ? home_url('/') : (is_singular() ? get_permalink() : home_url($_SERVER['REQUEST_URI']))); ?>">
+  <meta property="og:image" content="<?php echo (is_singular('product') && has_post_thumbnail()) ? esc_url(get_the_post_thumbnail_url(null, 'full')) : esc_url(get_template_directory_uri() . '/img/logo/logo_swiss.png'); ?>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?php echo esc_attr(wp_get_document_title()); ?>">
+  <meta name="twitter:description" content="Swiss Peptides Labs Colombia — Péptidos de investigación clínica con pureza analítica HPLC ≥99%. Despachos rápidos a Bogotá, Medellín, Cali y toda Colombia.">
+  <meta name="twitter:image" content="<?php echo (is_singular('product') && has_post_thumbnail()) ? esc_url(get_the_post_thumbnail_url(null, 'full')) : esc_url(get_template_directory_uri() . '/img/logo/logo_swiss.png'); ?>">
+
+  <!-- SCHEMA.ORG JSON-LD GRAPH -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": ["MedicalBusiness", "OnlineStore"],
+        "@id": "https://peptidossuizos.com/#organization",
+        "name": "Swiss Peptides Labs Colombia",
+        "url": "https://peptidossuizos.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png"
+        },
+        "image": "https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png",
+        "description": "Laboratorio y distribuidor oficial de péptidos de investigación clínica liofilizados con certificación analítica HPLC ≥99% en Colombia.",
+        "telephone": "+573189163091",
+        "priceRange": "$$$",
+        "currenciesAccepted": "COP",
+        "paymentAccepted": "Transferencia Bancaria, Nequi, Daviplata, Pago Contraentrega, WhatsApp",
+        "areaServed": [
+          {"@type": "Country", "name": "Colombia"},
+          {"@type": "City", "name": "Bogotá"},
+          {"@type": "City", "name": "Medellín"},
+          {"@type": "City", "name": "Cali"},
+          {"@type": "City", "name": "Barranquilla"},
+          {"@type": "City", "name": "Bucaramanga"},
+          {"@type": "City", "name": "Cartagena"}
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "CO",
+          "addressRegion": "Colombia"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://peptidossuizos.com/#website",
+        "url": "https://peptidossuizos.com/",
+        "name": "Swiss Peptides Labs Colombia",
+        "publisher": { "@id": "https://peptidossuizos.com/#organization" },
+        "inLanguage": "es-CO",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://peptidossuizos.com/tienda/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://peptidossuizos.com/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Cuál es la pureza y certificación de los péptidos de Swiss Peptides?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Todos nuestros péptidos cuentan con una pureza analítica certificada HPLC ≥99% y espectrometría de masas (MS), liofilizados en viales sellados al vacío para garantizar 100% de estabilidad biológica."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo se realizan los envíos en Colombia?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Realizamos envíos express asegurados a todas las ciudades de Colombia (Bogotá, Medellín, Cali, Barranquilla, Bucaramanga, etc.) con tiempos de entrega de 24 a 48 horas hábiles."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo se reconstituyen los péptidos liofilizados?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Se reconstituyen añadiendo suavemente Agua Bacteriostática estéril por las paredes del vial sin agitar bruscamente. Puedes utilizar nuestra calculadora interactiva en peptidossuizos.com/calculadora/ para determinar las unidades exactas de jeringa."
+            }
+          }
+        ]
+      }
+      <?php if (is_singular('product')) : 
+        global $product;
+        if (!is_a($product, 'WC_Product')) {
+            $product = wc_get_product(get_the_ID());
+        }
+        if ($product) :
+            $p_id = $product->get_id();
+            $p_title = $product->get_name();
+            $p_price = $product->get_price();
+            $p_desc = wp_strip_all_tags($product->get_short_description() ?: $product->get_description());
+            if (empty($p_desc)) $p_desc = $p_title . ' péptido grado de investigación clínica pureza >=99% HPLC Swiss Peptides Labs Colombia.';
+            $p_img = wp_get_attachment_image_url($product->get_image_id(), 'full') ?: 'https://peptidossuizos.com/wp-content/themes/swiss-peptides-theme/img/logo/logo_swiss.png';
+      ?>,
+      {
+        "@type": "Product",
+        "@id": "<?php echo esc_url(get_permalink()); ?>#product",
+        "name": "<?php echo esc_attr($p_title); ?>",
+        "image": "<?php echo esc_url($p_img); ?>",
+        "description": "<?php echo esc_attr(mb_substr($p_desc, 0, 200)); ?>",
+        "sku": "SP-<?php echo esc_attr($p_id); ?>",
+        "brand": {
+          "@type": "Brand",
+          "name": "Swiss Peptides Labs"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "<?php echo esc_url(get_permalink()); ?>",
+          "priceCurrency": "COP",
+          "price": "<?php echo esc_attr($p_price ?: 0); ?>",
+          "priceValidUntil": "2026-12-31",
+          "itemCondition": "https://schema.org/NewCondition",
+          "availability": "https://schema.org/InStock",
+          "seller": { "@id": "https://peptidossuizos.com/#organization" },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0",
+              "currency": "COP"
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "CO"
+            },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 0,
+                "maxValue": 1,
+                "unitCode": "d"
+              },
+              "transitTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 2,
+                "unitCode": "d"
+              }
+            }
+          }
+        }
+      }
+      <?php endif; endif; ?>
+    ]
+  }
+  </script>
+
 </head>
 <body <?php body_class(); ?>>
 
