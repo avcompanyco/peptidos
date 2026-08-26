@@ -2941,3 +2941,25 @@ function sp_make_default_postcode_optional($fields) {
     }
     return $fields;
 }
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MASTER CLINICAL SEO & GEO TITLE FILTER 2026
+// ══════════════════════════════════════════════════════════════════════════════
+add_filter('pre_get_document_title', 'sp_custom_seo_document_title', 99);
+function sp_custom_seo_document_title($title) {
+    if (is_front_page()) {
+        return 'Swiss Peptides Labs Colombia | Péptidos de Grado Clínico HPLC ≥99%';
+    } elseif (is_page('tienda') || (function_exists('is_shop') && is_shop())) {
+        return 'Tienda de Péptidos en Colombia | Catálogo Completo 40 Fórmulas HPLC ≥99% | Swiss Peptides';
+    } elseif (is_page('calculadora')) {
+        return 'Calculadora de Mezcla & Reconstitución de Péptidos | Swiss Peptides Colombia';
+    } elseif (is_page('contacto')) {
+        return 'Contacto VIP & Asesoría Clínica Peptídica | Swiss Peptides Colombia';
+    } elseif (is_page('nosotros')) {
+        return 'Sobre Nosotros | Swiss Peptides Labs Colombia - Laboratorio Suizo ISO & HPLC';
+    } elseif (is_singular('product') || is_single()) {
+        return get_the_title() . ' | Comprar en Colombia HPLC ≥99% | Swiss Peptides Labs';
+    }
+    return $title;
+}

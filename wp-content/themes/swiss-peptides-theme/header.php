@@ -4,26 +4,23 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title><?php
-    if (is_front_page()) {
-        echo 'Swiss Peptides Labs | Péptidos de Investigación en Colombia (HPLC ≥99%)';
-    } elseif (is_page('tienda') || (function_exists('is_shop') && is_shop())) {
-        echo 'Tienda de Péptidos en Colombia | Catálogo Completo 40 Fórmulas HPLC ≥99%';
-    } elseif (is_page('calculadora')) {
-        echo 'Calculadora de Mezcla & Reconstitución de Péptidos | Swiss Peptides Colombia';
-    } elseif (is_page('contacto')) {
-        echo 'Contacto VIP & Asesoría Clínica Peptídica | Swiss Peptides Colombia';
-    } elseif (is_page('nosotros')) {
-        echo 'Sobre Nosotros | Swiss Peptides Labs Colombia - Laboratorio Suizo';
-    } elseif (is_singular('product') || is_single()) {
-        echo get_the_title() . ' | Swiss Peptides Labs Colombia';
-    } else {
-        wp_title('|', true, 'right'); bloginfo('name');
-    }
-  ?></title>
+    <title><?php echo esc_html(wp_get_document_title()); ?></title>
 
-  <meta name="description" content="Proveedor exclusivo en Colombia de Swiss Peptides Labs. Venta de péptidos de alta pureza (HPLC ≥99%) para investigación médica.">
-  <meta name="keywords" content="peptidos colombia, comprar semaglutide colombia, tirzepatide bogota, retatrutide medellin, bpc 157 colombia, nad+ colombia">
+  <meta name="description" content="<?php
+    if (is_singular('product')) {
+        $prod = wc_get_product(get_the_ID());
+        $p_desc = $prod ? wp_strip_all_tags($prod->get_short_description() ?: $prod->get_description()) : '';
+        $p_price = $prod ? '$ ' . number_format($prod->get_price(), 0, ',', '.') . ' COP' : '';
+        echo esc_attr(get_the_title() . ' con pureza analítica HPLC ≥99% certificada por Swiss Peptides Labs. Precio oficial: ' . $p_price . '. Envío express a Bogotá, Medellín, Cali y toda Colombia en 24-48h.');
+    } elseif (is_page('tienda') || (function_exists('is_shop') && is_shop())) {
+        echo 'Catálogo oficial de 40 péptidos liofilizados de investigación clínica con pureza analítica HPLC ≥99%. Despachos express asegurados en toda Colombia.';
+    } elseif (is_page('calculadora')) {
+        echo 'Calculadora clínica interactiva para la reconstitución y cálculo de unidades (UI) de péptidos con Agua Bacteriostática estéril.';
+    } else {
+        echo 'Laboratorio y distribuidor exclusivo en Colombia de Swiss Peptides Labs. Venta de péptidos liofilizados de alta pureza (HPLC ≥99%) para investigación médica con envíos nacionales.';
+    }
+  ?>">
+  <meta name="keywords" content="peptidos colombia, comprar tirzepatide colombia, comprar semaglutide colombia, retatrutide bogota, bpc 157 medellin, nad+ colombia, motsc cali, peptidos alta pureza hplc">
 
   <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/img/logo/logo_swiss.png">
   <link rel="apple-touch-icon" href="<?php echo get_template_directory_uri(); ?>/img/logo/logo_swiss.png">

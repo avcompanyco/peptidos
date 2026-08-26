@@ -1,7 +1,7 @@
-# ═══════════════════════════════════════════════════════════════════
-# SWISS PEPTIDES LABS COLOMBIA — MASTER ROBOTS.TXT 2026
+# ===================================================================
+# SWISS PEPTIDES LABS COLOMBIA - MASTER ROBOTS.TXT 2026
 # Optimized for Google, Bing, and AI Search Engines (GEO)
-# ═══════════════════════════════════════════════════════════════════
+# ===================================================================
 
 User-agent: *
 Allow: /
@@ -43,4 +43,4 @@ Allow: /
 
 # Sitemaps & LLMs Index
 Sitemap: https://peptidossuizos.com/sitemap.xml
-Sitemap: https://peptidossuizos.com/sitemap-products.xml
+Sitemap: https://peptidossuizos.com/llms.txt
